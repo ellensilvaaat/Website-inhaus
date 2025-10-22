@@ -1,0 +1,102 @@
+.ready-section {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.ready-section__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ready-section__title {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.ready-section__text {
+  font-family: var(--font-primary);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+  color: #333;
+}
+
+.ready-section__cta {
+  position: relative;
+  background: none;
+  border: none;
+  color: #000;
+  font-family: var(--font-primary);
+  font-size: 1.4rem;
+  padding: 0.8rem 2.4rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.ready-section__cta:hover {
+  color: var(--color-accent); /* laranja */
+}
+
+/* cantos “L” */
+.ready-section__corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.ready-section__corner::before,
+.ready-section__corner::after {
+  content: '';
+  position: absolute;
+  background-color: #000;
+  transition: background-color 0.3s ease;
+}
+.ready-section__corner--top-right {
+  top: 0;
+  right: 0;
+}
+.ready-section__corner--top-right::before {
+  width: 20px;
+  height: 2px;
+  top: 0;
+  right: 0;
+}
+.ready-section__corner--top-right::after {
+  width: 2px;
+  height: 20px;
+  top: 0;
+  right: 0;
+}
+.ready-section__corner--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+.ready-section__corner--bottom-left::before {
+  width: 20px;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+}
+.ready-section__corner--bottom-left::after {
+  width: 2px;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+}
+
+/* hover altera cor dos cantos */
+.ready-section__cta:hover .ready-section__corner::before,
+.ready-section__cta:hover .ready-section__corner::after {
+  background-color: var(--color-accent);
+}
+
+.bntt{
+    margin: auto;
+    width: 30%;
+    padding-top: 50px;
+}
+
+.projects__cta:hover{
+    color: var(--color-accent);
+}

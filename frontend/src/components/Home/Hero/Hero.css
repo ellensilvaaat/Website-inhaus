@@ -1,0 +1,199 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  transform: scale(1);
+}
+
+.hero__slide--active {
+  opacity: 1;
+  animation: zoomInOut 9s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* overlay preto sobre a imagem */
+.hero__slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero__overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  width: 90%;
+  max-width: 800px;
+}
+
+.hero__title {
+  font-family: var(--font-title);
+  font-size: 5rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero__subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.7rem;
+  margin-bottom: 2rem;
+}
+
+/* botão com dois “L” nos cantos */
+.hero__cta {
+  position: relative;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: var(--font-primary);
+  display: inline-block;
+}
+
+/* texto fica laranja ao hover */
+.hero__cta:hover {
+  color: var(--color-accent);
+}
+
+/* cantos do botão */
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.corner::before,
+.corner::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-accent); /* 🔸 SEMPRE LARANJA */
+  transition: all 0.3s ease;
+}
+
+/* canto superior direito (horizontal + vertical) */
+.corner--top-right {
+  top: 0;
+  right: 0;
+}
+.corner--top-right::before {
+  width: 20px;
+  height: 2px;
+  top: 0;
+  right: 0;
+}
+.corner--top-right::after {
+  width: 2px;
+  height: 20px;
+  top: 0;
+  right: 0;
+}
+
+/* canto inferior esquerdo */
+.corner--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+.corner--bottom-left::before {
+  width: 20px;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+}
+.corner--bottom-left::after {
+  width: 2px;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+}
+
+/* ao hover: completar retângulo (mantém cor laranja) */
+.hero__cta:hover .corner--top-right::before,
+.hero__cta:hover .corner--bottom-left::before {
+  width: 100%;
+}
+
+.hero__cta:hover .corner--top-right::after,
+.hero__cta:hover .corner--bottom-left::after {
+  height: 100%;
+}
+
+/* setas do carrossel */
+.hero__arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.hero__arrow {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 4rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  transition: color 0.3s ease;
+}
+
+.hero__arrow:hover {
+  color: var(--color-accent);
+}
+
+/* texto inferior direito */
+.hero__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 3;
+}
+
+.hero__separator {
+  color: white;
+}

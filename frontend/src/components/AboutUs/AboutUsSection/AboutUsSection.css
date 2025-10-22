@@ -1,0 +1,92 @@
+.aboutus-section-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.aboutus-bg-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.aboutus-section-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 60px 0 0 150px
+}
+
+.aboutus-heading {
+  font-size: 2.5rem;
+  font-weight: 400;
+}
+
+.aboutus-heading em {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.aboutus-subheading {
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+
+.aboutus-mission-vision {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.aboutus-block {
+  flex: 1 1 45%;
+}
+
+.aboutus-block h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.aboutus-block p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.highlight-orange {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.aboutus-button {
+  margin-top: 1rem;
+}
+
+.aboutus-button button {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid;
+  border-color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 200px;
+}
+
+.aboutus-button button:hover {
+  background: var(--color-accent);
+  color: white;
+}
+

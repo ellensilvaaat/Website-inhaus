@@ -1,0 +1,103 @@
+.feedback-section {
+  padding: 7rem 0;
+  background: white;
+  text-align: center;
+}
+
+.feedback-section__title {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.feedback-section__subtitle {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  color: #555;
+}
+
+.feedback-section__carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centraliza todo o carrossel */
+  margin-bottom: 2rem;
+}
+
+.feedback-section__track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-left: 0; /* removido padding extra para centralização */
+  width: calc(350px * 4 + 1.5rem * 3); /* largura do viewport de 4 cards + gaps */
+  scroll-behavior: smooth;
+}
+
+.feedback-section__track::-webkit-scrollbar {
+  display: none;
+}
+
+.feedback-card {
+  min-width: 250px;
+  width: 350px;
+  background: #F5EFE5;
+  padding: 2rem;
+  border-radius: 12px;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+
+.feedback-card__name {
+  font-family: var(--font-primary);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.feedback-card__stars {
+  color: var(--color-accent);
+  margin-bottom: 1.4rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.feedback-card__comment {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: #333;
+  text-align: center;
+}
+
+.feedback-section__arrow {
+  background: none;
+  border: none;
+  font-size: 4rem;
+  cursor: pointer;
+  color: var(--color-accent);
+}
+
+.feedback-section__arrow--left {
+  margin-right: 4rem;
+}
+.feedback-section__arrow--right {
+  margin-left: 4rem;
+}
+
+.feedback-section__add-btn {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.6rem;
+  border: 2px solid var(--color-accent);
+  background: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.feedback-section__add-btn:hover {
+  background: var(--color-accent);
+  color: white;
+}
