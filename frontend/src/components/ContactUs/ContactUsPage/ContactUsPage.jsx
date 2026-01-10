@@ -163,6 +163,7 @@ const handleSubmit = async (e) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -173,6 +174,7 @@ const handleSubmit = async (e) => {
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -185,6 +187,7 @@ const handleSubmit = async (e) => {
                 name="budget"
                 value={formData.budget}
                 onChange={handleChange}
+                required
               >
                 <option value="">Select your budget</option>
                 {budgetOptions.map((opt) => (
@@ -199,6 +202,7 @@ const handleSubmit = async (e) => {
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
+                required
               >
                 <option value="">Select service</option>
                 {serviceOptions.map((opt) => (
@@ -217,6 +221,7 @@ const handleSubmit = async (e) => {
                 name="installationDate"
                 value={formData.installationDate}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">

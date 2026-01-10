@@ -11,14 +11,7 @@ const app = express();
 
 // ✅ CORS configurado corretamente (Render + Vercel + local dev)
 app.use(cors({
-  origin: [
-    'https://website-inhaus.vercel.app', // produção (Vercel)
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'http://localhost:5175',
-    'http://localhost:5176',
-    'http://localhost:5177',
-  ],
+  origin: process.env.CORS_ORIGIN || '*',
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
