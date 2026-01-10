@@ -13,7 +13,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchRecentComments = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/comments');
+        const res = await fetch('https://website-inhaus.onrender.com/api/comments');
         const data = await res.json();
 
         if (data.success && Array.isArray(data.comments)) {
@@ -137,4 +137,3 @@ export default function BlogPage() {
     </section>
   );
 }
-

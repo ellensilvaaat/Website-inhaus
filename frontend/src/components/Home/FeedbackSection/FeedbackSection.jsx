@@ -26,7 +26,7 @@ export default function FeedbackSection() {
 
   // 👇 adicionados
   const [feedbacks, setFeedbacks] = useState([]);
-  const BACKEND_URL = 'http://localhost:4000/api/feedbacks';
+  const BACKEND_URL = 'https://website-inhaus.onrender.com/api/feedbacks';
 
   // 🔹 Buscar feedbacks salvos no backend
   useEffect(() => {
@@ -80,18 +80,17 @@ export default function FeedbackSection() {
   };
 
   /* 🔥 SORT */
-const sortedReviews = useMemo(() => {
-  const combined = [...feedbacks, ...reviews];
-  if (sortOrder === 'recent') {
+  const sortedReviews = useMemo(() => {
+    const combined = [...feedbacks, ...reviews];
+    if (sortOrder === 'recent') {
+      return combined.sort(
+        (a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)
+      );
+    }
     return combined.sort(
-      (a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)
+      (a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0)
     );
-  }
-  return combined.sort(
-    (a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0)
-  );
-}, [sortOrder, feedbacks]);
-
+  }, [sortOrder, feedbacks]);
 
   return (
     <section className="feedback-section">
@@ -198,5 +197,3 @@ const sortedReviews = useMemo(() => {
     </section>
   );
 }
-
-

@@ -7,7 +7,7 @@ export default function CommentsSection({ comments, onAddComment }) {
   const [text, setText] = useState('');
   const [loadedComments, setLoadedComments] = useState([]);
 
-  const BACKEND_URL = 'http://localhost:4000/api/comments';
+  const BACKEND_URL = 'https://website-inhaus.onrender.com/api/comments';
 
   // 🔹 Carrega comentários reais do backend (para o post atual)
   useEffect(() => {
@@ -29,18 +29,17 @@ export default function CommentsSection({ comments, onAddComment }) {
     fetchComments();
   }, []);
 
-// Evita duplicações (usa o id como referência única)
-const combined = [...loadedComments, ...comments];
-const unique = combined.filter(
-  (c, index, self) =>
-    index === self.findIndex((x) => (x.id || x.date) === (c.id || c.date))
-);
+  // Evita duplicações (usa o id como referência única)
+  const combined = [...loadedComments, ...comments];
+  const unique = combined.filter(
+    (c, index, self) =>
+      index === self.findIndex((x) => (x.id || x.date) === (c.id || c.date))
+  );
 
-// Ordena os mais novos primeiro
-const allComments = unique.sort(
-  (a, b) => new Date(b.created_at || b.date) - new Date(a.created_at || a.date)
-);
-
+  // Ordena os mais novos primeiro
+  const allComments = unique.sort(
+    (a, b) => new Date(b.created_at || b.date) - new Date(a.created_at || a.date)
+  );
 
   // 🔹 Envia novo comentário pro backend
   const handleSubmit = async (e) => {

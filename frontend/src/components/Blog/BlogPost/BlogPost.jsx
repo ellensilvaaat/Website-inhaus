@@ -12,7 +12,7 @@ export default function BlogPost() {
   const [comments, setComments] = useState([])
 
   const postMeta = postsMeta.find(p => p.slug === slug)
-  const BACKEND_URL = 'http://localhost:4000/api/comments'
+  const BACKEND_URL = 'https://website-inhaus.onrender.com/api/comments'
 
   // 🔥 GARANTE QUE SEMPRE ABRE NO HERO
   useEffect(() => {
