@@ -54,25 +54,26 @@ export default function ContactUsPage() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
- try {
-      const res = await fetch('https://website-inhaus.onrender.com/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  try {
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+    const res = await fetch(`${apiBase}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (res.ok && data.success) {
-        navigate('/thank-you');
-      } else {
-        console.error('Error:', data);
-        alert('⚠️ There was a problem submitting your form.');
-      }
-    } catch (err) {
-      console.error('❌ Network error:', err);
-      alert('⚠️ Could not connect to the server.');
+    if (res.ok && data.success) {
+      navigate('/thank-you');
+    } else {
+      console.error('❌ Server error:', data);
+      alert('⚠️ There was a problem submitting your form.');
     }
+  } catch (err) {
+    console.error('❌ Network error:', err);
+    alert('⚠️ Could not connect to the server.');
+  }
 };
 
   return (

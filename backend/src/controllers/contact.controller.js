@@ -5,7 +5,24 @@ export const submitContactForm = async (req, res) => {
   try {
     const data = req.body;
 
-    // Mapeia os campos do front (camelCase) → formato da tabela (snake_case)
+    // Validação básica dos campos obrigatórios
+    if (
+      !data.fullName ||
+      !data.email ||
+      !data.address ||
+      !data.mobile ||
+      !data.budget ||
+      !data.service ||
+      !data.installationDate ||
+      !data.subject ||
+      !data.message
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields'
+      });
+    }
+
     const payload = {
       full_name: data.fullName,
       email: data.email,
@@ -13,38 +30,47 @@ export const submitContactForm = async (req, res) => {
       mobile: data.mobile,
       budget: data.budget,
       service: data.service,
-      installation_date: data.installationDate || null,
-      found_us: data.foundUs,
+      installation_date: data.installationDate,
+      found_us: data.foundUs || null,
       subject: data.subject,
       message: data.message,
       status: 'new'
     };
 
-    // Inserir no Supabase e retornar o registro criado
+    console.log('📩 Contact payload:', payload);
+
     const { data: result, error } = await supabase
       .from('contact_forms')
       .insert([payload])
-      .select();
+      .select()
+      .single();
 
     if (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      console.error('❌ Supabase insert error:', error);
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
     }
 
-    // Envia e-mail para o time + confirmação para o usuário
     try {
       await sendConfirmationEmail(data);
-    } catch {
-      // Continua mesmo se o envio de e-mail falhar
+    } catch (emailErr) {
+      console.warn('⚠️ Email send failed:', emailErr.message);
     }
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: 'Form submitted successfully',
       result
     });
 
-  } catch {
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  } catch (err) {
+    console.error('🔥 Unexpected error:', err);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal Server Error'
+    });
   }
 };
 
