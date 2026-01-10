@@ -16,11 +16,9 @@ export default function ContactUsPage() {
     subject: '',
     message: '',
   });
-
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
-
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
   const budgetOptions = [
     '$25,000 - $50,000',
     '$50,000 - $100,000',
@@ -53,10 +51,10 @@ export default function ContactUsPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
+ try {
       const res = await fetch('https://website-inhaus.onrender.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -75,68 +73,64 @@ export default function ContactUsPage() {
       console.error('❌ Network error:', err);
       alert('⚠️ Could not connect to the server.');
     }
-  };
+};
 
   return (
     <section className="contact-page">
       <div className="contact-page__wrapper">
         <div className="contact-page__info">
           <h2 className="contact-page__title">
-            Let’s Talk About <span className="highlight">Your Project</span>
+        Let’s Talk About <span className="highlight">Your Project</span>
           </h2>
           <p>
             Whether you’re ready to renovate or just exploring ideas, our team
             is here to help. Visit us, call us, or send a message, let’s start
             the conversation.
           </p>
-
           <div className="contact-page__visit">
-            <h3>📍 Visit Us</h3>
-            <div className="location">
-              <strong className="location_name">Moore Park</strong><br />
-              <a
-                href="https://www.google.com/maps/place/Shop+10%2F2A+Todman+Ave,+Kensington+NSW+2033"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Shop 10/2A Todman Ave, Kensington NSW 2033
-              </a><br />
-              <h4 className="location_namee">Phone: <a href="tel:0296623509">(02) 9662 3509</a></h4>
-            </div>
-
-            <div className="location">
-              <strong className="location_name">Taren Point</strong><br />
-              <a
-                href="https://www.google.com/maps/place/2%2F175+Taren+Point+Rd,+Caringbah+NSW+2229"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                2/175 Taren Point Rd, Caringbah NSW 2229
-              </a><br />
-              <h4 className="location_namee">Phone: <a href="tel:0283591679">(02) 8359 1679</a></h4>
-            </div>
-
-            <div className="location">
-              <strong className="location_name">Fyshwick</strong><br />
-              <a
-                href="https://www.google.com/maps/place/2%2F58+Wollongong+St,+Fyshwick+ACT+2609"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Unit 2/58 Wollongong St, Fyshwick ACT 2609
-              </a><br />
-              <h4 className="location_namee">Phone: <a href="tel:0261762807">(02) 6176 2807</a></h4>
-            </div>
-          </div>
-
+        <h3>📍 Visit Us</h3>
+       <div className="location">
+       <strong className="location_name">Moore Park</strong><br/>
+    <a
+      href="https://www.google.com/maps/place/Shop+10%2F2A+Todman+Ave,+Kensington+NSW+2033"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Shop 10/2A Todman Ave, Kensington NSW 2033
+    </a><br/>
+    <h4 className="location_namee">Phone: <a href="tel:0296623509">(02) 9662 3509</a></h4>
+  </div>
+  <div className="location">
+    <strong className="location_name">Taren Point</strong><br/>
+    <a
+      href="https://www.google.com/maps/place/2%2F175+Taren+Point+Rd,+Caringbah+NSW+2229"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      2/175 Taren Point Rd, Caringbah NSW 2229
+    </a><br/>
+    <h4 className="location_namee">Phone: <a href="tel:0283591679">(02) 8359 1679</a></h4>
+  </div>
+  <div className="location">
+    <strong className="location_name">Fyshwick</strong><br/>
+    <a
+      href="https://www.google.com/maps/place/2%2F58+Wollongong+St,+Fyshwick+ACT+2609"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Unit 2/58 Wollongong St, Fyshwick ACT 2609
+    </a><br/>
+    <h4 className="location_namee">Phone: <a href="tel:0261762807">(02) 6176 2807</a></h4>
+  </div>
+      </div>
           <div className="contact-page__email">
             <h3>📧 Email Us</h3>
-            <a className="contact__emaill" href="mailto:info@inhausliving.com.au">info@inhausliving.com.au</a>
+            <a className="contact__emaill"href="mailto:info@inhausliving.com.au">info@inhausliving.com.au</a>
           </div>
         </div>
 
         <form className="contact-page__form" onSubmit={handleSubmit}>
-          <div className="two-columns">
+          <div className="two‑columns">
             <div className="form-group">
               <label htmlFor="fullName">Full Name</label>
               <input
@@ -160,8 +154,7 @@ export default function ContactUsPage() {
               />
             </div>
           </div>
-
-          <div className="two-columns">
+          <div className="two‑columns">
             <div className="form-group">
               <label htmlFor="address">Address</label>
               <input
@@ -184,7 +177,7 @@ export default function ContactUsPage() {
             </div>
           </div>
 
-          <div className="two-columns">
+          <div className="two‑columns">
             <div className="form-group">
               <label htmlFor="budget">Budget</label>
               <select
@@ -215,7 +208,7 @@ export default function ContactUsPage() {
             </div>
           </div>
 
-          <div className="two-columns">
+          <div className="two‑columns">
             <div className="form-group">
               <label htmlFor="installationDate">Ideal Installation Date</label>
               <input
