@@ -54,8 +54,10 @@ export default function ContactUsPage() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+  console.log("🌐 API BASE:", apiBase); // <-- VERIFICAR NO CONSOLE
+
   try {
-    const apiBase = process.env.NEXT_PUBLIC_API_BASE;
     const res = await fetch(`${apiBase}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -75,6 +77,7 @@ const handleSubmit = async (e) => {
     alert('⚠️ Could not connect to the server.');
   }
 };
+
 
   return (
     <section className="contact-page">
