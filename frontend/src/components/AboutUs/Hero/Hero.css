@@ -1,31 +1,43 @@
 .about-hero {
-  width: 100%;
-  height: 80vh;
-  background: url('/about-hero.png') center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-
-  animation: zoomInOut 17s ease-in-out infinite;
+  width: 100%;
+  height: 90vh;                 /* um pouco mais alta = mais cinematográfica */
+  background-image: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/michael-alake-Ys1Yo1kxxCE-unsplash.jpg');
+  background-size: cover;        /* 🔥 CORREÇÃO PRINCIPAL */
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: zoomInOut 20s ease-in-out infinite;
+  overflow: hidden;
 }
 
 @keyframes zoomInOut {
   0% {
-    background-size: 100%;
+    background-size: cover;
   }
   50% {
-    background-size: 104%;
+    background-size: 108%;     /* zoom suave e premium */
   }
   100% {
-    background-size: 100%;
+    background-size: cover;
   }
 }
 
 .about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.about-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
   text-align: center;
   color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .about-hero__title {
@@ -33,12 +45,6 @@
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 10px;
-}
-
-.about-hero__tagline {
-  font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: 1px;
 }
 
 .hero__bottom-text {
@@ -52,9 +58,50 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  z-index: 3;
+  z-index: 2;
 }
 
 .hero__separator {
   color: var(--color-accent);
 }
+
+/* 📱 MOBILE FIX — garante que ocupe toda a tela e imagem não corte estranho */
+@media (max-width: 501px) {
+
+  .about-hero {
+    height: 100vh;               /* preenche TODA a tela no mobile */
+    background-size: cover !important;
+    background-position: center;
+    animation: none;             /* remove zoom no mobile (corta a imagem) */
+  }
+
+  .about-hero__title {
+    font-size: 3rem;
+  }
+
+  .hero__bottom-text {
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* 🖥️ TELAS GIGANTES — hero mais elegante e cinematográfica */
+@media (min-width: 1500px) {
+
+  .about-hero {
+    height: 95vh;
+    background-size: cover;
+  }
+
+  .about-hero__title {
+    font-size: 5rem;
+  }
+
+  .hero__bottom-text {
+    font-size: 2rem;
+    right: 6rem;
+    bottom: 3rem;
+  }
+}
+

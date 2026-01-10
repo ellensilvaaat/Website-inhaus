@@ -1,5 +1,6 @@
 import React from 'react';
 import './DifferentialSection.css';
+import { Link } from 'react-router-dom';
 
 export default function WhyChooseUs() {
   return (
@@ -47,7 +48,9 @@ export default function WhyChooseUs() {
       </div>
 
       <div className="why‑choose‑us__cta‑wrapper">
+        <Link to="/contact">
         <button className="why‑choose‑us__cta‑button">Book Your Consultation</button>
+        </Link>
       </div>
     </section>
   );

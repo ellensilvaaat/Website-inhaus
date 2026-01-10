@@ -4,7 +4,8 @@ import './Hero.css';
 export default function Hero() {
   return (
     <section className="services-hero">
-      <div className="services-hero__overlay">
+      <div className="services-hero__overlay" />
+      <div className="services-hero__content">
         <h1 className="services-hero__title">Services</h1>
       </div>
       <div className="services__bottom-text">
@@ -17,3 +18,4 @@ export default function Hero() {
     </section>
   );
 }
+

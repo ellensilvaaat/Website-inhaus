@@ -1,0 +1,111 @@
+.contact-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background-image: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/peter-muniz-4oRw53kmhy8-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  animation: zoomInOut 17s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* animação */
+@keyframes zoomInOut {
+  0% {
+    background-size: 100%;
+  }
+  50% {
+    background-size: 104%;
+  }
+  100% {
+    background-size: 100%;
+  }
+}
+
+.contact-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.contact-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.contact-hero__title {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.contact__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.contact__separator {
+  color: var(--color-accent);
+}
+
+
+/* ————————————————————————————————
+     📱 MOBILE FIX (igual às outras hero)
+——————————————————————————————— */
+@media (max-width: 600px) {
+  .contact-hero {
+    height: 80vh;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  .contact-hero__title {
+    font-size: 3rem;
+  }
+
+  .contact__bottom-text {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    font-size: 1.2rem;
+    gap: 0.4rem;
+  }
+}
+
+
+/* ————————————————————————————————
+     🖥️ TELAS GIGANTES (ultra premium)
+——————————————————————————————— */
+@media (min-width: 1500px) {
+  .contact-hero {
+    height: 90vh;
+    background-size: cover;
+  }
+
+  .contact-hero__title {
+    font-size: 5rem;
+  }
+
+  .contact__bottom-text {
+    font-size: 1.8rem;
+    right: 6rem;
+    bottom: 3rem;
+  }
+}

@@ -23,26 +23,30 @@ const logos = [
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+    transition: { staggerChildren: 0.15 }
+  }
 };
 
 const itemVariants = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1 },
+  visible: { opacity: 1, scale: 1 }
 };
 
 export default function TrustedPartners() {
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 501;
+
+  const displayedLogos = isMobile ? logos.slice(0, 14) : logos;
+
   return (
     <section className="trusted-partners">
       <div className="trusted-partners__container">
+
         <div className="trusted-partners__text">
           <h2 className="trusted-partners__title">Our Trusted Partners</h2>
           <div className="trusted-partners__underline"></div>
+
           <p className="trusted-partners__description">
-            We collaborate with industry‑leading suppliers and brands to ensure every project reflects the highest standards of quality and design.
+            We collaborate with industry-leading suppliers and brands to ensure every project reflects the highest standards of quality and design.
           </p>
         </div>
 
@@ -53,7 +57,7 @@ export default function TrustedPartners() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {logos.map((logo, index) => (
+          {displayedLogos.map((logo, index) => (
             <motion.div
               className="trusted-partners__card"
               key={logo.id}
@@ -64,8 +68,10 @@ export default function TrustedPartners() {
             </motion.div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );
 }
+
 

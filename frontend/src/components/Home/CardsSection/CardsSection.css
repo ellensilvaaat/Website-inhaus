@@ -3,6 +3,7 @@
   background-color: #fff;
 }
 
+/* HEADER */
 .cards-section__header {
   display: flex;
   justify-content: space-between;
@@ -29,11 +30,12 @@
   max-width: 400px;
 }
 
+/* SCROLL */
 .cards-section__scroll {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  margin-left: 50rem;
+  margin-left: 30rem;
   gap: 2rem;
   padding: 2rem;
 }
@@ -42,6 +44,7 @@
   display: none;
 }
 
+/* CARD */
 .cards-section__card {
   position: relative;
   flex: 0 0 auto;
@@ -50,13 +53,18 @@
   background-color: #f5efe5;
   border-radius: 16px;
   overflow: hidden;
-  transition: background 0.4s ease-in-out;
+  transition: background 0.4s ease-in-out, transform 0.4s ease;
   box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.1);
 }
 
+.cards-section__card:hover {
+  transform: translateY(-6px);
+}
+
+/* CONTENT */
 .cards-section__content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   height: 100%;
   padding: 3rem 1.5rem 1.5rem 1.5rem;
   display: flex;
@@ -70,6 +78,8 @@
   border-radius: 12px;
   max-width: 120px;
   margin-bottom: 1rem;
+  z-index: 3;
+  position: relative;
 }
 
 .cards-section__card-title {
@@ -90,6 +100,7 @@
   transition: opacity 0.3s ease;
 }
 
+/* BUTTON */
 .cards-section__btn {
   background: white;
   border: none;
@@ -105,6 +116,7 @@
   position: absolute;
   bottom: 1rem;
   left: 1.5rem;
+  z-index: 3;
 }
 
 .cards-section__btn img {
@@ -112,7 +124,7 @@
   height: 20px;
 }
 
-/* imagem que aparece no hover */
+/* HOVER IMAGE */
 .cards-section__image {
   position: absolute;
   top: 0;
@@ -139,12 +151,9 @@
   right: 1.5rem;
 }
 
-.cards-section__card:hover .cards-section__btn img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(100%) saturate(900%) hue-rotate(5deg);
-}
-
+/* CTA */
 .sardssection__cta{
- position: relative;
+  position: relative;
   background: none;
   border: none;
   color: black;
@@ -155,8 +164,162 @@
   font-family: var(--font-primary);
   display: inline-block;
   margin: 3rem 0 0 10rem;
+  text-decoration: none;
 }
 
 .sardssection__cta:hover{
   color: var(--color-accent);
+}
+
+/* ------------------------------------------------------- */
+/* 📱 MOBILE — ATÉ 501px */
+/* ------------------------------------------------------- */
+
+@media (max-width: 501px) {
+
+  .cards-section {
+    padding: 4rem 0;
+  }
+
+  .cards-section__header {
+    padding: 0 2rem;
+  }
+
+  .cards-section__title {
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+
+  .cards-section__subtitle {
+    font-size: 1.4rem;
+    max-width: 100%;
+  }
+
+  .cards-section__scroll {
+    margin-left: 0;
+    padding: 1rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .cards-section__card {
+    width: 260px;
+    height: 360px;
+    border-radius: 14px;
+    transform: none;
+  }
+
+  /* overlay preto premium mobile */
+  .cards-section__card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+
+  .cards-section__image {
+    opacity: 1 !important;
+    z-index: 1;
+  }
+
+  .cards-section__description {
+    padding-top: 140px;
+    font-size: 1.3rem;
+    opacity: 1 !important;
+    color: white;
+  }
+
+  .cards-section__card-title {
+    color: white;
+  }
+
+  .cards-section__white-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .cards-section__btn {
+    left: auto;
+    right: 1.5rem;
+  }
+
+  .sardssection__cta{
+    margin-left: 2rem;
+    font-size: 1.6rem;
+  }
+}
+
+/* ------------------------------------------------------- */
+/* 📲 TABLET — 501px até 768px */
+/* ------------------------------------------------------- */
+
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .cards-section__header {
+    padding: 0 4rem;
+  }
+
+  .cards-section__scroll {
+    margin-left: 0;
+  }
+
+  .cards-section__card {
+    width: 300px;
+    height: 400px;
+  }
+
+  .cards-section__image {
+    opacity: 0.15;
+  }
+
+  .cards-section__description {
+    padding-top: 150px;
+    font-size: 1.4rem;
+  }
+
+  .cards-section__btn {
+    right: 1.5rem;
+  }
+}
+
+/* ------------------------------------------------------- */
+/* 🖥️ TELAS GIGANTES — +1500px */
+/* ------------------------------------------------------- */
+
+@media (min-width: 1500px) {
+
+  .cards-section__title {
+    font-size: 4rem;
+  }
+
+  .cards-section__subtitle {
+    font-size: 2.5rem;
+    max-width: 500px;
+  }
+
+  .cards-section__card {
+    width: 380px;
+    height: 520px;
+  }
+
+  .cards-section__card-title {
+    font-size: 1.8rem;
+  }
+
+  .cards-section__description {
+    font-size: 1.6rem;
+  }
+
+  .cards-section__btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .sardssection__cta {
+    font-size: 2rem;
+  }
 }

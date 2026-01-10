@@ -1,5 +1,6 @@
-import React from 'react';
-import './AboutUsSection.css';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './AboutUsSection.css'
 
 export default function AboutUsSection() {
   return (
@@ -39,9 +40,12 @@ export default function AboutUsSection() {
         </div>
 
         <div className="aboutus-button">
-          <button>Explore our process</button>
+          <Link to="/services#process">
+            <button>Explore our process</button>
+          </Link>
         </div>
       </div>
     </section>
-  );
+  )
 }
+

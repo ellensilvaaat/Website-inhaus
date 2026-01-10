@@ -111,13 +111,60 @@
 }
 
 @media (max-width: 600px) {
-  .footer__nav {
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+
+  /* esconder tudo exceto ícones sociais */
+  .footer__nav,
+  .footer__contact-info {
+    display: none !important;
+  }
+
+  /* centralizar ícones no mobile */
+  .footer__social {
+    margin: auto;
+  }
+
+  /* ícones mais bonitos no mobile */
+  .footer__social-icon {
+    font-size: 2.6rem; /* maior e mais moderno */
+    margin-top: 0;
+  }
+
+  /* subir overlay para não ficar colado na imagem */
+  .footer__overlay {
+    padding: 0;
+  }
+}
+
+@media (min-width: 1500px) {
+
+  /* ícones maiores */
+  .footer__social-icon {
+    font-size: 3rem;
+  }
+
+  /* spacing mais premium */
+  .footer__social {
+    gap: 2.5rem;
+    margin-left: 80px;
+  }
+
+  /* textos mais fortes */
+  .footer__link {
+    font-size: 2rem;
   }
 
   .footer__contact-info {
-    font-size: 0.8rem;
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .footer__bottom {
+    font-size: 1.3rem;
+    bottom: 2rem;
+  }
+
+  .footer__overlay {
+    padding-top: 10rem;
+    padding-bottom: 6rem;
   }
 }

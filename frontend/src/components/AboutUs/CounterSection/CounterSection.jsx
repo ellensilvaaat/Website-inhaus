@@ -20,7 +20,7 @@ export default function CounterSection() {
           Don’t just renovate, <em>experience it.</em>
         </h2>
         <p className="counter-section__subtitle">
-          Discover a smoother, smarter renovation journey with a single licensed Class 3 team, from design to handover
+          Discover a smoother, smarter renovation journey with a single licensed Class 2 team, from design to handover
         </p>
       </div>
 
@@ -32,7 +32,7 @@ export default function CounterSection() {
               {inView ? (
                 <CountUp
                   end={stat.value}
-                  duration={2.5}
+                  duration={4}
                   separator=","
                 />
               ) : (

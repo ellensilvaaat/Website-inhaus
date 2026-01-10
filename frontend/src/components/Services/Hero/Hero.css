@@ -1,44 +1,52 @@
 .services-hero {
-  width: 100%;
-  height: 80vh;
-  background: url('/hero-services.png') center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-
-  animation: zoomInOut 17s ease-in-out infinite;
+  width: 100%;
+  height: 90vh;              /* deixa mais cheia e luxuosa */
+  background-image: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg');
+  background-size: cover;     /* AQUI está o segredo */
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: zoomInOut 18s ease-in-out infinite;
+  overflow: hidden;
 }
 
+/* animação de zoom */
 @keyframes zoomInOut {
   0% {
     background-size: 100%;
   }
   50% {
-    background-size: 104%;
+    background-size: 108%;
   }
   100% {
     background-size: 100%;
   }
 }
 
+/* overlay escuro */
 .services-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* conteúdo sobre o overlay */
+.services-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
   text-align: center;
   color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .services-hero__title {
   font-family: var(--font-primary);
   font-size: 4rem;
   font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.services-hero__tagline {
-  font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: 1px;
 }
 
 .services__bottom-text {
@@ -52,9 +60,51 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  z-index: 3;
+  z-index: 2;
 }
 
 .services__separator {
   color: var(--color-accent);
+}
+
+/* ===========================
+      MOBILE
+   =========================== */
+@media (max-width: 500px) {
+
+  .services-hero {
+    height: 85vh;
+    background-size: cover !important;        /* garante o preenchimento */
+    background-position: center center !important;
+  }
+
+  .services-hero__title {
+    font-size: 3rem;
+  }
+
+  .services__bottom-text {
+    font-size: 1.3rem;
+    right: 2rem;
+  }
+}
+
+
+/* ===========================
+      TELAS GIGANTES
+   =========================== */
+@media (min-width: 1500px) {
+
+  .services-hero {
+    height: 75vh;
+    background-position: center top;      /* deixa mais arquitetônico e luxuoso */
+  }
+
+  .services-hero__title {
+    font-size: 5rem;
+  }
+
+  .services__bottom-text {
+    font-size: 1.8rem;
+    right: 5rem;
+  }
 }

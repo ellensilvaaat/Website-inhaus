@@ -69,6 +69,10 @@
 
 /* RESPONSIVO */
 @media (max-width: 1024px) {
+  .trusted-partners__title{
+    text-align: left;
+  }
+  
   .trusted-partners__container {
     flex-direction: column;
     align-items: center;

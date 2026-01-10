@@ -4,7 +4,8 @@ import './Hero.css';
 export default function Hero() {
   return (
     <section className="about-hero">
-      <div className="about-hero__overlay">
+      <div className="about-hero__overlay" />
+      <div className="about-hero__content">
         <h1 className="about-hero__title">About Us</h1>
       </div>
       <div className="hero__bottom-text">

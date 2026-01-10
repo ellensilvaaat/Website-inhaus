@@ -6,17 +6,17 @@
 .team-carousel__title {
   font-family: var(--font-title);
   font-size: 3rem;
-  margin: auto; 
+  margin: auto;
   text-align: center;
 }
 
-.team-carousel__subtitle{
-    font-size: 1.9rem;
-    font-family: var(--font-primary);
-    font-weight: 300;
-    margin: auto;
-    text-align: center;
-    margin-bottom: 4rem;
+.team-carousel__subtitle {
+  font-size: 1.9rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .team_underline {
@@ -25,16 +25,15 @@
   background-color: #F67C0B;
   border-radius: 2px;
   margin: auto;
-  text-align: center;
   margin-bottom: 2rem;
 }
 
 .team-carousel__container {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-left: 0;
+  padding: 3rem 1rem;
 }
 
 .team-carousel__container::-webkit-scrollbar {
@@ -45,61 +44,128 @@
   flex: 0 0 auto;
   width: 300px;
   height: 500px;
-  padding-top: 0.9rem;
   position: relative;
 }
 
 .team-card__image {
-  position: relative;
   width: 100%;
-  height: 450px;
+  height: 100%;
   background-size: cover;
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.6s ease;
-  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.2);
 }
 
+/* Desktop hover */
 .team-card:hover .team-card__image {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
-/* Overlay aparece somente no hover */
+/* 🔥 Overlay em TODA a área */
 .team-card__overlay {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  height: 100%;               /* overlay completo */
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.75) 0%,
+    rgba(0,0,0,0.4) 40%,
+    rgba(0,0,0,0.15) 80%,
+    rgba(0,0,0,0) 100%
+  );                          /* degrade suave para ver o rosto */
   color: white;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  justify-content: flex-end;  /* texto no bottom */
   padding: 2rem;
-  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .team-card:hover .team-card__overlay {
   opacity: 1;
-  transform: scale(1);
 }
 
 .team-card__name {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
   font-family: var(--font-title);
 }
 
 .team-card__description {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-family: var(--font-primary);
-  max-width: 80%;
-  line-height: 1.5;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+
+
+/* ====================================================== */
+/* 📱 MOBILE — overlay sempre visível */
+/* ====================================================== */
+
+@media (max-width: 501px) {
+
+  .team-card {
+    width: 260px;
+    height: 420px;
+  }
+
+  .team-card__image {
+    height: 100%;
+  }
+
+  .team-card__overlay {
+    opacity: 1 !important;  /* SEMPRE VISÍVEL */
+    padding: 1.4rem;
+    border-radius: 12px;
+  }
+
+  .team-card__name {
+    font-size: 1.7rem;
+  }
+
+  .team-card__description {
+    font-size: 1.4rem;
+  }
+}
+
+
+
+/* ====================================================== */
+/* 🖥️💎 TELAS GIGANTES — +1500px */
+/* ====================================================== */
+
+@media (min-width: 1500px) {
+
+  .team-card {
+    width: 380px;
+    height: 650px;
+  }
+
+  .team-card__overlay {
+    padding: 3rem;
+  }
+
+  .team-card__name {
+    font-size: 2.6rem;
+  }
+
+  .team-card__description {
+    font-size: 1.7rem;
+  }
+
+  .team-carousel__title {
+    font-size: 4.2rem;
+  }
+
+  .team-carousel__subtitle {
+    font-size: 2.4rem;
+  }
 }

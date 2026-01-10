@@ -1,3 +1,5 @@
+/* ========================== BASE ========================== */
+
 .project-carousel {
   padding: 4rem 0;
   background: white;
@@ -9,21 +11,24 @@
   padding-left: 6rem;
 }
 
+.projects_underline {
+  width: 130px;
+  height: 2px;
+  background-color: #F67C0B;
+  margin: 0 0 70px 175px;
+  border-radius: 2px;
+}
+
 .project-carousel__container {
   display: flex;
   gap: 1rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  height: auto;
   padding-left: 0;
 }
 
 .project-carousel__container::-webkit-scrollbar {
   display: none;
-}
-.project-carousel__container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .project-card {
@@ -97,6 +102,7 @@
   font-size: 1.6rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .project-card__button:hover {
@@ -104,33 +110,156 @@
   color: var(--color-accent);
 }
 
-.projects_underline{
-  width: 130px;
-  height: 2px;
-  background-color: #F67C0B;
-  margin: 0 0 70px 175px;
-  border-radius: 2px;
-}
-
-.projects__cta{
- position: relative;
+.projects__cta {
+  position: relative;
   background: none;
   border: none;
   color: black;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   cursor: pointer;
   transition: color 0.3s ease;
   font-family: var(--font-primary);
   display: inline-block;
+  text-decoration: none;
 }
 
-.bnt{
-    margin: auto;
-    width: 18%;
-    padding-top: 50px;
+.bnt {
+  margin: auto;
+  width: 20%;
+  padding-top: 50px;
 }
 
-.projects__cta:hover{
-    color: var(--color-accent);
+.projects__cta:hover {
+  color: var(--color-accent);
+}
+
+/* ========================== MOBILE ATÉ 501PX ========================== */
+
+@media (max-width: 501px) {
+
+  .project-carousel__title {
+    font-size: 2.6rem;
+    padding-left: 2rem;
+  }
+
+  .projects_underline {
+    margin-left: 2rem;
+    width: 90px;
+  }
+
+  .project-carousel__container {
+    gap: 2.5rem;
+    padding-left: 1rem;
+  }
+
+  .project-card {
+    width: 270px;
+    height: 500px;
+  }
+
+  .project-card__image {
+    height: 480px;
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+
+  /* overlay SEM hover — sempre visível e premium */
+  .project-card__overlay {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    background: rgba(0, 0, 0, 0.40);
+    justify-content: flex-end;
+  }
+
+  .project-card__title {
+    font-size: 1.9rem;
+  }
+
+  .project-card__description {
+    font-size: 1.4rem;
+    max-width: 95%;
+  }
+
+  .project-card__button {
+    padding: 0.5rem 1.2rem;
+    font-size: 1.4rem;
+  }
+
+  .bnt {
+    width: 70%;
+    text-align: center;
+  }
+}
+
+/* ========================== TABLET 501PX – 768PX ========================== */
+
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .project-carousel__title {
+    font-size: 3rem;
+    padding-left: 3rem;
+  }
+
+  .projects_underline {
+    margin-left: 3rem;
+  }
+
+  .project-card {
+    width: 320px;
+    height: 480px;
+  }
+
+  .project-card__image {
+    height: 440px;
+  }
+
+  .project-card__overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .project-card__title {
+    font-size: 2.2rem;
+  }
+
+  .project-card__description {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========================== TELAS GIGANTES 1500PX+ ========================== */
+
+@media (min-width: 1500px) {
+
+  .project-carousel__title {
+    font-size: 4.8rem;
+  }
+
+  .projects_underline {
+    width: 160px;
+  }
+
+  .project-card {
+    width: 480px;
+    height: 700px;
+  }
+
+  .project-card__image {
+    height: 650px;
+  }
+
+  .project-card__title {
+    font-size: 3rem;
+  }
+
+  .project-card__description {
+    font-size: 1.9rem;
+    line-height: 1.7;
+  }
+
+  .project-card__button {
+    padding: 1rem 2rem;
+    font-size: 1.9rem;
+  }
 }

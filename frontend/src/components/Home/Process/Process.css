@@ -11,9 +11,9 @@
 
 .our-process h2 {
   text-align: center;
-  font-family: 'the seaons', serif;
+  font-family: 'the seasons', serif;
   font-size: 32px;
-  font-weight: 100;
+  font-weight: 500;
 }
 
 .underline {
@@ -77,103 +77,108 @@
   color: #333;
 }
 
-@media (max-width: 768px) {
+/* =====================  MOBILE ATÉ 501PX  ===================== */
+
+@media (max-width: 501px) {
+
+  .our-process h2 {
+    font-size: 28px;
+  }
+
   .process-step {
     flex-direction: column !important;
-    text-align: center;
-  }
-
-  .process-step .image img {
-    max-width: 100%;
-  }
-}
-
-/* ==================== RESPONSIVIDADE ==================== */
-
-/* 📱 até 320px */
-@media (max-width: 320px) {
-  .process-step {
-    flex-direction: column !important;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .process-step .image img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-.process-step.flip .text {
-    text-align: center;
-}
-
-  .process-step .text {
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-  .step-number {
-    font-size: 2rem;
-  }
-
-  .process-step h3 {
-    font-size: 1.4rem;
-  }
-
-  .process-step p {
-    font-size: 14px;
-  }
-}
-
-/* 📱 321px até 767px */
-@media (min-width: 321px) and (max-width: 767px) {
-  .process-step {
-    flex-direction: column !important;
-    align-items: center;
     text-align: center;
     gap: 25px;
-  }
-
-  .process-step .image img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .process-step .text {
-    max-width: 100%;
-    padding: 0 20px;
-  }
-
-  .step-number {
-    font-size: 2.2rem;
-  }
-
-  .process-step h3 {
-    font-size: 1.5rem;
-  }
-
-  .process-step p {
-    font-size: 15px;
   }
 
   .process-step.flip .text {
     text-align: center;
   }
+
+  .step-number {
+    font-size: 2.4rem;
+  }
+
+  .process-step h3 {
+    font-size: 2rem;
+  }
+
+  .process-step p {
+    font-size: 1.7rem;
+    line-height: 1.5;
+  }
 }
 
-/* 📱 768px até 900px */
+/* =====================  TABLET 501–768PX  ===================== */
+
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .our-process h2 {
+    font-size: 34px;
+  }
+
+  .step-number {
+    font-size: 2.7rem;
+  }
+
+  .process-step h3 {
+    font-size: 2.1rem;
+  }
+
+  .process-step p {
+    font-size: 1.6rem;
+  }
+}
+
+/* ============  768PX – 900PX (ajustes suaves)  ============ */
+
 @media (min-width: 768px) and (max-width: 900px) {
   .process-step {
     gap: 30px;
-  }
-
-  .process-step .image img {
-    max-width: 100%;
   }
 
   .process-step .text {
     max-width: 100%;
     padding: 0 30px;
   }
+
+  .process-step h3 {
+    font-size: 2.2rem;
+  }
+
+  .process-step p {
+    font-size: 1.6rem;
+  }
 }
+
+/* =====================  TELAS GIGANTES +1500PX  ===================== */
+
+@media (min-width: 1500px) {
+
+  .our-process h2 {
+    font-size: 46px;
+  }
+
+  .process-step {
+    gap: 60px;
+    margin-bottom: 90px;
+  }
+
+  .process-step .image img {
+    max-width: 560px;
+  }
+
+  .step-number {
+    font-size: 3.4rem;
+  }
+
+  .process-step h3 {
+    font-size: 2.8rem;
+  }
+
+  .process-step p {
+    font-size: 1.8rem;
+    line-height: 1.8;
+  }
+}
+

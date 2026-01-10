@@ -13,31 +13,51 @@
 .feedback-section__subtitle {
   font-family: var(--font-primary);
   font-size: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   color: #555;
 }
 
+/* 🔽 FILTER */
+.feedback-section__filter {
+  margin-bottom: 3rem;
+  text-align: right;
+  margin-right: 8rem;
+}
+
+.feedback-section__filter select {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+/* CAROUSEL */
 .feedback-section__carousel {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center; /* centraliza todo o carrossel */
-  margin-bottom: 2rem;
+  justify-content: center;
+  padding: 0 4rem; /* 🔥 AFASTA SETAS DAS BORDAS */
 }
 
 .feedback-section__track {
   display: flex;
   gap: 1.5rem;
   overflow-x: auto;
-  padding-left: 0; /* removido padding extra para centralização */
-  width: calc(350px * 4 + 1.5rem * 3); /* largura do viewport de 4 cards + gaps */
   scroll-behavior: smooth;
+  overflow-y: visible;
+  padding: 2rem 0 6rem;
+
+  width: calc(350px * 4 + 1.5rem * 3);
 }
 
 .feedback-section__track::-webkit-scrollbar {
   display: none;
 }
 
+/* CARD */
 .feedback-card {
   min-width: 250px;
   width: 350px;
@@ -45,12 +65,16 @@
   padding: 2rem;
   border-radius: 12px;
   flex-shrink: 0;
-  text-align: left;
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
+.feedback-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+}
 
 .feedback-card__name {
-  font-family: var(--font-primary);
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -64,13 +88,30 @@
 }
 
 .feedback-card__comment {
-  font-family: var(--font-primary);
   font-size: 1.5rem;
   line-height: 1.4;
   color: #333;
   text-align: center;
 }
 
+/* ⭐ STAR ANIMATION — AGORA FUNCIONA */
+.star {
+  display: inline-block;
+  animation: starPop 0.4s ease forwards;
+}
+
+@keyframes starPop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ARROWS */
 .feedback-section__arrow {
   background: none;
   border: none;
@@ -80,12 +121,14 @@
 }
 
 .feedback-section__arrow--left {
-  margin-right: 4rem;
-}
-.feedback-section__arrow--right {
-  margin-left: 4rem;
+  margin-right: 3rem;
 }
 
+.feedback-section__arrow--right {
+  margin-left: 3rem;
+}
+
+/* ADD BUTTON */
 .feedback-section__add-btn {
   margin-top: 1rem;
   padding: 0.8rem 1.5rem;
@@ -97,7 +140,21 @@
   border-radius: 8px;
   transition: background 0.3s ease, color 0.3s ease;
 }
+
 .feedback-section__add-btn:hover {
   background: var(--color-accent);
   color: white;
+}
+
+/* MOBILE */
+@media (max-width: 501px) {
+  .feedback-section__carousel {
+    padding: 0 2rem;
+  }
+
+  .feedback-section__subtitle {
+    font-size: 1.6rem;
+    max-width: 85%;
+    margin: 0 auto 2.5rem auto;
+  }
 }

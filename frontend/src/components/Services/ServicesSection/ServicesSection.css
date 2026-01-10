@@ -34,7 +34,7 @@
 }
 
 .services-section__description {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   font-family: var(--font-primary);
   color: black;
@@ -51,7 +51,7 @@
   background: none;
   border: none;
   color: black;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   cursor: pointer;
   font-family: var(--font-primary);
@@ -93,6 +93,9 @@
 
 /* Responsivo */
 @media (max-width: 768px) {
+  .services-section {
+    padding: 6rem 2rem;
+}
   .service {
     flex-direction: column;
     align-items: flex-start;
@@ -110,5 +113,13 @@
 
   .service__content {
     width: 100%;
+  }
+
+  .services-section__description{
+    font-size: 1.6rem;
+  }
+
+  .services-section__button{
+    font-size: 1.5rem;
   }
 }

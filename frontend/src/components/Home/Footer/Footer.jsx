@@ -6,7 +6,7 @@ import './Footer.css';
 export default function Footer() {
   return (
     <footer className="footer">
-      <img src="/footer-bg.png" alt="Footer Background" className="footer__image" />
+      <img src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/footer-bg.png" alt="Footer Background" className="footer__image" />
 
       <div className="footer__overlay">
         <div className="footer__top">

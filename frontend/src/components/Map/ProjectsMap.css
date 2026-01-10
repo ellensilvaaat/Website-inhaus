@@ -1,0 +1,22 @@
+.projects-map-title {
+  text-align: center;
+  font-family: 'the seasons';
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: black;
+  margin: 6rem 0 2rem;
+}
+
+.projects-map-section {
+  width: 100%;
+  height: 80%;
+}
+
+.projects-map-container {
+  width: 100%;
+  height: 70vh;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+

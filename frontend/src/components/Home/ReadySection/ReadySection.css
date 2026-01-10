@@ -32,6 +32,7 @@
   padding: 0.8rem 2.4rem;
   cursor: pointer;
   transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .ready-section__cta:hover {
@@ -99,4 +100,26 @@
 
 .projects__cta:hover{
     color: var(--color-accent);
+}
+
+@media (max-width: 501px) {
+
+  /* texto permanece 1.6rem, só garantindo */
+  .ready-section__text {
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  /* impede quebra de linha no botão */
+  .projects__cta {
+    white-space: nowrap;
+    font-size: 1.6rem;
+    padding: 0.8rem 2.4rem;
+  }
+
+  /* container do botão estava espremendo ele */
+  .bntt {
+    width: fit-content;   /* deixa só o espaço necessário */
+    margin: 40px auto 0 auto;
+  }
 }
