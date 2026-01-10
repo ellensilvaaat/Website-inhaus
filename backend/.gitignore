@@ -1,0 +1,23 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build & logs
+dist/
+build/
+coverage/
+*.log
+
+# macOS / VSCode
+.DS_Store
+.vscode/
+
+# Render local build cache
+render.yaml

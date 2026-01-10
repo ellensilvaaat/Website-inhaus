@@ -8,6 +8,7 @@ import ContactUs from '../pages/ContactUs/ContactUs'
 import Blog from '../pages/Blog/Blog'
 import BlogPost from '../components/Blog/BlogPost/BlogPost'
 import ProjectDetail from '../components/Projects/ProjectDetail/ProjectDetail'
+import ThankYou from '../components/ThankYou/ThankYou'
 
 export default function AppRoutes() {
   return (
@@ -20,7 +21,9 @@ export default function AppRoutes() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
       <Route path="/contact" element={<ContactUs />} />
+      <Route path="/thank-you" element={<ThankYou />} />
     </Routes>
   )
 }
+
 

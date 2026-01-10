@@ -194,7 +194,7 @@ export default function ProjectsMap() {
 
   return (
     <section className="projects-map-section">
-      <h2 className="projects-map-title">See where Inhaus is present</h2>
+      <h2 className="projects-map-title">See where Inhaus Living is present</h2>
       <div ref={containerRef} className="projects-map-container" />
     </section>
   )

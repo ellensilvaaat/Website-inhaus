@@ -1,39 +1,97 @@
-import React, { useState, useMemo } from 'react'
-import './FeedbackSection.css'
-import FeedbackModal from './FeedbackModal'
-import ReviewViewModal from './ReviewViewModal'
-import reviews from '../../../content/reviews/reviews.cleaned.json'
+import React, { useState, useMemo, useEffect } from 'react';
+import './FeedbackSection.css';
+import FeedbackModal from './FeedbackModal';
+import ReviewViewModal from './ReviewViewModal';
+import reviews from '../../../content/reviews/reviews.cleaned.json';
 
 function normalizeStars(review) {
-  if (review.stars) return review.stars
+  if (review.stars) return review.stars;
   if (review.rating) {
-    const match = review.rating.match(/\d/)
-    return match ? Number(match[0]) : 0
+    const match = review.rating.match(/\d/);
+    return match ? Number(match[0]) : 0;
   }
-  return 0
+  return 0;
 }
 
 function getShortText(text, max = 160) {
-  if (!text) return ''
-  if (text.length <= max) return text
-  return text.slice(0, max) + '…'
+  if (!text) return '';
+  if (text.length <= max) return text;
+  return text.slice(0, max) + '…';
 }
 
 export default function FeedbackSection() {
-  const [modalOpen, setModalOpen] = useState(false)
-  const [viewReview, setViewReview] = useState(null)
-  const [sortOrder, setSortOrder] = useState('recent')
+  const [modalOpen, setModalOpen] = useState(false);
+  const [viewReview, setViewReview] = useState(null);
+  const [sortOrder, setSortOrder] = useState('recent');
+
+  // 👇 adicionados
+  const [feedbacks, setFeedbacks] = useState([]);
+  const BACKEND_URL = 'http://localhost:4000/api/feedbacks';
+
+  // 🔹 Buscar feedbacks salvos no backend
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        const res = await fetch(BACKEND_URL);
+        const data = await res.json();
+        if (data.success) setFeedbacks(data.feedbacks);
+      } catch (err) {
+        console.error('❌ Error loading feedbacks:', err);
+      }
+    };
+    fetchFeedbacks();
+  }, []);
+
+  // 🔹 Enviar novo feedback
+  const handleNewFeedback = async (feedback) => {
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(feedback),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFeedbacks((prev) => [data.feedback, ...prev]);
+        setModalOpen(false);
+      }
+    } catch (err) {
+      console.error('❌ Error submitting feedback:', err);
+    }
+  };
+
+  // 🔹 Apagar feedback (somente dev/admin)
+  const handleDelete = async (id) => {
+    const adminKey = import.meta.env.VITE_ADMIN_KEY; // sua chave no .env
+    try {
+      const res = await fetch(`${BACKEND_URL}/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${adminKey}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFeedbacks((prev) => prev.filter((f) => f.id !== id));
+      } else {
+        alert('Unauthorized');
+      }
+    } catch (err) {
+      console.error('❌ Error deleting feedback:', err);
+    }
+  };
 
   /* 🔥 SORT */
-  const sortedReviews = useMemo(() => {
-    const copy = [...reviews]
+const sortedReviews = useMemo(() => {
+  const combined = [...feedbacks, ...reviews];
+  if (sortOrder === 'recent') {
+    return combined.sort(
+      (a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)
+    );
+  }
+  return combined.sort(
+    (a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0)
+  );
+}, [sortOrder, feedbacks]);
 
-    if (sortOrder === 'recent') {
-      return copy.reverse()
-    }
-
-    return copy
-  }, [sortOrder])
 
   return (
     <section className="feedback-section">
@@ -67,12 +125,12 @@ export default function FeedbackSection() {
 
         <div className="feedback-section__track">
           {sortedReviews.map((f, index) => {
-            const stars = normalizeStars(f)
-            const fullText = f.text || f.comment || ''
+            const stars = normalizeStars(f);
+            const fullText = f.text || f.comment || '';
 
             return (
               <div
-                key={index}
+                key={f.id || index}
                 className="feedback-card"
                 onClick={() => setViewReview(f)}
               >
@@ -87,8 +145,21 @@ export default function FeedbackSection() {
                 <p className="feedback-card__comment">
                   {getShortText(fullText)}
                 </p>
+
+                {/* botão de deletar (visível só em dev) */}
+                {import.meta.env.MODE === 'development' && (
+                  <button
+                    className="feedback-card__delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(f.id);
+                    }}
+                  >
+                    🗑
+                  </button>
+                )}
               </div>
-            )
+            );
           })}
         </div>
 
@@ -112,7 +183,10 @@ export default function FeedbackSection() {
       </button>
 
       {modalOpen && (
-        <FeedbackModal onClose={() => setModalOpen(false)} />
+        <FeedbackModal
+          onClose={() => setModalOpen(false)}
+          onSubmit={handleNewFeedback}
+        />
       )}
 
       {viewReview && (
@@ -122,7 +196,7 @@ export default function FeedbackSection() {
         />
       )}
     </section>
-  )
+  );
 }
 
 

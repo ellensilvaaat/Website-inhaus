@@ -9,11 +9,23 @@ export default function BlogPage() {
   const [recentComments, setRecentComments] = useState([]);
   const postsPerPage = 10;
 
+  // 🔹 Busca comentários reais do backend (substitui o localStorage)
   useEffect(() => {
-    const saved = localStorage.getItem('comments');
-    if (saved) {
-      setRecentComments(JSON.parse(saved).slice(0, 5));
-    }
+    const fetchRecentComments = async () => {
+      try {
+        const res = await fetch('http://localhost:4000/api/comments');
+        const data = await res.json();
+
+        if (data.success && Array.isArray(data.comments)) {
+          // mantém só os 5 mais recentes
+          setRecentComments(data.comments.slice(0, 5));
+        }
+      } catch (err) {
+        console.error('❌ Error loading recent comments:', err);
+      }
+    };
+
+    fetchRecentComments();
   }, []);
 
   const sortedPosts = useMemo(() => {
@@ -91,11 +103,16 @@ export default function BlogPage() {
             ) : (
               <ul>
                 {recentComments.map((c, i) => (
-                  <li key={i}>
+                  <li key={c.id || i}>
                     <div className="sidebar__comment-meta">
-                      <strong>{c.name}</strong> ({c.date})
+                      <strong>{c.name}</strong>{' '}
+                      <span>
+                        ({new Date(c.created_at || c.date).toLocaleDateString()})
+                      </span>
                     </div>
-                    <div className="sidebar__comment-text">"{c.text}"</div>
+                    <div className="sidebar__comment-text">
+                      "{c.text?.length > 80 ? `${c.text.slice(0, 80)}…` : c.text}"
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -120,3 +137,4 @@ export default function BlogPage() {
     </section>
   );
 }
+

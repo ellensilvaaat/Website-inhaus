@@ -1,4 +1,3 @@
-// src/components/Blog/BlogPost/BlogPost.jsx
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
@@ -13,6 +12,7 @@ export default function BlogPost() {
   const [comments, setComments] = useState([])
 
   const postMeta = postsMeta.find(p => p.slug === slug)
+  const BACKEND_URL = 'http://localhost:4000/api/comments'
 
   // 🔥 GARANTE QUE SEMPRE ABRE NO HERO
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function BlogPost() {
     return <div className="blog-post__notfound">Article not found.</div>
   }
 
+  // 🔹 Carrega o conteúdo Markdown
   useEffect(() => {
     const loadMarkdown = async () => {
       const path = `/src/content/posts/${postMeta.slug}.md`
@@ -35,13 +36,9 @@ export default function BlogPost() {
 
       const raw = await importFn()
 
-      // 🔥 LIMPEZA GLOBAL DO CONTEÚDO
       const cleaned = raw
-        // remove breadcrumbs tipo Home > Blog
         .replace(/\*\*\[Home\][\s\S]*?\n/g, '')
-        // remove listas de âncoras internas
         .replace(/^- \[.*?\]\(#.*?\)\n/gm, '')
-        // remove qualquer link markdown
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
 
       setContent(cleaned)
@@ -50,8 +47,60 @@ export default function BlogPost() {
     loadMarkdown()
   }, [postMeta.slug])
 
-  const handleAddComment = (newComment) => {
-    setComments(prev => [newComment, ...prev].slice(0, 5))
+  // 🔹 Carrega comentários reais do backend
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URL}/${slug}`)
+        const data = await res.json()
+        if (data.success) setComments(data.comments)
+      } catch (err) {
+        console.error('❌ Error loading comments:', err)
+      }
+    }
+    fetchComments()
+  }, [slug])
+
+  // 🔹 Adiciona novo comentário
+  const handleAddComment = async (newComment) => {
+    const payload = {
+      name: newComment.name,
+      text: newComment.text,
+      post_slug: slug,
+    }
+
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setComments((prev) => [data.comment, ...prev])
+      }
+    } catch (err) {
+      console.error('❌ Error submitting comment:', err)
+    }
+  }
+
+  // 🔹 Apaga comentário (só dev/admin)
+  const handleDelete = async (id) => {
+    const adminKey = import.meta.env.VITE_ADMIN_KEY
+    try {
+      const res = await fetch(`${BACKEND_URL}/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${adminKey}` },
+      })
+      const data = await res.json()
+      if (data.success) {
+        setComments((prev) => prev.filter((c) => c.id !== id))
+      } else {
+        alert('Unauthorized')
+      }
+    } catch (err) {
+      console.error('❌ Error deleting comment:', err)
+    }
   }
 
   return (
@@ -129,7 +178,7 @@ export default function BlogPost() {
               strong: ({ children }) => (
                 <strong style={{ fontWeight: 700 }}>{children}</strong>
               ),
-              a: () => null, // remove links
+              a: () => null,
             }}
           >
             {content}
@@ -139,6 +188,7 @@ export default function BlogPost() {
         <CommentsSection
           comments={comments}
           onAddComment={handleAddComment}
+          onDeleteComment={handleDelete}
         />
       </div>
     </section>
