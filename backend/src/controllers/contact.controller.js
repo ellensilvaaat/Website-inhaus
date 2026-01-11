@@ -23,19 +23,20 @@ export const submitContactForm = async (req, res) => {
       });
     }
 
-    const payload = {
-      full_name: data.fullName,
-      email: data.email,
-      address: data.address,
-      mobile: data.mobile,
-      budget: data.budget,
-      service: data.service,
-      installation_date: data.installationDate,
-      found_us: data.foundUs || null,
-      subject: data.subject,
-      message: data.message,
-      status: 'new'
-    };
+const payload = {
+  full_name: data.fullName,
+  email: data.email,
+  address: data.address,
+  mobile: data.mobile,
+  budget: data.budget,
+  service: data.service,
+  installation_date: data.installationDate,
+  found_us: data.foundUs || null,
+  subject: data.subject || null,
+  message: data.message || null,
+  status: 'new'
+};
+
 
     console.log('📩 Contact payload:', payload);
 

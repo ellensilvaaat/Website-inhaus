@@ -4,18 +4,23 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ContactUsPage() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    address: '',
-    mobile: '',
-    budget: '',
-    service: '',
-    installationDate: '',
-    foundUs: '',
-    subject: '',
-    message: '',
-  });
+  const {
+  fullName,
+  email,
+  address,
+  mobile,
+  budget,
+  service,
+  installationDate,
+  foundUs,
+  subject,
+  message,
+} = req.body;
+
+if (!data.fullName || !data.email || !data.address || !data.mobile || !data.budget || !data.service || !data.installationDate) {
+  return res.status(400).json({ success: false, message: 'Missing required fields' });
+}
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
