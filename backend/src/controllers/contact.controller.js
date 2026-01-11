@@ -52,17 +52,17 @@ export const submitContactForm = async (req, res) => {
       });
     }
 
-    try {
-      await sendConfirmationEmail(data);
-    } catch (emailErr) {
-      console.warn('⚠️ Email send failed:', emailErr.message);
-    }
+    // ✅ Envia a resposta imediatamente para o frontend
+res.status(201).json({
+  success: true,
+  message: 'Form submitted successfully',
+  result
+});
 
-    return res.status(201).json({
-      success: true,
-      message: 'Form submitted successfully',
-      result
-    });
+// ✅ Depois tenta enviar o email em segundo plano (sem bloquear o usuário)
+sendConfirmationEmail(data).catch(err => {
+  console.warn('⚠️ Async email send failed:', err.message);
+});
 
   } catch (err) {
     console.error('🔥 Unexpected error:', err);
