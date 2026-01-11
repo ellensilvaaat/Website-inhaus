@@ -2,6 +2,7 @@ import { supabase } from '../services/supabase.service.js';
 import { sendConfirmationEmail } from '../services/email.service.js';
 
 export const submitContactForm = async (req, res) => {
+  console.log('🔥 req.body recebido:', req.body);
   try {
     const data = req.body;
 
