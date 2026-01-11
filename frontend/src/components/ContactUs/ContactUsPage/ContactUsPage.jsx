@@ -54,18 +54,19 @@ export default function ContactUsPage() {
 
     const apiBase = import.meta.env.VITE_API_BASE;
     const payload = {
-      full_name: formData.fullName,
-      email: formData.email,
-      address: formData.address,
-      mobile: formData.mobile,
-      budget: formData.budget,
-      service: formData.service,
-      installation_date: formData.installationDate,
-      found_us: formData.foundUs || null,
-      subject: formData.subject || null,
-      message: formData.message || null,
-      status: 'new',
-    };
+  full_name: formData.fullName,
+  email: formData.email,
+  address: formData.address,
+  mobile: formData.mobile,
+  budget: formData.budget,
+  service: formData.service,
+  installation_date: formData.installationDate,
+  found_us: formData.foundUs || null,
+  subject: formData.subject || null,
+  message: formData.message || null,
+  status: 'new',
+};
+
 
     try {
       const res = await fetch(`${apiBase}/api/contact`, {
