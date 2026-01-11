@@ -16,9 +16,11 @@ export default function ContactUsPage() {
     subject: '',
     message: '',
   });
+
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [])
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   const budgetOptions = [
     '$25,000 - $50,000',
     '$50,000 - $100,000',
@@ -39,45 +41,39 @@ export default function ContactUsPage() {
     'Construction & Additions',
   ];
 
-  const foundUsOptions = [
-    'Google',
-    'Instagram',
-    'Referral',
-    'Other',
-  ];
+  const foundUsOptions = ['Google', 'Instagram', 'Referral', 'Other'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE;
-  console.log("🌐 API BASE:", apiBase); // <-- VERIFICAR NO CONSOLE
+    const apiBase = import.meta.env.VITE_API_BASE;
+    console.log("🌐 API BASE:", apiBase); // VERIFICAR no console
 
-  try {
-    const res = await fetch(`${apiBase}/api/contact`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch(`${apiBase}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok && data.success) {
-      navigate('/thank-you');
-    } else {
-      console.error('❌ Server error:', data);
-      alert('⚠️ There was a problem submitting your form.');
+      if (res.ok && data.success) {
+        navigate('/thank-you');
+      } else {
+        console.error('❌ Server error:', data);
+        alert('⚠️ There was a problem submitting your form.');
+      }
+    } catch (err) {
+      console.error('❌ Network error:', err);
+      alert('⚠️ Could not connect to the server.');
     }
-  } catch (err) {
-    console.error('❌ Network error:', err);
-    alert('⚠️ Could not connect to the server.');
-  }
-};
-
+  };
 
   return (
     <section className="contact-page">
