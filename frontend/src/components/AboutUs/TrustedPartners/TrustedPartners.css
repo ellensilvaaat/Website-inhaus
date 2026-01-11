@@ -86,6 +86,10 @@
   .trusted-partners__grid {
     justify-content: center;
   }
+
+  .trusted-partners {
+    padding: 0 2rem 4rem;
+  }
 }
 
 

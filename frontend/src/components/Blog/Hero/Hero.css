@@ -1,23 +1,32 @@
-/* =====================
-   DESKTOP – SEU ORIGINAL
-   ===================== */
-
 .blog-hero {
   position: relative;
   width: 100%;
   height: 80vh;
-  background-image: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/prydumano-design-vXMbcO1mRBY-unsplash.jpg');
-  background-size: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  animation: zoomInOut 17s ease-in-out infinite;
   overflow: hidden;
 }
 
+/* Novo wrapper com zoom */
+.blog-hero__image-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  animation: zoomInOut 17s ease-in-out infinite;
+}
+
+/* Imagem em si */
+.blog-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+}
+
+/* Zoom suave só no wrapper */
 @keyframes zoomInOut {
-  0% { background-size: 100%; }
-  50% { background-size: 104%; }
-  100% { background-size: 100%; }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 
 .blog-hero__overlay {
@@ -64,14 +73,21 @@
 }
 
 /* =====================
-      📱 MOBILE – ATÉ 500px
-   ===================== */
-
+📱 MOBILE – ATÉ 500px
+===================== */
 @media (max-width: 500px) {
   .blog-hero {
     height: 75vh;
-    background-size: cover !important;
-    background-position: center center !important;
+  }
+
+  .blog-hero__image-wrapper {
+    animation: zoomInOutMobile 17s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
   }
 
   .blog-hero__title {
@@ -86,24 +102,20 @@
 }
 
 /* =====================
-      📲 TABLET 501–900px
-   ===================== */
-
+📲 TABLET 501–900px
+===================== */
 @media (min-width: 501px) and (max-width: 900px) {
-  .blog-hero {
-    background-size: cover;
-    background-position: center;
+  .blog-hero__image-wrapper {
+    animation: zoomInOut 17s ease-in-out infinite;
   }
 }
 
 /* =====================
-   🖥 TELAS GIGANTES 1500px+
-   ===================== */
-
+🖥 TELAS GIGANTES 1500px+
+===================== */
 @media (min-width: 1500px) {
   .blog-hero {
     height: 90vh;
-    background-size: cover;
   }
 
   .blog-hero__title {
@@ -116,4 +128,5 @@
     bottom: 3rem;
   }
 }
+
 

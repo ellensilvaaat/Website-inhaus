@@ -72,3 +72,35 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 🚫 Remove azul do autofill (Safari/Chrome Mobile) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ✅ Remove realce azul de foco em mobile (especialmente iOS) */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* 🔒 Remove estilos default no iOS/Android (como o azul do 'input[type="date"]') */
+input[type="date"],
+input[type="email"],
+input[type="text"],
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  color: black;
+}

@@ -26,7 +26,7 @@ export default function WhyChooseUs() {
         {/* Center image */}
         <div className="why‑choose‑us__image‑wrapper">
           <img
-            src="/why‑choose‑us‑house.png"
+            src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/why_choose_us_house.png?updatedAt=1767743409864"
             alt="Modern house illustration"
             className="why‑choose‑us__image"
           />

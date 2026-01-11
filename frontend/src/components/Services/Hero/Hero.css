@@ -1,29 +1,44 @@
+/* ===========================
+   BASE
+=========================== */
+
 .services-hero {
   position: relative;
   width: 100%;
-  height: 90vh;              /* deixa mais cheia e luxuosa */
-  background-image: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg');
-  background-size: cover;     /* AQUI está o segredo */
-  background-position: center;
-  background-repeat: no-repeat;
-  animation: zoomInOut 18s ease-in-out infinite;
+  height: 90vh;
   overflow: hidden;
 }
 
-/* animação de zoom */
-@keyframes zoomInOut {
-  0% {
-    background-size: 100%;
-  }
-  50% {
-    background-size: 108%;
-  }
-  100% {
-    background-size: 100%;
-  }
+/* ===========================
+   IMAGEM + ZOOM
+=========================== */
+
+.services-hero__image-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  animation: zoomInOut 18s ease-in-out infinite;
 }
 
-/* overlay escuro */
+.services-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+}
+
+/* Zoom desktop */
+@keyframes zoomInOut {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ===========================
+   OVERLAY
+=========================== */
+
 .services-hero__overlay {
   position: absolute;
   inset: 0;
@@ -31,7 +46,10 @@
   z-index: 1;
 }
 
-/* conteúdo sobre o overlay */
+/* ===========================
+   CONTEÚDO
+=========================== */
+
 .services-hero__content {
   position: absolute;
   inset: 0;
@@ -48,6 +66,10 @@
   font-size: 4rem;
   font-weight: 700;
 }
+
+/* ===========================
+   TEXTO INFERIOR
+=========================== */
 
 .services__bottom-text {
   position: absolute;
@@ -68,14 +90,22 @@
 }
 
 /* ===========================
-      MOBILE
-   =========================== */
-@media (max-width: 500px) {
+   📱 MOBILE (ZOOM VISÍVEL)
+=========================== */
 
+@media (max-width: 500px) {
   .services-hero {
     height: 85vh;
-    background-size: cover !important;        /* garante o preenchimento */
-    background-position: center center !important;
+  }
+
+  .services-hero__image-wrapper {
+    animation: zoomInOutMobile 18s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.09); } /* 🔥 perceptível no mobile */
+    100% { transform: scale(1); }
   }
 
   .services-hero__title {
@@ -88,15 +118,13 @@
   }
 }
 
-
 /* ===========================
-      TELAS GIGANTES
-   =========================== */
-@media (min-width: 1500px) {
+   🖥 TELAS GIGANTES
+=========================== */
 
+@media (min-width: 1500px) {
   .services-hero {
     height: 75vh;
-    background-position: center top;      /* deixa mais arquitetônico e luxuoso */
   }
 
   .services-hero__title {

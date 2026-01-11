@@ -14,19 +14,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  transform: scale(1);
+  overflow: hidden;
+  z-index: 1;
 }
 
 .hero__slide--active {
   opacity: 1;
+}
+
+/* Imagem com zoom */
+.hero__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero__background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   animation: zoomInOut 9s ease-in-out infinite;
 }
 
+/* Zoom suave só na imagem */
 @keyframes zoomInOut {
   0% { transform: scale(1); }
   50% { transform: scale(1.03); }
@@ -45,7 +61,7 @@
   z-index: 1;
 }
 
-/* Conteúdo */
+/* Conteúdo sobre a imagem */
 .hero__overlay {
   position: absolute;
   top: 50%;
@@ -107,17 +123,14 @@
   transition: all 0.3s ease;
 }
 
-/* Top-Right */
 .corner--top-right { top: 0; right: 0; }
 .corner--top-right::before { width: 20px; height: 2px; top: 0; right: 0; }
 .corner--top-right::after { width: 2px; height: 20px; top: 0; right: 0; }
 
-/* Bottom-Left */
 .corner--bottom-left { bottom: 0; left: 0; }
 .corner--bottom-left::before { width: 20px; height: 2px; bottom: 0; left: 0; }
 .corner--bottom-left::after { width: 2px; height: 20px; bottom: 0; left: 0; }
 
-/* Hover CTA */
 .hero__cta:hover .corner--top-right::before,
 .hero__cta:hover .corner--bottom-left::before {
   width: 100%;
@@ -175,9 +188,17 @@
   .hero,
   .hero__slide {
     height: 100vh;
-    height: 100svh; /* garante fullscreen real */
-    background-size: cover !important;
-    background-position: center !important;
+    height: 100svh;
+  }
+
+  .hero__background-image {
+    animation: zoomInOutMobile 10s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
   }
 
   .hero__arrow,
@@ -186,15 +207,15 @@
   }
 
   .hero__title {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
   }
 
   .hero__subtitle {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .hero__cta {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -206,8 +227,6 @@
   .hero__slide {
     height: 100vh;
     height: 100svh;
-    background-size: cover !important;
-    background-position: center !important;
   }
 
   .hero__title {
@@ -215,7 +234,7 @@
   }
 
   .hero__subtitle {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -226,9 +245,6 @@
   .hero,
   .hero__slide {
     height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat !important; /* pedido */
   }
 
   .hero__title {
@@ -239,3 +255,4 @@
     font-size: 2rem;
   }
 }
+

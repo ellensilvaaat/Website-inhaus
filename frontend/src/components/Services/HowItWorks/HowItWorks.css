@@ -159,6 +159,7 @@
 
   .how-it-works__number {
     font-size: 2rem;
+    margin-top: 0;
   }
 
   .how-it-works__step-title {

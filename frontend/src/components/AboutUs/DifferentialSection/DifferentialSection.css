@@ -103,7 +103,7 @@
 @media (max-width: 1024px) {
   .why‑choose‑us{
     overflow: hidden;
-    padding: 2rem 4rem 10rem;
+    padding: 2rem 4rem 2rem;
   }
 
   .why‑choose‑us__content {
@@ -148,5 +148,6 @@
   .trusted-partners__text{
     margin-top: 0;
   }
+
 }
 

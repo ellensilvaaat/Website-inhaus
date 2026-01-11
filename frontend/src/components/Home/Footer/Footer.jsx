@@ -6,9 +6,7 @@ import './Footer.css';
 export default function Footer() {
   return (
     <footer className="footer">
-      <img src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/footer-bg.png" alt="Footer Background" className="footer__image" />
-
-      <div className="footer__overlay">
+      <div className="footer__content">
         <div className="footer__top">
           <div className="footer__social">
             <a href="https://www.linkedin.com/company/inhausliving" target="_blank" rel="noopener noreferrer" className="footer__social-icon" aria-label="LinkedIn">
@@ -47,6 +45,8 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} INHAUS LIVING. ALL RIGHTS RESERVED.</span>
         </div>
       </div>
+
+      <img src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Frame%2043.png" alt="Footer Background" className="footer__image" />
     </footer>
   );
 }

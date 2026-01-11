@@ -144,7 +144,7 @@
 /* ===================================
    MOBILE — navbar fechado LIMPO
 =================================== */
-@media (max-width: 500px) {
+@media (max-width: 600px) {
 
   /* Remove o fundo no mobile */
   .navbar {

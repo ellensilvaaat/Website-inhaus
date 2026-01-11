@@ -122,4 +122,7 @@
     width: fit-content;   /* deixa só o espaço necessário */
     margin: 40px auto 0 auto;
   }
+  .ready-section {
+    padding: 0 2rem 3rem;
+  }
 }

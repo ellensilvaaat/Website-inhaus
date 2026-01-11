@@ -177,8 +177,8 @@
   }
 
   .card-section__btnn {
-    bottom: 2px;
-    right: 55px;
+     bottom: -1%;
+     right: 12%;
   }
 
   .project-page__page-btn{

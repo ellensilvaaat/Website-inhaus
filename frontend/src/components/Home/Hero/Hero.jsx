@@ -40,9 +40,7 @@ export default function Hero() {
   useEffect(() => {
     resetTimeout()
     timeoutRef.current = setTimeout(() => {
-      setCurrent((prev) =>
-        prev === slides.length - 1 ? 0 : prev + 1
-      )
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
     }, AUTO_CHANGE_DELAY)
 
     return () => resetTimeout()
@@ -61,27 +59,35 @@ export default function Hero() {
   return (
     <section className="hero">
       {slides.map((slide, idx) => (
-        <div
-          key={idx}
-          className={`hero__slide ${
-            idx === current ? 'hero__slide--active' : ''
-          }`}
-          style={{ backgroundImage: `url(${slide.image})` }}
-        >
-          <div className="hero__overlay">
-            <h1 className="hero__title">We Transform Houses into Homes</h1>
-            <p className="hero__subtitle">{slide.subtitle}</p>
+  <div
+    key={idx}
+    className={`hero__slide ${
+      idx === current ? 'hero__slide--active' : ''
+    }`}
+  >
+    <div className="hero__image-wrapper">
+      <img
+        src={slide.image}
+        alt={`Hero Slide ${idx + 1}`}
+        className="hero__background-image"
+        loading={idx === 0 ? 'eager' : 'lazy'}
+        fetchpriority={idx === 0 ? 'high' : 'auto'}
+        decoding="async"
+      />
+    </div>
 
-            {/* 🔗 CTA LINKADO */}
-            <Link to="/contact" className="hero__cta">
-              Start Your Renovation Journey
-              <span className="corner corner--top-right"></span>
-              <span className="corner corner--bottom-left"></span>
-            </Link>
-          </div>
-        </div>
-      ))}
+    <div className="hero__overlay">
+      <h1 className="hero__title">We Transform Houses into Homes</h1>
+      <p className="hero__subtitle">{slide.subtitle}</p>
 
+      <Link to="/contact" className="hero__cta">
+        Start Your Renovation Journey
+        <span className="corner corner--top-right"></span>
+        <span className="corner corner--bottom-left"></span>
+      </Link>
+    </div>
+  </div>
+))}
       <div className="hero__arrows">
         <button
           className="hero__arrow hero__arrow--left"

@@ -149,12 +149,27 @@
 /* MOBILE */
 @media (max-width: 501px) {
   .feedback-section__carousel {
-    padding: 0 2rem;
+    padding: 0 1.5rem;
   }
 
   .feedback-section__subtitle {
     font-size: 1.6rem;
     max-width: 85%;
     margin: 0 auto 2.5rem auto;
+  }
+  .feedback-section__filter {
+    margin-bottom: 0;
+    text-align: center;
+    margin-right: 0;
+}
+   .feedback-section__track {
+    width: 80svw;
+    gap: 0.8rem;
+}
+    .feedback-card{
+    width: 250px;
+}
+  .feedback-section__add-btn{
+    margin-top: 0;
   }
 }

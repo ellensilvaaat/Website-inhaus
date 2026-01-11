@@ -3,21 +3,21 @@ import { motion } from 'framer-motion';
 import './TrustedPartners.css';
 
 const logos = [
-  { id: 1, src: '/Blaupunkt.jpg', alt: 'Blaupunkt' },
-  { id: 2, src: '/geberit.png', alt: 'Geberit' },
-  { id: 3, src: '/Laminex.jpg', alt: 'Laminex' },
-  { id: 4, src: '/Nikpol.webp', alt: 'Nikpol' },
-  { id: 5, src: '/everstone.jpg', alt: 'Everstone' },
-  { id: 6, src: '/otti.png', alt: 'Otti Australia' },
-  { id: 7, src: '/nero.svg', alt: 'Nero' },
-  { id: 8, src: '/caesarstone.png', alt: 'Caesarstone' },
-  { id: 9, src: '/meir.png', alt: 'Meir' },
-  { id: 10, src: '/Laminex.jpg', alt: 'Laminex' },
-  { id: 11, src: '/nero.svg', alt: 'Nero' },
-  { id: 12, src: '/Nikpol.webp', alt: 'Nikpol' },
-  { id: 13, src: '/Blaupunkt.jpg', alt: 'Blaupunkt' },
-  { id: 14, src: '/everstone.jpg', alt: 'Everstone' },
-  { id: 15, src: '/meir.png', alt: 'Meir' }
+  { id: 1, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/otti.png?updatedAt=1767743408425', alt: 'Blaupunkt' },
+  { id: 2, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/geberit.png?updatedAt=1767743403761', alt: 'Geberit' },
+  { id: 3, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Laminex.jpg?updatedAt=1767743405062', alt: 'Laminex' },
+  { id: 4, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Nikpol.webp?updatedAt=1767743403969', alt: 'Nikpol' },
+  { id: 5, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/everstone.jpg?updatedAt=1767743403547', alt: 'Everstone' },
+  { id: 6, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/otti.png?updatedAt=1767743408425', alt: 'Otti Australia' },
+  { id: 7, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/nero.svg?updatedAt=1767743403454', alt: 'Nero' },
+  { id: 8, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/caesarstone.png?updatedAt=1767743404236', alt: 'Caesarstone' },
+  { id: 9, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/meir.png?updatedAt=1767743404270', alt: 'Meir' },
+  { id: 10, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Laminex.jpg?updatedAt=1767743405062', alt: 'Laminex' },
+  { id: 11, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/nero.svg?updatedAt=1767743403454', alt: 'Nero' },
+  { id: 12, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Nikpol.webp?updatedAt=1767743403969', alt: 'Nikpol' },
+  { id: 13, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/otti.png?updatedAt=1767743408425', alt: 'Blaupunkt' },
+  { id: 14, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/everstone.jpg?updatedAt=1767743403547', alt: 'Everstone' },
+  { id: 15, src: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/meir.png?updatedAt=1767743404270', alt: 'Meir' }
 ];
 
 const containerVariants = {
