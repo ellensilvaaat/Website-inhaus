@@ -2,24 +2,26 @@ import { supabase } from '../services/supabase.service.js';
 import { sendConfirmationEmail } from '../services/email.service.js';
 
 export const submitContactForm = async (req, res) => {
-  console.log('🔥 req.body recebido:', req.body);
-  try {
+ try {
+    console.log('🔥 BODY RECEBIDO:', req.body);
+
     const data = req.body;
 
     if (
-  !data.full_name ||
-  !data.email ||
-  !data.address ||
-  !data.mobile ||
-  !data.budget ||
-  !data.service ||
-  !data.installation_date
-) {
-  return res.status(400).json({
-    success: false,
-    message: 'Missing required fields'
-  });
-}
+      !data.fullName ||
+      !data.email ||
+      !data.address ||
+      !data.mobile ||
+      !data.budget ||
+      !data.service ||
+      !data.installationDate
+    ) {
+      console.warn('⚠️ Dados incompletos:', data);
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields'
+      });
+    }
 
 
     const payload = {
