@@ -5,7 +5,6 @@ export const submitContactForm = async (req, res) => {
   try {
     const data = req.body;
 
-    // Validação básica dos campos obrigatórios
     if (
       !data.fullName ||
       !data.email ||
@@ -13,9 +12,7 @@ export const submitContactForm = async (req, res) => {
       !data.mobile ||
       !data.budget ||
       !data.service ||
-      !data.installationDate ||
-      !data.subject ||
-      !data.message
+      !data.installationDate
     ) {
       return res.status(400).json({
         success: false,
@@ -23,22 +20,19 @@ export const submitContactForm = async (req, res) => {
       });
     }
 
-const payload = {
-  full_name: data.fullName,
-  email: data.email,
-  address: data.address,
-  mobile: data.mobile,
-  budget: data.budget,
-  service: data.service,
-  installation_date: data.installationDate,
-  found_us: data.foundUs || null,
-  subject: data.subject || null,
-  message: data.message || null,
-  status: 'new'
-};
-
-
-    console.log('📩 Contact payload:', payload);
+    const payload = {
+      full_name: data.fullName,
+      email: data.email,
+      address: data.address,
+      mobile: data.mobile,
+      budget: data.budget,
+      service: data.service,
+      installation_date: data.installationDate,
+      found_us: data.foundUs || null,
+      subject: data.subject || null,
+      message: data.message || null,
+      status: 'new'
+    };
 
     const { data: result, error } = await supabase
       .from('contact_forms')
@@ -74,4 +68,3 @@ const payload = {
     });
   }
 };
-

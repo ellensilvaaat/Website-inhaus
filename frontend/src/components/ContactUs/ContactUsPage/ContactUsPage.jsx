@@ -4,23 +4,19 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ContactUsPage() {
   const navigate = useNavigate();
-  const {
-  fullName,
-  email,
-  address,
-  mobile,
-  budget,
-  service,
-  installationDate,
-  foundUs,
-  subject,
-  message,
-} = req.body;
 
-if (!data.fullName || !data.email || !data.address || !data.mobile || !data.budget || !data.service || !data.installationDate) {
-  return res.status(400).json({ success: false, message: 'Missing required fields' });
-}
-
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    address: '',
+    mobile: '',
+    budget: '',
+    service: '',
+    installationDate: '',
+    foundUs: '',
+    subject: '',
+    message: '',
+  });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -57,13 +53,25 @@ if (!data.fullName || !data.email || !data.address || !data.mobile || !data.budg
     e.preventDefault();
 
     const apiBase = import.meta.env.VITE_API_BASE;
-    console.log("🌐 API BASE:", apiBase); // VERIFICAR no console
+    const payload = {
+      full_name: formData.fullName,
+      email: formData.email,
+      address: formData.address,
+      mobile: formData.mobile,
+      budget: formData.budget,
+      service: formData.service,
+      installation_date: formData.installationDate,
+      found_us: formData.foundUs || null,
+      subject: formData.subject || null,
+      message: formData.message || null,
+      status: 'new',
+    };
 
     try {
       const res = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
