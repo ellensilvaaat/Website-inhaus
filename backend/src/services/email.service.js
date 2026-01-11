@@ -3,17 +3,32 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// 🧩 Configuração do Gmail SMTP
+// 🔍 Debug de ambiente (remova depois)
+console.log('📨 EMAIL_USER:', process.env.EMAIL_USER ? 'OK' : 'MISSING');
+console.log('📨 EMAIL_PASS:', process.env.EMAIL_PASS ? 'OK' : 'MISSING');
+
+// 🚀 Transporter SMTP Gmail
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASS, // senha de app
   },
+});
+
+// 🧪 Testa conexão SMTP ao subir o servidor
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('❌ SMTP connection failed:', error);
+  } else {
+    console.log('✅ SMTP server ready to send emails');
+  }
 });
 
 // 📨 Função para enviar e-mails
 export const sendConfirmationEmail = async (formData) => {
+  console.log('📧 Iniciando envio de emails para:', formData.email);
+
   const {
     fullName,
     email,
@@ -24,7 +39,7 @@ export const sendConfirmationEmail = async (formData) => {
     installationDate,
     subject,
     message
-  } = formData;
+   } = formData;
 
   // 📩 Email para o time Inhaus
   const adminMail = {
