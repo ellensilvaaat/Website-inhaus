@@ -6,19 +6,20 @@ export const submitContactForm = async (req, res) => {
     const data = req.body;
 
     if (
-      !data.fullName ||
-      !data.email ||
-      !data.address ||
-      !data.mobile ||
-      !data.budget ||
-      !data.service ||
-      !data.installationDate
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: 'Missing required fields'
-      });
-    }
+  !data.full_name ||
+  !data.email ||
+  !data.address ||
+  !data.mobile ||
+  !data.budget ||
+  !data.service ||
+  !data.installation_date
+) {
+  return res.status(400).json({
+    success: false,
+    message: 'Missing required fields'
+  });
+}
+
 
     const payload = {
       full_name: data.fullName,
