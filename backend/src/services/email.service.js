@@ -1,31 +1,15 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 // 🔍 Debug de ambiente (remova depois)
-console.log('📨 EMAIL_USER:', process.env.EMAIL_USER ? 'OK' : 'MISSING');
-console.log('📨 EMAIL_PASS:', process.env.EMAIL_PASS ? 'OK' : 'MISSING');
+console.log('📨 RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'OK' : 'MISSING');
 
-// 🚀 Transporter SMTP Gmail
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // senha de app
-  },
-});
+// 🚀 Instancia o cliente Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// 🧪 Testa conexão SMTP ao subir o servidor
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ SMTP connection failed:', error);
-  } else {
-    console.log('✅ SMTP server ready to send emails');
-  }
-});
-
-// 📨 Função para enviar e-mails
+// 📨 Função para enviar e-mails (igual à estrutura anterior)
 export const sendConfirmationEmail = async (formData) => {
   console.log('📧 Iniciando envio de emails para:', formData.email);
 
@@ -38,13 +22,13 @@ export const sendConfirmationEmail = async (formData) => {
     service,
     installationDate,
     subject,
-    message
-   } = formData;
+    message,
+  } = formData;
 
   // 📩 Email para o time Inhaus
   const adminMail = {
-    from: `"Inhaus Living Website" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+    from: process.env.RESEND_SENDER || 'Inhaus Living <info@inhausliving.com.au>',
+    to: process.env.EMAIL_TO || email,
     subject: `📬 New Contact Submission: ${fullName}`,
     html: `
       <h2>New Contact Form Submission</h2>
@@ -65,7 +49,7 @@ export const sendConfirmationEmail = async (formData) => {
 
   // 💌 Email de confirmação ao usuário
   const confirmationMail = {
-    from: `"Inhaus Living" <info@inhausliving.com.au>`,
+    from: process.env.RESEND_SENDER || 'Inhaus Living <info@inhausliving.com.au>',
     to: email,
     subject: 'We received your request!',
     html: `
@@ -109,10 +93,15 @@ export const sendConfirmationEmail = async (formData) => {
   };
 
   try {
-    await transporter.sendMail(adminMail);
-    await transporter.sendMail(confirmationMail);
-    console.log('📧 Polished Gmail emails sent successfully!');
+    // Envia para admin
+    await resend.emails.send(adminMail);
+
+    // Envia para cliente
+    await resend.emails.send(confirmationMail);
+
+    console.log('📧 Polished Resend emails sent successfully!');
   } catch (error) {
-    console.error('⚠️ Erro ao enviar emails:', error);
+    console.error('⚠️ Erro ao enviar emails com Resend:', error);
   }
 };
+
