@@ -56,63 +56,76 @@ export default function Hero() {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
   }
 
+  useEffect(() => {
+    slides.forEach(slide => {
+      const img = new Image()
+      img.src = slide.image
+    })
+  }, [])
+
   return (
-    <section className="hero">
-      {slides.map((slide, idx) => (
-  <div
-    key={idx}
-    className={`hero__slide ${
-      idx === current ? 'hero__slide--active' : ''
-    }`}
-  >
-    <div className="hero__image-wrapper">
-      <img
-        src={slide.image}
-        alt={`Hero Slide ${idx + 1}`}
-        className="hero__background-image"
-        loading={idx === 0 ? 'eager' : 'lazy'}
-        fetchpriority={idx === 0 ? 'high' : 'auto'}
-        decoding="async"
-      />
-    </div>
+    <>
+      {slides.map((slide, i) => (
+        <link
+          key={i}
+          rel="preload"
+          as="image"
+          href={slide.image}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+        />
+      ))}
 
-    <div className="hero__overlay">
-      <h1 className="hero__title">We Transform Houses into Homes</h1>
-      <p className="hero__subtitle">{slide.subtitle}</p>
+      <section className="hero">
+        {slides.map((slide, idx) => (
+          <div
+            key={idx}
+            className={`hero__slide ${idx === current ? 'hero__slide--active' : ''}`}
+          >
+            <div
+              className="hero__background"
+              style={{
+                backgroundImage: `url('${slide.image}')`,
+              }}
+            ></div>
 
-      <Link to="/contact" className="hero__cta">
-        Start Your Renovation Journey
-        <span className="corner corner--top-right"></span>
-        <span className="corner corner--bottom-left"></span>
-      </Link>
-    </div>
-  </div>
-))}
-      <div className="hero__arrows">
-        <button
-          className="hero__arrow hero__arrow--left"
-          onClick={prevSlide}
-          aria-label="Previous slide"
-        >
-          ‹
-        </button>
-        <button
-          className="hero__arrow hero__arrow--right"
-          onClick={nextSlide}
-          aria-label="Next slide"
-        >
-          ›
-        </button>
-      </div>
+            <div className="hero__overlay">
+              <h1 className="hero__title">We Transform Houses into Homes</h1>
+              <p className="hero__subtitle">{slide.subtitle}</p>
 
-      <div className="hero__bottom-text">
-        <span>Design</span>
-        <span className="hero__separator">|</span>
-        <span>Renovate</span>
-        <span className="hero__separator">|</span>
-        <span className="hero__highlight">Build</span>
-      </div>
-    </section>
+              <Link to="/contact" className="hero__cta">
+                Start Your Renovation Journey
+                <span className="corner corner--top-right"></span>
+                <span className="corner corner--bottom-left"></span>
+              </Link>
+            </div>
+          </div>
+        ))}
+
+        <div className="hero__arrows">
+          <button
+            className="hero__arrow hero__arrow--left"
+            onClick={prevSlide}
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+          <button
+            className="hero__arrow hero__arrow--right"
+            onClick={nextSlide}
+            aria-label="Next slide"
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="hero__bottom-text">
+          <span>Design</span>
+          <span className="hero__separator">|</span>
+          <span>Renovate</span>
+          <span className="hero__separator">|</span>
+          <span className="hero__highlight">Build</span>
+        </div>
+      </section>
+    </>
   )
 }
-

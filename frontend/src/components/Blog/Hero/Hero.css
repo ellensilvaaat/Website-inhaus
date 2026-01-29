@@ -5,21 +5,14 @@
   overflow: hidden;
 }
 
-/* Novo wrapper com zoom */
-.blog-hero__image-wrapper {
+.blog-hero__background {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   animation: zoomInOut 17s ease-in-out infinite;
-}
-
-/* Imagem em si */
-.blog-hero__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1);
+  z-index: 0;
 }
 
 /* Zoom suave só no wrapper */

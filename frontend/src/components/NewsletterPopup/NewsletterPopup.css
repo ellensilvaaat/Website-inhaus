@@ -149,10 +149,11 @@
 }
 
 .thank-you-message h2 {
-  font-size: 3rem;
-  color: #fff;
+  font-size: 3.5rem;
+  color: #F27024;
   font-weight: 700;
   line-height: 1.2;
+  font-family: var(--font-primary);
 }
 
 .thank-you-message p {
@@ -173,4 +174,104 @@
 
 .fade-in {
   animation: fadeIn 0.5s ease forwards;
+}
+
+/* ========================
+📱 MOBILE (ATÉ 500PX)
+======================== */
+@media (max-width: 500px) {
+  .newsletter-popup {
+    width: 92%;
+    padding: 3vh 5vw 3vh;
+    min-height: 65vh;
+    border-radius: 16px;
+  }
+
+  .newsletter-popup h2 {
+    font-size: 2.2rem;
+  }
+
+  .newsletter-popup p {
+    font-size: 1.3rem;
+  }
+
+  .popup-form {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .popup-form input {
+    font-size: 1.2rem;
+    padding: 10px 14px;
+  }
+
+  .popup-form button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+
+  .popup-disclaimer,
+  .newsletter-popup small {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 2.2rem;
+    top: 1vh;
+    right: 3vw;
+  }
+
+  .thank-you-message h2 {
+    font-size: 2.5rem;
+  }
+
+  .thank-you-message p {
+    font-size: 1.3rem;
+  }
+}
+
+/* ========================
+🖥 TELAS GIGANTES (1600PX+)
+======================== */
+@media (min-width: 1600px) {
+  .newsletter-popup {
+    max-width: 800px;
+    padding: 5vh 5vw;
+    min-height: 55vh;
+  }
+
+  .newsletter-popup h2 {
+    font-size: 3.4rem;
+  }
+
+  .newsletter-popup p {
+    font-size: 1.8rem;
+  }
+
+  .popup-form {
+    width: 65%;
+  }
+
+  .popup-form input {
+    font-size: 1.6rem;
+    padding: 14px 20px;
+  }
+
+  .popup-form button {
+    font-size: 1.4rem;
+    padding: 14px 30px;
+  }
+
+  .popup-disclaimer,
+  .newsletter-popup small {
+    font-size: 1.3rem;
+  }
+
+  .thank-you-message h2 {
+    font-size: 4rem;
+  }
+
+  .thank-you-message p {
+    font-size: 1.8rem;
+  }
 }

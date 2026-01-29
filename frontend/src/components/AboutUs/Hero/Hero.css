@@ -5,21 +5,16 @@
   overflow: hidden;
 }
 
-/* 📸 Wrapper para zoom isolado */
-.about-hero__image-wrapper {
+.about-hero__background {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: zoomInOut 20s ease-in-out infinite;
   z-index: 0;
 }
 
-/* 📸 Imagem com zoom animado */
-.about-hero__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: zoomInOut 20s ease-in-out infinite;
-}
 
 /* ✅ Zoom suave e elegante */
 @keyframes zoomInOut {

@@ -1,38 +1,45 @@
 import React from 'react';
 import './Hero.css';
 
+const imageUrl = 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?updatedAt=1767744534201';
+
 export default function Hero() {
   return (
-    <section className="projects-hero">
-      {/* IMAGEM OTIMIZADA */}
-      <div className="projects-hero__image-wrapper">
-        <img
-          src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?updatedAt=1767744534201"
-          alt="Projects Hero Background"
-          className="projects-hero__image"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
+    <>
+      {/* Preload otimizado */}
+      <link
+        rel="preload"
+        as="image"
+        href={imageUrl}
+        fetchpriority="high"
+      />
+
+      <section className="projects-hero">
+        {/* Fundo com zoom */}
+        <div
+          className="projects-hero__background"
+          style={{ backgroundImage: `url('${imageUrl}')` }}
         />
-      </div>
 
-      {/* OVERLAY */}
-      <div className="projects-hero__overlay" />
+        {/* Overlay escura */}
+        <div className="projects-hero__overlay" />
 
-      {/* CONTEÚDO */}
-      <div className="projects-hero__content">
-        <h1 className="projects-hero__title">Projects</h1>
-      </div>
+        {/* Conteúdo */}
+        <div className="projects-hero__content">
+          <h1 className="projects-hero__title">Projects</h1>
+        </div>
 
-      {/* TEXTO INFERIOR */}
-      <div className="projects__bottom-text">
-        <span>Design</span>
-        <span className="projects__separator">|</span>
-        <span>Renovate</span>
-        <span className="projects__separator">|</span>
-        <span className="projects__highlight">Build</span>
-      </div>
-    </section>
+        {/* Texto inferior */}
+        <div className="projects__bottom-text">
+          <span>Design</span>
+          <span className="projects__separator">|</span>
+          <span>Renovate</span>
+          <span className="projects__separator">|</span>
+          <span className="projects__highlight">Build</span>
+        </div>
+      </section>
+    </>
   );
 }
+
 
