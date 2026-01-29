@@ -1,15 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 import contactRoutes from './routes/contact.routes.js';
 import feedbackRoutes from './routes/feedback.routes.js';
 import commentsRoutes from './routes/comments.routes.js';
+import newsletterRoutes from './routes/newsletter.routes.js'; // ✅ Nova rota
 
 dotenv.config();
 
 const app = express();
 
-// ✅ CORS configurado corretamente (Render + Vercel + local dev)
+// CORS liberado para dev/prod
 app.use(cors({
   origin: process.env.CORS_ORIGIN || '*',
   methods: ['GET', 'POST', 'DELETE'],
@@ -18,19 +20,16 @@ app.use(cors({
 
 app.use(express.json());
 
-// Rotas principais
+// Rotas
 app.use('/api/contact', contactRoutes);
 app.use('/api/feedbacks', feedbackRoutes);
 app.use('/api/comments', commentsRoutes);
+app.use('/api/newsletter', newsletterRoutes); // ✅ Nova rota
 
-// Rota raiz opcional (teste rápido)
+// Health check
 app.get('/', (req, res) => {
   res.send('✅ Inhaus Living API is running fine.');
 });
 
-// Porta padrão
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
-
-

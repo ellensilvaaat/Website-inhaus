@@ -1,176 +1,232 @@
 .footer {
-  position: relative;
-  width: 100%;
-
-  overflow: hidden;
-  margin-top: 80px;
+  background: linear-gradient(to top, #000000, #1a1a1a);
+  color: #fff;
+  padding: 30px 40px 20px;
+  font-family: var(--font-primary);
 }
 
-.footer__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  position: relative;
-}
-
-.footer__content {
-  position: relative;
-  padding: 0 4rem 0 6rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: black;
-  width: 100%;
-}
-
-
-.footer__top {
+.footer__columns {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
-.footer__social {
-  display: flex;
-  gap: 1.5rem;
-  margin-left: 50px;
+.footer__column {
+  flex: 1;
+  min-width: 250px;
 }
 
-.footer__social-icon {
-  font-size: 2rem;
-  color: black;
-  transition: color 0.3s ease;
-  margin-top: 35px;
+.footer__typewriter-text {
+  font-size: 4.5rem;
+  font-weight: 200;
+  margin-bottom: 20px;
+  color: #fff;
+  font-family: var(--font-primary);
+  line-height: 1.1;
 }
 
-.footer__social-icon:hover {
-  color: var(--color-accent);
+.footer__we {
+  font-weight: 600;
+  font-size: 5rem;
 }
 
-.footer__nav {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  margin-top: 40px;
+.footer__animated-word {
+  display: inline-block;
+  color: #fff;
+  font-weight: 400;
+  font-family: var(--font-primary);
+}
+
+.footer__logo {
+  margin-left: 5px;
+}
+
+.footer__nav-title {
+  font-weight: 100;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  color: #fff;
+  font-family: var(--font-primary) !important;
 }
 
 .footer__link {
-  font-family: var(--font-primary);
-  font-size: 1.6rem;
-  color: black;
+  display: block;
+  margin: 8px 0;
+  color: #fff;
   text-decoration: none;
+  font-size: 1.5rem;
   transition: color 0.3s ease;
+  font-family: var(--font-primary);
 }
 
 .footer__link:hover {
   color: var(--color-accent);
 }
 
-.footer__contact-info {
-  text-align: left;
-  font-family: var(--font-primary);
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: black;
-}
-
 .footer__contact-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+  font-weight: 100;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-family: var(--font-primary);
 }
 
 .footer__contact-phone {
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.footer__contact-email {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.footer__address-title {
+  margin-top: 30px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.footer__address{
+  font-size: 1.5rem;
+}
+
+.footer__social{
+ padding-top: 2rem;
+}
+
+.footer__social a {
+  margin-right: 15px;
+  font-size: 2.5rem;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.footer__social a:hover {
+  color: var(--color-accent);
 }
 
 .footer__bottom {
-  position: absolute;
-  z-index: 2;
-  font-family: var(--font-primary);
+  text-align: center;
+  margin-top: 50px;
   font-size: 1rem;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  top: 470%;
-  right: 85%;
+  opacity: 0.7;
+  font-family: var(--font-primary);
 }
 
+/* ==================== RESPONSIVE ==================== */
 
-/* Responsividade */
-@media (max-width: 1024px) {
-  .footer__top {
+/* ——— CELULAR ATÉ 450px ——— */
+@media (max-width: 450px) {
+  .footer {
+    padding: 40px 20px 20px;
+  }
+
+  .footer__columns {
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 0 2rem;
-  }
-  .footer__bottom {
-    top: 310%;
-    right: 46%;
+    gap: 20px;
   }
 
-  .footer__contact-info {
-    text-align: center;
-  }
-}
-
-@media (max-width: 600px) {
-
-  /* esconder tudo exceto ícones sociais */
-  .footer__nav,
-  .footer__contact-info {
-    display: none !important;
+  /* Remove logo e quick links no celular */
+  .footer__logo,
+  .footer__nav {
+    display: none;
   }
 
-  /* centralizar ícones no mobile */
-  .footer__social {
-    margin: auto;
+  .footer__typewriter-text {
+    font-size: 2.8rem;
   }
 
-  /* ícones mais bonitos no mobile */
-  .footer__social-icon {
-    font-size: 2.6rem; /* maior e mais moderno */
-    margin-top: 0;
-  }
-
-  /* subir overlay para não ficar colado na imagem */
-  .footer__overlay {
-    padding: 0;
-  }
-}
-
-@media (min-width: 1500px) {
-
-  /* ícones maiores */
-  .footer__social-icon {
+  .footer__we {
     font-size: 3rem;
   }
 
-  /* spacing mais premium */
-  .footer__social {
-    gap: 2.5rem;
-    margin-left: 80px;
+  .footer__contact-title {
+    font-size: 1.8rem;
   }
 
-  /* textos mais fortes */
+  .footer__contact-phone,
+  .footer__contact-email,
+  .footer__address {
+    font-size: 1.4rem;
+  }
+
+  .footer__address-title{
+    font-size: 1.8rem;
+  }
+
+  .footer__social a {
+    font-size: 2.2rem;
+    margin-right: 12px;
+  }
+}
+
+/* ——— TABLET DE 451px ATE 768px ——— */
+@media (min-width: 451px) and (max-width: 768px) {
+  .footer {
+    padding: 50px 30px 30px;
+  }
+
+  .footer__columns {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer__typewriter-text {
+    font-size: 3.5rem;
+  }
+
+  .footer__we {
+    font-size: 4rem;
+  }
+
+  .footer__nav-title {
+    font-size: 1.6rem;
+  }
+
   .footer__link {
+    font-size: 1.4rem;
+  }
+
+  .footer__contact-phone,
+  .footer__contact-email,
+  .footer__address {
+    font-size: 1.5rem;
+  }
+
+  .footer__social a {
+    font-size: 2.3rem;
+  }
+}
+
+/* ——— TELAS GRANDES ACIMA DE 1400px ——— */
+@media (min-width: 1601px) {
+  .footer {
+    padding: 80px 100px 50px;
+  }
+
+  .footer__typewriter-text {
+    font-size: 5.5rem;
+  }
+
+  .footer__we {
+    font-size: 6rem;
+  }
+
+  .footer__nav-title {
     font-size: 2rem;
   }
 
-  .footer__contact-info {
-    font-size: 1.4rem;
-    line-height: 1.7;
+  .footer__link {
+    font-size: 1.7rem;
   }
 
-  .footer__bottom {
-    font-size: 1.3rem;
-    bottom: 2rem;
+  .footer__contact-phone,
+  .footer__contact-email,
+  .footer__address {
+    font-size: 1.7rem;
   }
 
-  .footer__overlay {
-    padding-top: 10rem;
-    padding-bottom: 6rem;
+  .footer__social a {
+    font-size: 3rem;
   }
 }

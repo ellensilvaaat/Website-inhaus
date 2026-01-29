@@ -9,11 +9,8 @@ export default function ReadySection() {
         <h2 className="ready-section__title">Ready to begin?</h2>
 
         <p className="ready-section__text">
-          Affordable luxury, thoughtfully built. Tell us how you live and what
-          matters most, we’ll guide you from first ideas to a finish that feels
-          unmistakably yours. Our Class 2 (NCC) licensed team aligns design,
-          documentation, and build with transparent scope, realistic timelines,
-          and selections you can see and touch in our showrooms.
+          Design that starts with how you live.
+          We take the time to understand what matters most to you, guiding your project from early concepts through to a refined, well-executed outcome. Our Class 2 (NCC) licensed team brings design, documentation and build together under one clear process, supported by transparent scopes, realistic timelines and carefully selected finishes available to view in our showrooms.
         </p>
 
         <div className="bntt">

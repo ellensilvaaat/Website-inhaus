@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore from 'swiper'
+import { Autoplay, Navigation } from 'swiper/modules'
+SwiperCore.use([Autoplay, Navigation])
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+import ProjectsMapImpact from '../ProjectsMapImpact/ProjectsMapImpact'
+
 import './ProjectsPage.css'
-import arrowIcon from '../../../assets/arrow.svg'
 import { projectsData } from '../../../content/projects'
 import ProjectsMap from '../../Map/ProjectsMap'
 
 
 const filters = ['All', 'Kitchen', 'Bathroom', 'Renovation', 'Full house', 'Building works']
 
-function getExcerpt(content, maxLength = 220) {
+function getExcerpt(content, maxLength = 160) {
   if (!content) return ''
-
   return (
     content
       .replace(/Homes \| Apartments[\s\S]*/i, '')
@@ -23,13 +31,11 @@ function getExcerpt(content, maxLength = 220) {
 
 function getProjectType(slug) {
   if (!slug) return 'Renovation'
-
   if (slug.includes('kitchen')) return 'Kitchen'
   if (slug.includes('bathroom')) return 'Bathroom'
   if (slug.includes('apartment')) return 'Renovation'
   if (slug.includes('full-home')) return 'Full house'
-  if (slug.includes('duplex')) return 'Building works'
-
+  if (slug.includes('extention')) return 'Building works'
   return 'Renovation'
 }
 
@@ -37,10 +43,8 @@ export default function ProjectsPage() {
   const [selectedFilter, setSelectedFilter] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
   const projectsPerPage = 5
-
   const { pathname } = useLocation()
 
-  // 🔥 GARANTE QUE ABRE NO TOPO / HERO
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [pathname])
@@ -61,7 +65,6 @@ export default function ProjectsPage() {
 
   return (
     <section className="project-page">
-      {/* HERO / TITLE */}
       <h2 className="project-page__title">Our Projects</h2>
 
       {/* FILTERS */}
@@ -86,32 +89,47 @@ export default function ProjectsPage() {
       <div className="project-page__list">
         {currentProjects.map((project) => (
           <div key={project.slug} className="projects-card">
+
+            {/* GALERIA */}
+            <div className="projects-card__image-wrapper">
+              <Swiper
+              modules={[Navigation]}
+              navigation
+              loop
+              slidesPerView={1}
+              className="project-gallery-swiper"
+              >
+              {(project.listGallery?.length
+              ? project.listGallery
+              : project.gallery?.length
+              ? project.gallery
+              : [project.heroImage]
+              ).map((img, index) => (
+              <SwiperSlide key={index}>
+              <img
+              src={img}
+              alt={`${project.title} ${index + 1}`}
+              className="project-cards__image"
+              loading="lazy"
+              />
+              </SwiperSlide>
+              ))}
+              </Swiper>
+            </div>
+
+            {/* TEXTO */}
             <div className="projects-card__text">
               <h3 className="projects-card__title">{project.title}</h3>
               <p className="projects-card__description">
                 {getExcerpt(project.content)}
               </p>
-            </div>
 
-            <div className="projects-card__image-wrapper">
-              <img
-                src={project.listCover}
-                onError={(e) => {
-                  e.currentTarget.src = project.heroImage
-                }}
-                alt={project.title}
-                className="project-cards__image"
-                loading="lazy"
-              />
-
-              <motion.div className="projects-card__btn-wrapper">
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="card-section__btnn"
-                >
-                  <img src={arrowIcon} alt="arrow" />
-                </Link>
-              </motion.div>
+              <Link
+                to={`/projects/${project.slug}`}
+                className="projects-card__read-more"
+              >
+                Read more
+              </Link>
             </div>
           </div>
         ))}
@@ -145,7 +163,13 @@ export default function ProjectsPage() {
           {'>'}
         </button>
       </div>
-      <ProjectsMap />
+
+      {/* MAP SECTION */}
+<div className="map-preview-section">
+  <h2 className="map-preview-title">See where Inhaus Living is present</h2>
+<ProjectsMapImpact />
+</div>
     </section>
   )
 }
+

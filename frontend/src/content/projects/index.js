@@ -13,8 +13,14 @@ import rosehill from './bathroom-and-kitchen-renovation-rosehill-street-redfern.
 import rosebay from './full-apartment-renovation-osullivan-st-rose-bay.json'
 import venetia from './venetia-street-sylvania.json'
 import woollahra from './wallaroy-crescent-woollahra.json'
+import paddington from './house-extension-paddington.json'
+import wollstonecraft from './river-road-townhouse.json'
+import Paddington from './dillon-street-residence.json'
 
 export const projectsData = [
+  Paddington,
+  wollstonecraft,
+  paddington,
   caringbah,
   paddington1,
   rosebay,
@@ -29,5 +35,4 @@ export const projectsData = [
   rosehill,
   venetia,
   churchPoint,
-  bellevue,
 ]

@@ -20,6 +20,7 @@
 }
 
 .project-carousel__container {
+  margin-left: 1rem;
   display: flex;
   gap: 1rem;
   overflow-x: auto;
@@ -125,9 +126,9 @@
 }
 
 .bnt {
-  margin: auto;
-  width: 20%;
-  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
 }
 
 .projects__cta:hover {
