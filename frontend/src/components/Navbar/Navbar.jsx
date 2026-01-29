@@ -29,7 +29,7 @@ export default function Navbar() {
       <header className="navbar">
         <div className="navbar__container">
           <img
-            src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/Logo%20(1).svg?updatedAt=1766897911487"
+            src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png"
             alt="Inhaus Living Logo"
             className="navbar__logo-img"
           />
