@@ -28,11 +28,14 @@ export default function Navbar() {
     <>
       <header className="navbar">
         <div className="navbar__container">
-          <img
-            src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png"
-            alt="Inhaus Living Logo"
-            className="navbar__logo-img"
-          />
+          <NavLink to="/" className="navbar__logo" aria-label="Home">
+  <img
+    src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png"
+    alt="Inhaus Living Logo"
+    className="navbar__logo-img"
+  />
+</NavLink>
+
 
           <nav className="navbar__nav">
             <ul className="navbar__list">

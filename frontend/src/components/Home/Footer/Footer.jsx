@@ -46,7 +46,6 @@ export default function Footer() {
         {/* Coluna 3: Contato + Redes Sociais */}
         <div className="footer__column footer__contact">
           <p className="footer__contact-title">Contact us</p>
-          <p className="footer__contact-phone">(02) 9662 3509</p>
           <p className="footer__contact-email">info@inhausliving.com.au</p>
           <p className="footer__address-title">Address</p>
           <p className="footer__address">Shop 10/2A Todman Ave, Kensington, NSW</p>

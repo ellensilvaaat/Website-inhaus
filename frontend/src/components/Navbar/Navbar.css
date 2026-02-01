@@ -156,7 +156,7 @@
 
   /* Logo menor */
   .navbar__logo-img {
-    height: 40px;
+    height: 25px;
   }
 
   /* Garantir que só apareça o hamburguer */
@@ -171,8 +171,8 @@
   }
 
   .navbar__hamburger span {
-    width: 28px;
-    height: 3px;
+    width: 25px;
+    height: 2px;
     background-color: white;
     border-radius: 4px;
   }

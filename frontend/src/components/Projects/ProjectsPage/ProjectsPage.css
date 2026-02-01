@@ -1,60 +1,105 @@
-.project-page { padding: 4rem 6rem 0; max-width: 1400px; margin: 0 auto; box-sizing: border-box; } 
-.project-page__title { font-family: var(--font-title); font-size: 3rem; margin-bottom: 2rem; text-align: center; } 
-.project-page__filters { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; } 
-.project-page__filter-btn { padding: 0.8rem 1.4rem; font-size: 1.2rem; font-family: var(--font-primary); border: 1px solid var(--color-accent); background: none; border-radius: 10px; color: var(--color-accent); cursor: pointer; transition: all 0.3s ease; } 
-.project-page__filter-btn.active, 
-.project-page__filter-btn:hover { background-color: var(--color-accent); color: white; } 
-.project-page__list { display: flex; flex-direction: column; gap: 2.5rem; } 
-.projects-card {
-  gap: 6rem;
-  padding-bottom: 2rem;
-  margin: auto;
-  padding-top: 5rem;
-
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(
-    to right,
-    #ffffff 0%,
-    #ffffff 8%,
-    var(--color-accent) 50%,
-    #ffffff 95%,
-    #ffffff 100%
-  );
-  border-image-slice: 1;
+.project-page {
+  padding: 4rem 6rem 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
+.project-page__title {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
 
-/* SWIPER CONFIG */
-/* Container do Swiper */
-.projects-card__image-wrapper .swiper {
-  max-width: 900px;
+.project-page__filters {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.project-page__filter-btn {
+  padding: 0.8rem 1.4rem;
+  font-size: 1.2rem;
+  font-family: var(--font-primary);
+  border: 1px solid var(--color-accent);
+  background: none;
+  border-radius: 10px;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-page__filter-btn.active,
+.project-page__filter-btn:hover {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.project-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* === CARD === */
+.projects-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* === GALERIA SWIPER === */
+.projects-card__image-wrapper {
   width: 100%;
-  height: 400px;
-  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 4.5 / 2;
+  position: relative;
+}
+
+.projects-card__image-wrapper .swiper {
+  width: 100%;
+  height: 100%;
   border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Slide individual (garante que ocupa tudo) */
 .projects-card__image-wrapper .swiper-slide {
   width: 100%;
   height: 100%;
+  display: flex;
 }
 
-/* Imagem dentro do slide */
 .project-cards__image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;        /* corta o excesso */
-  object-position: center;  /* mostra o fundo da imagem */
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  object-position: center 50%;
   display: block;
   border-radius: 10px;
 }
 
 
-/* TEXTO AO LADO */
+
+/* SWIPER NAV BUTTONS */
+.projects-card__image-wrapper .swiper-button-next,
+.projects-card__image-wrapper .swiper-button-prev {
+  color: white;
+}
+
+/* === TEXTO === */
 .projects-card__text {
   max-width: 900px;
+  padding: 0 1rem;
+  text-align: left;
 }
 
 .projects-card__title {
@@ -70,7 +115,7 @@
   line-height: 1.6;
 }
 
-/* READ MORE LINK */
+/* === LEIA MAIS === */
 .projects-card__read-more {
   display: inline-block;
   margin-top: 1rem;
@@ -90,29 +135,32 @@
   opacity: 0.7;
 }
 
-.project-page__pagination { display: flex; gap: 1rem; justify-content: center; margin-top: 3rem; } 
-.project-page__page-btn { border: none; background: none; font-family: var(--font-primary); font-size: 1.6rem; color: var(--color-accent); cursor: pointer; opacity: 0.6; transition: opacity 0.3s ease; } 
-.project-page__page-btn.active { opacity: 1; font-weight: bold; } 
-.project-page__cta { text-align: center; margin-top: 4rem; } 
+/* === PAGINAÇÃO === */
+.project-page__pagination {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
 
-/* ===== GALERIA ===== */ 
-.projects-card__image-wrapper .swiper-button-next, 
-.projects-card__image-wrapper .swiper-button-prev { color: white; } 
+.project-page__page-btn {
+  border: none;
+  background: none;
+  font-family: var(--font-primary);
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
 
-/* MOBILE */ @media (max-width: 1024px) { 
-.projects-card__read-more { margin-left: 0; } } 
-@media (max-width: 1024px) { 
-  .project-page { padding: 2rem 2rem; } 
-  .project-page__filters{ gap: 1rem; } 
-  .project-page__filter-btn{ font-size: 1.6rem; } 
-  .projects-card { flex-direction: column; align-items: flex-start; gap: 2rem; padding-top: 2rem; } 
-  .projects-card__title{ margin-left: 0; } 
-  .projects-card__image-wrapper { width: 100%; justify-content: center; } 
-  .card-section__btnn { bottom: -1%; right: 12%; } 
-  .project-page__page-btn{ font-size: 1.8rem; } 
-  .projects-card__description { max-width: 100%; margin-left: 0; } }
+.project-page__page-btn.active {
+  opacity: 1;
+  font-weight: bold;
+}
 
-  .map-preview-section {
+/* === MAPA === */
+.map-preview-section {
   padding: 5rem 2rem 3rem;
   text-align: center;
 }
@@ -128,4 +176,72 @@
   max-width: 900px;
   margin: auto;
   display: block;
+}
+
+/* ============================
+   === RESPONSIVO (até 500px) ===
+============================ */
+@media (max-width: 500px) {
+  .project-page {
+    padding: 2rem 1.5rem;
+  }
+
+  .projects-card {
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  .projects-card__image-wrapper .swiper {
+    height: 250px;
+  }
+
+  .project-cards__image {
+    height: 250px;
+  }
+
+  .projects-card__title {
+    font-size: 2rem;
+  }
+
+  .projects-card__description {
+    font-size: 1.4rem;
+  }
+
+  .projects-card__read-more {
+    font-size: 1.3rem;
+  }
+
+  .project-page__filter-btn {
+    font-size: 1.1rem;
+  }
+}
+
+/* ================================
+   === TELAS MUITO GRANDES (1600+) ===
+================================ */
+@media (min-width: 1600px) {
+  .project-page {
+    max-width: 1600px;
+    padding: 6rem 10rem 0;
+  }
+
+  .projects-card__image-wrapper .swiper {
+    height: 500px;
+  }
+
+  .project-cards__image {
+    height: 500px;
+  }
+
+  .projects-card__title {
+    font-size: 3rem;
+  }
+
+  .projects-card__description {
+    font-size: 1.8rem;
+  }
+
+  .projects-card__read-more {
+    font-size: 1.5rem;
+  }
 }

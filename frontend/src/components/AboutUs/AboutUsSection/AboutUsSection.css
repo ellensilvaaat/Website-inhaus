@@ -2,34 +2,37 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  height: auto;
 }
 
-/* 🔥 imagem agora vira BACKGROUND REAL */
+/* 🔥 imagem como fundo real controlado */
 .aboutus-bg-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* imagem sempre perfeita */
-  z-index: 0;            /* fica atrás */
+  max-height: 800px;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
 }
 
-/* 🔥 conteúdo sobe EM CIMA da imagem */
+/* Conteúdo por cima da imagem */
 .aboutus-section-content {
-  position: relative;    /* deixa o texto NA FRENTE */
+  position: relative;
   z-index: 2;
   width: 100%;
   box-sizing: border-box;
-
-  margin: 3.75rem 0 0 9.375rem;
+  padding: 6rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
   color: black;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 
 .aboutus-heading {
   font-size: 2.5rem;
@@ -65,7 +68,6 @@
   margin-bottom: 1rem;
 }
 
-/* ✔️ ajuste pedido */
 .aboutus-block p {
   font-size: 1.6rem;
   line-height: 1.6;
@@ -99,39 +101,20 @@
   color: white;
 }
 
-/* =========================================================== */
-/* 📱📱📱 MOBILE — até 501px */
-/* =========================================================== */
-
-@media (max-width: 601px) {
-
-  /* ✔️ remove overflow só no mobile */
+/* 📱 MOBILE */
+@media (max-width: 600px) {
   .aboutus-section-wrapper {
     overflow: visible !important;
   }
 
   .aboutus-bg-image {
-    height: 100%;
+    max-height: 600px;
   }
 
   .aboutus-section-content {
-    margin-left: 260px;
-    padding-top: 120px;
-  }
-
-  /* ✔️ SEM position absolute → não corta conteúdo */
-  .aboutus-section-content {
-    position: relative;
-    margin: 0;
     padding: 5rem 2rem 2rem;
-    width: 100%;
   }
 
-  .aboutus-mission-vision{
-    margin-bottom: 0rem;
-  }
-
-  /* títulos mobile */
   .aboutus-heading {
     font-size: 2.2rem;
   }
@@ -141,7 +124,6 @@
     margin-bottom: 2rem;
   }
 
-  /* ✔️ 1 COLUNA NO MOBILE */
   .aboutus-mission-vision {
     flex-direction: column;
     gap: 2rem;
@@ -160,24 +142,14 @@
     font-size: 1.5rem;
   }
 
-  /* botão centralizado */
   .aboutus-button button {
     margin-left: 0;
     margin-top: 1rem;
   }
 }
 
-/* =========================================================== */
-/* 🖥️🖥️🖥️ TELAS GIGANTES — +1500px */
-/* =========================================================== */
-
+/* 🖥️ TELAS GIGANTES */
 @media (min-width: 1500px) {
-
-  .aboutus-bg-image {
-    object-fit: cover;
-  }
-
-  /* mais respiro */
   .aboutus-section-content {
     padding-top: 100px;
   }

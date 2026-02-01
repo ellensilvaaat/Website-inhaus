@@ -6,7 +6,7 @@ export default function AboutUsSection() {
   return (
     <section className="aboutus-section-wrapper">
       <img
-        src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/about-us-bg.png?updatedAt=1767743415356"
+        src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/about-us-bg.png?tr=w-1600,h-800"
         alt="Modern house sketch"
         className="aboutus-bg-image"
       />

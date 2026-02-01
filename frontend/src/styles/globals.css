@@ -1,47 +1,41 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
-
+/* ✅ Fontes locais com caminho absoluto para public/fonts */
 @font-face {
   font-family: 'The Seasons';
-  src: url('../assets/fonts/Fontspring-DEMO-theseasons-reg.woff2') format('woff2');
+  src: url('/fonts/Fontspring-DEMO-theseasons-reg.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'The Seasons';
-  src: url('../assets/fonts/Fontspring-DEMO-theseasons-bd.woff2') format('woff2');
+  src: url('/fonts/Fontspring-DEMO-theseasons-bd.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'The Seasons';
-  src: url('../assets/fonts/Fontspring-DEMO-theseasons-it.woff2') format('woff2');
+  src: url('/fonts/Fontspring-DEMO-theseasons-it.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'The Seasons';
-  src: url('../assets/fonts/Fontspring-DEMO-theseasons-lt.woff2') format('woff2');
+  src: url('/fonts/Fontspring-DEMO-theseasons-lt.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'The Seasons';
-  src: url('../assets/fonts/Fontspring-DEMO-theseasons-ltit.woff2') format('woff2');
+  src: url('/fonts/Fontspring-DEMO-theseasons-ltit.woff2') format('woff2');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 
-
+/* ✅ Variáveis globais de fontes e cores */
 :root {
   --font-primary: 'Be Vietnam Pro', sans-serif;
   --font-title: 'The Seasons', serif;
@@ -51,14 +45,23 @@
   --color-accent: #F67C0B;
 }
 
+/* ✅ Reset base e medidas globais */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg);
+}
+
+/* ✅ HTML base */
 html {
-  font-size: 62.5%; 
+  font-size: 62.5%;
   scroll-behavior: smooth;
 }
 
@@ -68,8 +71,68 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
+/* ✅ Tipografia padrão */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* ✅ Links (SEM quebrar navbar) */
+a {
+  text-decoration: none;
+}
+
+a:focus {
+  outline: none;
+}
+
+/* ✅ Botões limpos */
+button {
+  all: unset;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ Inputs / Selects limpos */
+input,
+textarea,
+select,
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: 1em;
+  color: inherit;
+}
+
+/* ✅ Autofill Safari/Chrome */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px var(--color-bg) inset !important;
+  -webkit-text-fill-color: var(--color-text) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ✅ Foco sem interferência */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ✅ Mapbox fix (se usar) */
+.mapboxgl-canvas {
+  position: absolute !important;
 }

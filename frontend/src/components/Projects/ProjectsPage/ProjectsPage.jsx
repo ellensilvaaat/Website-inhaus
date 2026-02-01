@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
-
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore from 'swiper'
-import { Autoplay, Navigation } from 'swiper/modules'
-SwiperCore.use([Autoplay, Navigation])
-
+import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import ProjectsMapImpact from '../ProjectsMapImpact/ProjectsMapImpact'
-
 import './ProjectsPage.css'
 import { projectsData } from '../../../content/projects'
-import ProjectsMap from '../../Map/ProjectsMap'
 
-
-const filters = ['All', 'Kitchen', 'Bathroom', 'Renovation', 'Full house', 'Building works']
+const filters = [
+  'All',
+  'Kitchen',
+  'Bathroom',
+  'Renovation',
+  'Full house',
+  'Building works',
+]
 
 function getExcerpt(content, maxLength = 160) {
   if (!content) return ''
   return (
     content
-      .replace(/Homes \| Apartments[\s\S]*/i, '')
       .replace(/\n+/g, ' ')
       .trim()
       .slice(0, maxLength) + '…'
@@ -33,9 +31,8 @@ function getProjectType(slug) {
   if (!slug) return 'Renovation'
   if (slug.includes('kitchen')) return 'Kitchen'
   if (slug.includes('bathroom')) return 'Bathroom'
-  if (slug.includes('apartment')) return 'Renovation'
-  if (slug.includes('full-home')) return 'Full house'
-  if (slug.includes('extention')) return 'Building works'
+  if (slug.includes('full')) return 'Full house'
+  if (slug.includes('build')) return 'Building works'
   return 'Renovation'
 }
 
@@ -89,31 +86,30 @@ export default function ProjectsPage() {
       <div className="project-page__list">
         {currentProjects.map((project) => (
           <div key={project.slug} className="projects-card">
-
             {/* GALERIA */}
             <div className="projects-card__image-wrapper">
               <Swiper
-              modules={[Navigation]}
-              navigation
-              loop
-              slidesPerView={1}
-              className="project-gallery-swiper"
+                modules={[Navigation]}
+                navigation
+                loop
+                slidesPerView={1}
               >
-              {(project.listGallery?.length
-              ? project.listGallery
-              : project.gallery?.length
-              ? project.gallery
-              : [project.heroImage]
-              ).map((img, index) => (
-              <SwiperSlide key={index}>
-              <img
-              src={img}
-              alt={`${project.title} ${index + 1}`}
-              className="project-cards__image"
-              loading="lazy"
-              />
-              </SwiperSlide>
-              ))}
+                {(project.listGallery?.length
+                  ? project.listGallery
+                  : project.gallery?.length
+                  ? project.gallery
+                  : [project.heroImage]
+                ).map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                     src={`${img}?tr=w-1600,h-1000,fo=center,q=100,format=webp`}
+                     alt={`${project.title} ${index + 1}`}
+                     className="project-cards__image"
+                     loading="lazy"
+                     decoding="async"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
 
@@ -141,7 +137,7 @@ export default function ProjectsPage() {
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           className="project-page__page-btn"
         >
-          {'<'}
+          ‹
         </button>
 
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
@@ -160,16 +156,19 @@ export default function ProjectsPage() {
           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           className="project-page__page-btn"
         >
-          {'>'}
+          ›
         </button>
       </div>
 
-      {/* MAP SECTION */}
-<div className="map-preview-section">
-  <h2 className="map-preview-title">See where Inhaus Living is present</h2>
-<ProjectsMapImpact />
-</div>
+      {/* MAP */}
+      <div className="map-preview-section">
+        <h2 className="map-preview-title">
+          See where Inhaus Living is present
+        </h2>
+        <ProjectsMapImpact />
+      </div>
     </section>
   )
 }
+
 

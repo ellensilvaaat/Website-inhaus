@@ -19,16 +19,39 @@ function getShortText(text, max = 160) {
   return text.slice(0, max) + '…';
 }
 
+// ✅ NOVO: Função que converte "3 weeks ago" em Date
+function parseRelativeDate(str) {
+  if (!str) return new Date(0);
+
+  const now = new Date();
+  const match = str.match(/(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago/i);
+  if (match) {
+    const value = parseInt(match[1], 10);
+    const unit = match[2].toLowerCase();
+    const multiplier = {
+      second: 1000,
+      minute: 60 * 1000,
+      hour: 60 * 60 * 1000,
+      day: 24 * 60 * 60 * 1000,
+      week: 7 * 24 * 60 * 60 * 1000,
+      month: 30 * 24 * 60 * 60 * 1000,
+      year: 365 * 24 * 60 * 60 * 1000,
+    };
+    return new Date(now - value * (multiplier[unit] || 0));
+  }
+
+  const parsed = Date.parse(str);
+  return isNaN(parsed) ? new Date(0) : new Date(parsed);
+}
+
 export default function FeedbackSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [viewReview, setViewReview] = useState(null);
   const [sortOrder, setSortOrder] = useState('recent');
-
-  // 👇 adicionados
   const [feedbacks, setFeedbacks] = useState([]);
+
   const BACKEND_URL = 'https://website-inhaus.onrender.com/api/feedbacks';
 
-  // 🔹 Buscar feedbacks salvos no backend
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
@@ -42,7 +65,6 @@ export default function FeedbackSection() {
     fetchFeedbacks();
   }, []);
 
-  // 🔹 Enviar novo feedback
   const handleNewFeedback = async (feedback) => {
     try {
       const res = await fetch(BACKEND_URL, {
@@ -60,9 +82,8 @@ export default function FeedbackSection() {
     }
   };
 
-  // 🔹 Apagar feedback (somente dev/admin)
   const handleDelete = async (id) => {
-    const adminKey = import.meta.env.VITE_ADMIN_KEY; // sua chave no .env
+    const adminKey = import.meta.env.VITE_ADMIN_KEY;
     try {
       const res = await fetch(`${BACKEND_URL}/${id}`, {
         method: 'DELETE',
@@ -79,17 +100,14 @@ export default function FeedbackSection() {
     }
   };
 
-  /* 🔥 SORT */
+  // ✅ NOVO: Ordenação funcional com data convertida
   const sortedReviews = useMemo(() => {
     const combined = [...feedbacks, ...reviews];
-    if (sortOrder === 'recent') {
-      return combined.sort(
-        (a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)
-      );
-    }
-    return combined.sort(
-      (a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0)
-    );
+    return combined.sort((a, b) => {
+      const dateA = parseRelativeDate(a.created_at || a.date);
+      const dateB = parseRelativeDate(b.created_at || b.date);
+      return sortOrder === 'recent' ? dateB - dateA : dateA - dateB;
+    });
   }, [sortOrder, feedbacks]);
 
   return (
@@ -99,9 +117,13 @@ export default function FeedbackSection() {
         Discover what our clients say about their experience with Inhaus Living.
       </p>
 
-      {/* 🔽 FILTER */}
+      {/* ✅ Label acessível */}
       <div className="feedback-section__filter">
+        <label htmlFor="feedback-sort" className="sr-only">
+          Sort reviews
+        </label>
         <select
+          id="feedback-sort"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
@@ -145,7 +167,6 @@ export default function FeedbackSection() {
                   {getShortText(fullText)}
                 </p>
 
-                {/* botão de deletar (visível só em dev) */}
                 {import.meta.env.MODE === 'development' && (
                   <button
                     className="feedback-card__delete"
@@ -197,3 +218,4 @@ export default function FeedbackSection() {
     </section>
   );
 }
+

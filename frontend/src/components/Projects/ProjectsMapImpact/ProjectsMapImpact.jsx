@@ -22,7 +22,7 @@ export default function ProjectsMapImpact() {
             opacity: 1,
             y: 0,
             duration: 0.6,
-            delay: i % 2 === 0 ? i * 0.15 : i * 0.15 + 0.1, // alternado
+            delay: i % 2 === 0 ? i * 0.15 : i * 0.15 + 0.1,
             ease: 'power2.out',
           })
         })
@@ -30,20 +30,19 @@ export default function ProjectsMapImpact() {
     })
   }, [])
 
-  const labelData = [
-    { class: 'northern-beaches', text: ['47+ Projects', 'in Northern Beaches'] },
-    { class: 'eastern-suburbs', text: ['31+ Projects', 'in Eastern Suburbs'] },
-    { class: 'sutherland-shire', text: ['79+ Projects', 'in Sutherland Shire'] },
-    { class: 'inner-west', text: ['55+ Projects', 'in Inner West'] },
-    { class: 'parramatta', text: ['62+ Projects', 'in Parramatta'] },
-    { class: 'north-west', text: ['41+ Projects', 'in Western Sydney'] },
-    { class: 'south-sydney', text: ['49+ Projects', 'in South Sydney'] },
-    { class: 'south-west', text: ['44+ Projects', 'in South West'] },
-    { class: 'sydney-city', text: ['33+ Projects', 'in Sydney City'] },
-    { class: 'outer-west', text: ['67+ Projects', 'in Outer West'] },
-    { class: 'lower-north-shore', text: ['53+ Projects', 'in Lower North Shore'] },
-    { class: 'upper-north-shore', text: ['48+ Projects', 'in Upper North Shore'] },
-  ]
+const labelData = [ { class: 'northern-beaches', text: ['297+ Projects', 'in Northern Beaches'] }, 
+                    { class: 'eastern-suburbs', text: ['380+ Projects', 'in Eastern Suburbs'] }, 
+                    { class: 'sutherland-shire', text: ['129+ Projects', 'in Sutherland Shire'] }, 
+                    { class: 'inner-west', text: ['85+ Projects', 'in Inner West'] }, 
+                    { class: 'parramatta', text: ['42+ Projects', 'in Parramatta'] }, 
+                    { class: 'north-west', text: ['21+ Projects', 'in Western Sydney'] }, 
+                    { class: 'south-sydney', text: ['117+ Projects', 'in South Sydney'] }, 
+                    { class: 'south-west', text: ['34+ Projects', 'in South West'] }, 
+                    { class: 'sydney-city', text: ['89+ Projects', 'in Sydney City'] }, 
+                    { class: 'outer-west', text: ['67+ Projects', 'in Outer West'] }, 
+                    { class: 'lower-north-shore', text: ['75+ Projects', 'in Lower North Shore'] }, 
+                    { class: 'upper-north-shore', text: ['24+ Projects', 'in Upper North Shore'] }, 
+                  ]
 
   return (
     <section ref={sectionRef} className="map-impact-section">
@@ -54,24 +53,20 @@ export default function ProjectsMapImpact() {
           alt="Sydney map grey"
         />
 
-        {labelData.map((label, i) => (
-          <div
-            key={i}
-            ref={(el) => (labelsRef.current[i] = el)}
-            className={`map-label ${label.class}`}
-          >
-            <span>{label.text[0]}</span>
-            <br />
-            <span>{label.text[1]}</span>
-          </div>
-        ))}
+        <div className="map-labels-container">
+          {labelData.map((label, i) => (
+            <div
+              key={i}
+              ref={(el) => (labelsRef.current[i] = el)}
+              className={`map-label ${label.class}`}
+            >
+              <span>{label.text[0]}</span>
+              <br />
+              <span>{label.text[1]}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
 }
-
-
-
-
-
-

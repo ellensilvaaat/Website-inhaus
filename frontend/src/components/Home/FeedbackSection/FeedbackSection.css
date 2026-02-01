@@ -25,12 +25,36 @@
 }
 
 .feedback-section__filter select {
-  padding: 0.6rem 1.2rem;
-  font-size: 1.4rem;
+  padding: 0.8rem 1.4rem;
+  font-size: 1.5rem;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 2px solid var(--color-accent);
   background: white;
+  color: #333;
+  font-weight: 500;
+  font-family: var(--font-primary);
   cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 1px transparent;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+.feedback-section__filter select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 4px rgba(246, 124, 11, 0.5);
 }
 
 /* CAROUSEL */
@@ -133,18 +157,27 @@
   margin-top: 1rem;
   padding: 0.8rem 1.5rem;
   font-size: 1.6rem;
-  border: 2px solid var(--color-accent);
-  background: none;
-  color: var(--color-accent);
+  border: none;
+  background: var(--color-accent);
+  color: white;
   cursor: pointer;
   border-radius: 8px;
-  transition: background 0.3s ease, color 0.3s ease;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .feedback-section__add-btn:hover {
-  background: var(--color-accent);
-  color: white;
+  background: #d36600;
+  transform: scale(1.03);
 }
+
+/* ✅ Remove o azul de foco */
+.feedback-section__add-btn:focus,
+.feedback-section__add-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(246, 124, 11, 0.4); /* foco laranja suave */
+}
+
 
 /* MOBILE */
 @media (max-width: 501px) {

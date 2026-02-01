@@ -15,8 +15,6 @@
   z-index: 0;
 }
 
-
-/* ✅ Zoom suave e elegante */
 @keyframes zoomInOut {
   0% { transform: scale(1); }
   50% { transform: scale(1.08); }
@@ -66,19 +64,20 @@
   color: var(--color-accent);
 }
 
-/* 📱 MOBILE FIX */
+/* 📱 MOBILE */
 @media (max-width: 501px) {
-  .about-hero__image-wrapper {
+  .about-hero {
+    height: 100vh;
+  }
+
+  .about-hero__background {
     animation: zoomInOutMobile 20s ease-in-out infinite;
   }
 
   @keyframes zoomInOutMobile {
     0% { transform: scale(1); }
-    50% { transform: scale(1.09); } /* 💥 aumenta o zoom no mobile */
+    50% { transform: scale(1.09); }
     100% { transform: scale(1); }
-  }
-  .about-hero {
-    height: 100vh;
   }
 
   .about-hero__title {
@@ -92,7 +91,7 @@
   }
 }
 
-/* 🖥️ TELAS GIGANTES */
+/* 🖥️ TELAS GRANDES */
 @media (min-width: 1500px) {
   .about-hero {
     height: 95vh;

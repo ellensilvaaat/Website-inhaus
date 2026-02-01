@@ -4,22 +4,26 @@ import './Hero.css'
 
 const slides = [
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?updatedAt=1767743464607',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp',
+    alt: 'Custom interior renovation',
     subtitle:
       'From concept to completion, we design and build spaces that reflect your lifestyle, personality, and vision.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?updatedAt=1767842591758',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-1600,f-webp',
+    alt: 'Modern kitchen design',
     subtitle:
       'High-performance kitchens designed for how you cook, gather, and live.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?updatedAt=1767743420365',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-1600,f-webp',
+    alt: 'Premium custom joinery',
     subtitle:
       'Custom joinery and premium finishes, tailored to your space and style.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-1600,f-webp',
+    alt: 'Spa-like bathroom renovation',
     subtitle:
       'Spa-worthy bathrooms that elevate daily rituals with calm, crafted detail.',
   },
@@ -45,7 +49,7 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      {/* Preload + forçar carregamento imediato */}
+      {/* Preload da primeira imagem */}
       <img
         src={slides[0].image}
         alt="Preload Hero"
@@ -59,11 +63,16 @@ export default function Hero() {
         <div
           key={idx}
           className={`hero__slide ${idx === current ? 'hero__slide--active' : ''}`}
-          style={{
-            backgroundImage: `url(${slide.image})`,
-            backgroundColor: '#e3e3e3',
-          }}
         >
+          <img
+            src={slide.image}
+            alt={slide.alt}
+            className="hero__img"
+            loading={idx === 0 ? 'eager' : 'lazy'}
+            fetchpriority={idx === 0 ? 'high' : undefined}
+            decoding="async"
+          />
+
           <div className="hero__overlay">
             <h1 className="hero__title">We Transform Houses into Homes</h1>
             <p className="hero__subtitle">{slide.subtitle}</p>
@@ -101,3 +110,5 @@ export default function Hero() {
     </section>
   )
 }
+
+

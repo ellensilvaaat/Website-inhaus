@@ -7,42 +7,42 @@ const services = [
     id: 'apartments',
     title: 'Apartment Renovations',
     description:
-      'Inhaus Living are dedicated to providing quality apartment renovations at affordable prices. Our experienced team work hard at keeping the costs down, so that you can get the most out of your budget.',
+      'At Inhaus Living, we specialize in transforming compact spaces into highly functional and stylish urban homes. Our apartment renovations are tailored to maximize space efficiency without compromising on design. From clever storage solutions to modern finishes, we bring your vision to life, all while respecting building constraints and strata requirements.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/apartment.png'],
   },
   {
     id: 'homes',
     title: 'Home Renovations',
     description:
-      'Inhaus Living are dedicated to providing quality home renovations planned and delivered with clarity, craftsmanship and care.',
+      'Your home should evolve with your lifestyle. Our home renovations are crafted to blend comfort, functionality, and timeless aesthetics. Whether you are opening up living areas, upgrading interiors, or adding new extensions, our expert team ensures a seamless experience with minimal disruption and maximum impact.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/home.png'],
   },
   {
     id: 'kitchens',
     title: 'Kitchen Renovations',
     description:
-      'High-performance kitchens designed with a balance of luxury, function and longevity.',
+      'The kitchen is the heart of the home and we treat it that way. Our bespoke kitchen renovations combine luxury with practicality, incorporating premium materials, efficient layouts, and custom cabinetry. From contemporary minimalism to classic elegance, we design spaces that serve and inspire.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/kitchen.png'],
   },
   {
     id: 'bathrooms',
     title: 'Bathroom Renovations',
     description:
-      'Bespoke bathroom renovations crafted with premium finishes, lighting and detailing.',
+      'Elevate your daily routine with a beautifully designed bathroom. We craft serene, spa-like environments using high-end finishes, efficient lighting, and innovative layouts. Each bathroom renovation is tailored for functionality, durability, and lasting style, transforming even the smallest rooms into luxurious sanctuaries.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bathroom.png'],
   },
   {
     id: 'flooring',
     title: 'Flooring Services',
     description:
-      'Hybrid, timber, parquetry and carpet flooring solutions, supplied and installed.',
+      'The right flooring sets the tone for your entire home. We offer a curated selection of hybrid, engineered timber, parquetry, and plush carpeting all professionally installed. Whether you are going for warmth, texture, or durability, we help you find the perfect foundation for every room.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/flooring.png'],
   },
   {
     id: 'construction',
     title: 'Construction and Additions',
     description:
-      'Licensed builders delivering extensions, new builds and second-storey additions.',
+      'Planning to expand or build anew? Our licensed construction team delivers extensions, second-storey additions, and custom new builds with craftsmanship and care. We manage every phase, from permits to completion, ensuring your vision is executed with precision, transparency, and high standards.',
     images: ['https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/construction.png'],
   },
 ]
@@ -50,18 +50,13 @@ const services = [
 export default function ServicesSection() {
   const { hash } = useLocation()
 
-  // 🔥 SCROLL CORRETO PARA ÂNCORA
   useEffect(() => {
     if (!hash) return
 
-    const id = hash.replace('#', '')
-    const el = document.getElementById(id)
-
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 100)
-    }
+    requestAnimationFrame(() => {
+      const el = document.getElementById(hash.replace('#', ''))
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
   }, [hash])
 
   return (
@@ -70,15 +65,16 @@ export default function ServicesSection() {
         <div className="service" id={svc.id} key={svc.id}>
           <div className="service__images">
             {svc.images.map((src, i) => (
-              <img
-                src={src}
-                alt={svc.title}
-                key={i}
-                className="service__img"
-              />
+             <img
+              src={`${src}?tr=w-600,pr-true`}
+              alt={svc.title}
+              key={i}
+              className="service__img"
+              loading="lazy"
+              decoding="async"
+             />
             ))}
           </div>
-
           <div className="service__content">
             <h3 className="services-section__title">
               <span className="highlight">{svc.title.split(' ')[0]}</span>{' '}
@@ -90,7 +86,6 @@ export default function ServicesSection() {
           </div>
         </div>
       ))}
-
       <div className="services-section__cta">
         <button className="services-section__button">
           Explore Projects
@@ -99,5 +94,3 @@ export default function ServicesSection() {
     </section>
   )
 }
-
-
