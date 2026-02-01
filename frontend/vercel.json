@@ -7,7 +7,7 @@
   ],
   "headers": [
     {
-      "source": "/.*\\.map",
+      "source": "/:path*.map",
       "headers": [
         {
           "key": "Cache-Control",
@@ -21,4 +21,3 @@
     }
   ]
 }
-
