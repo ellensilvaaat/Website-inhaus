@@ -26,7 +26,6 @@
   justify-content: center;
 }
 
-
 .why‑choose‑us__column--left {
   text-align: right;
   width: 180px;
@@ -71,15 +70,18 @@
 }
 
 .why‑choose‑us__image {
-  width: 100%;
   height: auto;
   display: block;
   width: 80vh;
 }
 
 .why‑choose‑us__cta‑wrapper {
-  text-align: center;
-  margin-top: 4rem;
+  display: flex;          /* Transforma o container em flexbox */
+  justify-content: center; /* Centraliza horizontalmente o Link/Botão */
+  align-items: center;     /* Garante alinhamento vertical se necessário */
+  width: 100%;            /* Ocupa a largura total da seção */
+  margin: auto;
+  padding-top: 2rem;
 }
 
 .why‑choose‑us__cta‑button {
@@ -92,6 +94,7 @@
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
   text-decoration: none;
+  display: inline-block; /* Garante que o botão respeite o padding e bordas */
 }
 
 .why‑choose‑us__cta‑button:hover {
@@ -99,55 +102,54 @@
   color: #fff;
 }
 
-/* Responsividade */
+/* 📱 AJUSTE EXCLUSIVO MOBILE (max-width: 1024px e foco em 501px) */
 @media (max-width: 1024px) {
-  .why‑choose‑us{
+  .why‑choose‑us {
     overflow: hidden;
-    padding: 2rem 4rem 2rem;
+    padding: 2rem 2rem 4rem;
+    position: relative; /* Necessário para a imagem absoluta */
   }
 
   .why‑choose‑us__content {
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 1.5rem; /* Diminuído para não esticar demais */
+    position: relative;
+    z-index: 2; /* Texto na frente */
   }
 
   .why‑choose‑us__column--right,
   .why‑choose‑us__column--left {
     text-align: center;
-    width: auto;
+    width: 100%;
   }
 
-  .why‑choose‑us__number{
-    font-size: 2.5rem;
+  /* Ajuste da Imagem para Mobile */
+  .why‑choose‑us__image‑wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100% !important;
+    height: auto !important;
+    z-index: 1; /* Atrás do texto */
+    opacity: 0.15; /* Bem suave para não atrapalhar a leitura */
+    pointer-events: none;
   }
 
-  .why‑choose‑us__heading{
-    margin: 0;
-    font-size: 1.8rem;
+  .why‑choose‑us__image {
+    width: 90%; /* Ocupa quase a largura toda do fundo */
+    margin: 0 auto;
   }
 
-  .why‑choose‑us__text{
+  /* Mantendo suas fontes exatamente como pediu */
+  .why‑choose‑us__number { font-size: 2.5rem; }
+  .why‑choose‑us__heading { font-size: 1.8rem; margin: 0; }
+  .why‑choose‑us__text { font-size: 1.6rem; }
+
+  .why‑choose‑us__cta‑button {
     font-size: 1.6rem;
+    position: relative;
+    z-index: 3; /* Botão sempre clicável no topo */
   }
-
- .why‑choose‑us__image‑wrapper{
-    width: 60px !important;
-    height: 0px !important;
-  }
-
-  .why‑choose‑us__image{
-    width: 70vh;
-    opacity: 0.5;
-  }
-
-  .why‑choose‑us__cta‑button{
-    font-size: 1.6rem;
-  }
-  
-  .trusted-partners__text{
-    margin-top: 0;
-  }
-
 }
-

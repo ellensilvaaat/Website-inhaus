@@ -12,117 +12,83 @@
   font-family: var(--font-title);
   font-size: 3.5rem;
   margin-bottom: 1.2rem;
+  text-transform: uppercase;
 }
 
 .ready-section__text {
   font-family: var(--font-primary);
-  font-size: 1.6rem;
-  line-height: 1.5;
+  font-size: 1.6rem; /* Ajustado para ficar elegante */
+  line-height: 1.6;
   margin-bottom: 3rem;
   color: #333;
 }
 
-.ready-section__cta {
+.ready-section__btn-container {
+  margin: 50px auto 0;
+  width: fit-content;
+}
+
+/* O BOTÃO CINEMA */
+.ready-cta {
   position: relative;
-  background: none;
-  border: none;
+  display: inline-block;
+  padding: 1rem 3rem;
   color: #000;
-  font-family: var(--font-primary);
-  font-size: 1.4rem;
-  padding: 0.8rem 2.4rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
   text-decoration: none;
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.4s ease;
 }
 
-.ready-section__cta:hover {
-  color: var(--color-accent); /* laranja */
-}
-
-/* cantos “L” */
-.ready-section__corner {
+/* Cantos em L */
+.ready-corner {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
+  width: 15px;
+  height: 15px;
+  transition: all 0.4s ease;
 }
-.ready-section__corner::before,
-.ready-section__corner::after {
-  content: '';
-  position: absolute;
-  background-color: #000;
-  transition: background-color 0.3s ease;
-}
-.ready-section__corner--top-right {
+
+/* Canto Superior Direito */
+.ready-corner--tr {
   top: 0;
   right: 0;
+  border-top: 2px solid #F67C0B;
+  border-right: 2px solid #F67C0B;
 }
-.ready-section__corner--top-right::before {
-  width: 20px;
-  height: 2px;
-  top: 0;
-  right: 0;
-}
-.ready-section__corner--top-right::after {
-  width: 2px;
-  height: 20px;
-  top: 0;
-  right: 0;
-}
-.ready-section__corner--bottom-left {
+
+/* Canto Inferior Esquerdo */
+.ready-corner--bl {
   bottom: 0;
   left: 0;
-}
-.ready-section__corner--bottom-left::before {
-  width: 20px;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-}
-.ready-section__corner--bottom-left::after {
-  width: 2px;
-  height: 20px;
-  bottom: 0;
-  left: 0;
+  border-bottom: 2px solid #F67C0B;
+  border-left: 2px solid #F67C0B;
 }
 
-/* hover altera cor dos cantos */
-.ready-section__cta:hover .ready-section__corner::before,
-.ready-section__cta:hover .ready-section__corner::after {
-  background-color: var(--color-accent);
+/* HOVER - O efeito de virar retângulo */
+.ready-cta:hover {
+  color: var(--color-accent);
 }
 
-.bntt{
-    margin: auto;
-    width: 30%;
-    padding-top: 50px;
+.ready-cta:hover .ready-corner {
+  width: 100%;
+  height: 100%;
+  border-color: var(--color-accent);
 }
 
-.projects__cta:hover{
-    color: var(--color-accent);
-}
-
+/* Mobile */
 @media (max-width: 501px) {
-
-  /* texto permanece 1.6rem, só garantindo */
+  .ready-section__title {
+    font-size: 2.5rem;
+  }
+  
   .ready-section__text {
-    font-size: 1.6rem;
-    line-height: 1.5;
+    font-size: 1.3rem;
   }
 
-  /* impede quebra de linha no botão */
-  .projects__cta {
-    white-space: nowrap;
-    font-size: 1.6rem;
-    padding: 0.8rem 2.4rem;
-  }
-
-  /* container do botão estava espremendo ele */
-  .bntt {
-    width: fit-content;   /* deixa só o espaço necessário */
-    margin: 40px auto 0 auto;
-  }
-  .ready-section {
-    padding: 0 2rem 3rem;
+  .ready-cta {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
   }
 }

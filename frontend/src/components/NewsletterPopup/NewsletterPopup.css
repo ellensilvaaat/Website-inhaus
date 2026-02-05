@@ -53,6 +53,8 @@
   font-size: 2.8rem;
   line-height: 1.35;
   font-weight: 400;
+  margin: auto;
+  text-align: center;
 }
 
 .newsletter-popup h2 span {
@@ -216,7 +218,7 @@
   }
 
   .close-btn {
-    font-size: 2.2rem;
+    font-size: 4rem;
     top: 1vh;
     right: 3vw;
   }

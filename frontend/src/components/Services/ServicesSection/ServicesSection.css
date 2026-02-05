@@ -13,7 +13,6 @@
   
 }
 
-
 .service__img {
   width: 100%;
   max-width: 400px;
@@ -36,11 +35,11 @@
 }
 
 .services-section__description {
-  font-size: 1.5rem;
-  line-height: 1.6;
   font-family: var(--font-primary);
-  color: black;
-  max-width: 500px;
+  font-size: 1.6rem; /* Ajustado para ficar elegante */
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  color: #333;
 }
 
 .services-section__cta {
@@ -110,7 +109,8 @@
   }
 
   .service__img {
-    max-width: 100%;
+    max-width: 85%;
+    margin: auto;
   }
 
   .service__content {

@@ -143,9 +143,17 @@
   }
 
   .aboutus-button button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    margin-left: 0;
+    margin-top: 1rem;
+    color: black; /* Forçando preto para o Safari */
     margin-left: 0;
     margin-top: 1rem;
   }
+
 }
 
 /* 🖥️ TELAS GIGANTES */

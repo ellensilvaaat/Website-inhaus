@@ -1,3 +1,6 @@
+/* ===========================
+   BASE
+=========================== */
 .about-hero {
   position: relative;
   width: 100%;
@@ -12,6 +15,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  /* ✅ Usa a variável desktop por padrão */
+  background-image: var(--bg-desktop);
   animation: zoomInOut 20s ease-in-out infinite;
   z-index: 0;
   will-change: transform;
@@ -24,6 +29,9 @@
   100% { transform: scale(1); }
 }
 
+/* ===========================
+   OVERLAY
+=========================== */
 .about-hero__overlay {
   position: absolute;
   inset: 0;
@@ -31,6 +39,9 @@
   z-index: 1;
 }
 
+/* ===========================
+   CONTEÚDO
+=========================== */
 .about-hero__content {
   position: absolute;
   inset: 0;
@@ -49,6 +60,9 @@
   margin-bottom: 10px;
 }
 
+/* ===========================
+   TEXTO INFERIOR
+=========================== */
 .blog__bottom-text {
   position: absolute;
   bottom: 2rem;
@@ -67,13 +81,17 @@
   color: var(--color-accent);
 }
 
-/* 📱 MOBILE */
+/* ===========================
+   📱 MOBILE
+=========================== */
 @media (max-width: 501px) {
   .about-hero {
-    height: 100vh;
+    height: 50vh;
   }
 
   .about-hero__background {
+    /* ✅ Força a imagem otimizada no mobile */
+    background-image: var(--bg-mobile) !important;
     animation: zoomInOutMobile 20s ease-in-out infinite;
   }
 
@@ -87,14 +105,17 @@
     font-size: 3rem;
   }
 
-  .hero__bottom-text {
+  /* Ajustado o seletor para blog__bottom-text */
+  .blog__bottom-text {
     bottom: 1.5rem;
     right: 2rem;
     font-size: 1.3rem;
   }
 }
 
-/* 🖥️ TELAS GRANDES */
+/* ===========================
+   🖥️ TELAS GRANDES
+=========================== */
 @media (min-width: 1500px) {
   .about-hero {
     height: 95vh;
@@ -104,11 +125,9 @@
     font-size: 5rem;
   }
 
-  .hero__bottom-text {
+  .blog__bottom-text {
     font-size: 2rem;
     right: 6rem;
     bottom: 3rem;
   }
 }
-
-

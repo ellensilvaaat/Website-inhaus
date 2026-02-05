@@ -1,3 +1,6 @@
+/* =====================
+   HERO SECTION BASE
+===================== */
 .contact-hero {
   position: relative;
   width: 100%;
@@ -12,6 +15,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  /* ✅ Usa a imagem desktop por padrão via variável do JSX */
+  background-image: var(--bg-desktop); 
   animation: zoomInOut 17s ease-in-out infinite;
   z-index: 0;
   will-change: transform; /* ✅ Melhora a performance da animação de zoom */
@@ -27,7 +32,6 @@
 /* =====================
    OVERLAY
 ===================== */
-
 .contact-hero__overlay {
   position: absolute;
   inset: 0;
@@ -38,7 +42,6 @@
 /* =====================
    CONTEÚDO
 ===================== */
-
 .contact-hero__content {
   position: absolute;
   inset: 0;
@@ -59,7 +62,6 @@
 /* =====================
    TEXTO INFERIOR
 ===================== */
-
 .contact__bottom-text {
   position: absolute;
   bottom: 2rem;
@@ -79,16 +81,16 @@
 }
 
 /* =====================
-   📱 MOBILE
+   📱 MOBILE (Ajustado para Performance)
 ===================== */
-
 @media (max-width: 600px) {
   .contact-hero {
-    height: 80vh;
+    height: 50vh;
   }
 
-  /* ✅ Corrigido seletor para animar a div correta do background */
   .contact-hero__background {
+    /* ✅ Troca para a imagem leve (w-600) no mobile */
+    background-image: var(--bg-mobile) !important;
     animation: zoomInOutMobile 17s ease-in-out infinite;
   }
 
@@ -113,7 +115,6 @@
 /* =====================
    🖥️ TELAS GIGANTES
 ===================== */
-
 @media (min-width: 1500px) {
   .contact-hero {
     height: 90vh;

@@ -3,11 +3,33 @@ import './Preloader.css';
 
 const Preloader = ({ finishLoading }) => {
   const [percentage, setPercentage] = useState(0);
-  // Sua logo do ImageKit com otimização de largura
   const logoUrl = "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(2).svg?tr=w-300";
 
+  // Lista de todas as Heros que queremos "esquentar" o cache
+  // Usamos as versões que o navegador realmente vai pedir (Desktop e Mobile)
+  const imagesToPreload = [
+    // Home Hero
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/peter-muniz-4oRw53kmhy8-unsplash.jpg?tr=w-1600,f-webp,q-80",
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/peter-muniz-4oRw53kmhy8-unsplash.jpg?tr=w-800,f-webp,q-80",
+    // Services Hero
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg?tr=w-1600,f-webp,q-80",
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg?tr=w-800,f-webp,q-80",
+    // Projects Hero
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?tr=w-1600,f-webp,q-80",
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?tr=w-800,f-webp,q-80",
+    // About Hero
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/michael-alake-Ys1Yo1kxxCE-unsplash.jpg?tr=w-1600,f-webp,q-80",
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/michael-alake-Ys1Yo1kxxCE-unsplash.jpg?tr=w-800,f-webp,q-80"
+  ];
+
   useEffect(() => {
-    // Velocidade do progresso (25ms = aprox 2.5 segundos de loading)
+    // 1. Lógica de Preload de Imagens
+    imagesToPreload.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+
+    // 2. Lógica do Contador (Sua original mantida)
     const interval = setInterval(() => {
       setPercentage((prev) => {
         if (prev < 100) return prev + 1;

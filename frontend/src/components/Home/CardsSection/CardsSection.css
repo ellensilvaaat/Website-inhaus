@@ -269,7 +269,7 @@
   }
 
   .cards-section__description {
-    padding-top: 140px;
+    padding-top: 150px;
     font-size: 1.3rem;
     opacity: 1 !important;
     color: white;
@@ -283,6 +283,7 @@
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 60% !important;
   }
 
   .cards-section__btn {

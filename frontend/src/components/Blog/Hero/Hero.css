@@ -106,3 +106,19 @@
     bottom: 3rem;
   }
 }
+
+@media (max-width: 500px) {
+  .blog-hero {
+  height: 50vh;
+}
+
+  .blog-hero__title {
+    font-size: 3rem;
+  }
+
+  .blog__bottom-text {
+    bottom: 1.8rem;
+    right: 2rem;
+    font-size: 1.3rem;
+  }
+}

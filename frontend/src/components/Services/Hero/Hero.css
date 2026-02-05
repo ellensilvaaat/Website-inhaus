@@ -1,28 +1,29 @@
 /* ===========================
    BASE
 =========================== */
-
 .services-hero {
   position: relative;
   width: 100%;
   height: 80vh;
   overflow: hidden;
+  background-color: #1a1a1a; /* Evita flash branco */
 }
 
 /* ===========================
    IMAGEM + ZOOM
 =========================== */
-
 .services-hero__background {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  /* Usa imagem de desktop por padrão */
+  background-image: var(--bg-desktop);
   animation: zoomInOut 18s ease-in-out infinite;
   z-index: 0;
+  will-change: transform;
 }
-
 
 /* Zoom desktop */
 @keyframes zoomInOut {
@@ -34,7 +35,6 @@
 /* ===========================
    OVERLAY
 =========================== */
-
 .services-hero__overlay {
   position: absolute;
   inset: 0;
@@ -45,7 +45,6 @@
 /* ===========================
    CONTEÚDO
 =========================== */
-
 .services-hero__content {
   position: absolute;
   inset: 0;
@@ -66,7 +65,6 @@
 /* ===========================
    TEXTO INFERIOR
 =========================== */
-
 .services__bottom-text {
   position: absolute;
   bottom: 2rem;
@@ -86,21 +84,22 @@
 }
 
 /* ===========================
-   📱 MOBILE (ZOOM VISÍVEL)
+   📱 MOBILE (ZOOM + PERFORMANCE)
 =========================== */
-
 @media (max-width: 500px) {
   .services-hero {
-    height: 85vh;
+    height: 50vh;
   }
 
-  .services-hero__image-wrapper {
+  .services-hero__background {
+    /* Troca para imagem leve no mobile */
+    background-image: var(--bg-mobile) !important;
     animation: zoomInOutMobile 18s ease-in-out infinite;
   }
 
   @keyframes zoomInOutMobile {
     0% { transform: scale(1); }
-    50% { transform: scale(1.09); } /* 🔥 perceptível no mobile */
+    50% { transform: scale(1.09); }
     100% { transform: scale(1); }
   }
 
@@ -111,13 +110,13 @@
   .services__bottom-text {
     font-size: 1.3rem;
     right: 2rem;
+    bottom: 1.5rem;
   }
 }
 
 /* ===========================
    🖥 TELAS GIGANTES
 =========================== */
-
 @media (min-width: 1500px) {
   .services-hero {
     height: 75vh;

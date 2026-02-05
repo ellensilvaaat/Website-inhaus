@@ -93,9 +93,10 @@
 }
 
 .how-it-works__step-desc {
-  font-size: 1.4rem;
-  line-height: 1.5;
-  font-weight: 100;
+  font-family: var(--font-primary);
+  font-size: 1.4rem; /* Ajustado para ficar elegante */
+  margin-bottom: 3rem;
+  color: white;
   text-align: center;
 }
 
@@ -107,6 +108,7 @@
   .how-it-works__timeline {
     flex-direction: column;
     align-items: center;
+    gap: 0;
   }
 
   .how-it-works__line {
@@ -116,7 +118,7 @@
   .how-it-works__step {
     width: 100%;
     max-width: 600px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .how-it-works__dot {
@@ -128,16 +130,17 @@
   /* 🔥 NOMES E TEXTOS PREMIUM */
   .how-it-works__number {
     font-size: 2.2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .how-it-works__step-title {
     font-size: 1.8rem;
+    margin-bottom: 0.5rem;
   }
 
   .how-it-works__step-desc {
-    font-size: 1.6rem;
-    line-height: 1.7;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
   }
 }
 
