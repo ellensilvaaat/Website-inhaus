@@ -1,0 +1,61 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.preloader__content {
+  text-align: center;
+}
+
+.preloader__logo-container {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader__logo-img {
+  width: 220px; /* Tamanho ideal para desktop e mobile */
+  height: auto;
+  display: block;
+  animation: logoFadeIn 1s ease-out forwards;
+}
+
+.preloader__bar-container {
+  width: 180px;
+  height: 2px;
+  background-color: #f0f0f0;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.preloader__bar {
+  height: 100%;
+  background-color: #F67C0B; /* Seu laranja */
+  transition: width 0.3s ease-out;
+}
+
+.preloader__text {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  color: #999;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

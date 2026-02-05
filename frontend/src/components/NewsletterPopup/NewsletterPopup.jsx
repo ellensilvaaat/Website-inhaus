@@ -10,17 +10,36 @@ export default function NewsletterPopup() {
   const API_BASE = import.meta.env.VITE_API_BASE || '';
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 5000);
+    // 1. Verifica se o usuário já fechou ou assinou o popup anteriormente
+    const hasSeenPopup = localStorage.getItem('inhaus_popup_closed');
+    
+    if (hasSeenPopup) return;
 
-    return () => clearTimeout(timer);
+    // 2. Função para detectar o scroll de 50%
+    const handleScroll = () => {
+      const scrollTop = window.scrollY; // O quanto rolou
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight; // Altura total rolável
+      const scrollPercent = (scrollTop / docHeight) * 100;
+
+      if (scrollPercent >= 50) {
+        setShowPopup(true);
+        // Remove o evento após disparar a primeira vez para performance
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Limpeza ao desmontar o componente
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const closePopup = () => {
     setShowPopup(false);
     setSubmitted(false);
     setFormData({ name: '', email: '' });
+    // 3. Salva no navegador que ele não quer mais ver o popup nesta sessão/visita
+    localStorage.setItem('inhaus_popup_closed', 'true');
   };
 
   const handleChange = (e) => {
@@ -47,6 +66,8 @@ export default function NewsletterPopup() {
 
       setSubmitted(true);
       setFormData({ name: '', email: '' });
+      // Também marca como fechado após sucesso
+      localStorage.setItem('inhaus_popup_closed', 'true');
     } catch (error) {
       console.error('Erro ao enviar newsletter:', error);
       alert('Erro ao enviar. Tente novamente mais tarde.');

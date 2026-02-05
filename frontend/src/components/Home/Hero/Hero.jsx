@@ -90,13 +90,13 @@ export default function Hero() {
         </button>
       </div>
 
-      <div className="hero__bottom-text">
-        <span>Design</span>
-        <span className="hero__separator">|</span>
-        <span>Renovate</span>
-        <span className="hero__separator">|</span>
-        <span className="hero__highlight">Build</span>
-      </div>
+       <div className="blog__bottom-text">
+          <span>Design</span>
+          <span className="blog__separator">|</span>
+          <span>Renovate</span>
+          <span className="blog__separator">|</span>
+          <span>Build</span>
+        </div>
     </section>
   )
 }

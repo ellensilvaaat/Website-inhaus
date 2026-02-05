@@ -5,8 +5,8 @@ import './CounterSection.css';
 
 const stats = [
   { id: 1, plus: '+', value: 20, label: 'Years in Operation' },
-  { id: 2, plus: '+', value: 150, label: 'Happy Clients' },
-  { id: 3, plus: '+', value: 120, label: 'Projects Delivered' },
+  { id: 2, plus: '+', value: 590, label: 'Happy Clients' },
+  { id: 3, plus: '+', value: 600, label: 'Projects Delivered' },
   { id: 4, plus: '+', value: 35, label: 'Brand Partners' },
 ];
 

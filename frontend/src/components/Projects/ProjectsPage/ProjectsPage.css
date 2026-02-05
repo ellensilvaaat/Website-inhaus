@@ -85,6 +85,7 @@
   object-position: center 50%;
   display: block;
   border-radius: 10px;
+  filter: contrast(1.02) saturate(1.05);
 }
 
 

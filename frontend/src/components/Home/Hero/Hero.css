@@ -148,21 +148,23 @@
 
 .hero__arrow:hover { color: #F67C0B; }
 
-.hero__bottom-text {
+.blog__bottom-text {
   position: absolute;
-  bottom: 3rem;
+  bottom: 2rem;
   right: 4rem;
   font-family: var(--font-primary);
-  font-size: 1.6rem;
+  font-weight: 300;
+  font-size: 1.5rem;
   color: white;
   display: flex;
-  gap: 0.8rem;
-  z-index: 20;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
 }
 
-.hero__highlight { color: #F67C0B; font-weight: 600; }
+.blog__separator {
+  color: var(--color-accent);
+}
 
 @keyframes zoomInOut {
   0%, 100% { transform: scale(1); }

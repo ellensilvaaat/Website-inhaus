@@ -1,7 +1,7 @@
 .about-hero {
   position: relative;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   overflow: hidden;
   background-color: #1a1a1a;
 }
@@ -49,7 +49,7 @@
   margin-bottom: 10px;
 }
 
-.hero__bottom-text {
+.blog__bottom-text {
   position: absolute;
   bottom: 2rem;
   right: 4rem;
@@ -63,7 +63,7 @@
   z-index: 2;
 }
 
-.hero__separator {
+.blog__separator {
   color: var(--color-accent);
 }
 

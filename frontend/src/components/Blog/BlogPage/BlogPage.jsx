@@ -9,36 +9,28 @@ export default function BlogPage() {
   const [recentComments, setRecentComments] = useState([]);
   const postsPerPage = 10;
 
-  // 🔹 Busca comentários reais do backend (substitui o localStorage)
   useEffect(() => {
     const fetchRecentComments = async () => {
       try {
         const res = await fetch('https://website-inhaus.onrender.com/api/comments');
         const data = await res.json();
-
         if (data.success && Array.isArray(data.comments)) {
-          // mantém só os 5 mais recentes
           setRecentComments(data.comments.slice(0, 5));
         }
       } catch (err) {
         console.error('❌ Error loading recent comments:', err);
       }
     };
-
     fetchRecentComments();
   }, []);
 
   const sortedPosts = useMemo(() => {
-    return [...postsMeta].sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    );
+    return [...postsMeta].sort((a, b) => new Date(b.date) - new Date(a.date));
   }, []);
 
   const filteredPosts = useMemo(() => {
     const q = searchTerm.toLowerCase().trim();
-    return sortedPosts.filter(p =>
-      p.title.toLowerCase().includes(q)
-    );
+    return sortedPosts.filter(p => p.title.toLowerCase().includes(q));
   }, [searchTerm, sortedPosts]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
@@ -50,19 +42,16 @@ export default function BlogPage() {
       <div className="blog-page__container">
         <div className="blog-page__grid">
           {currentPosts.map(post => (
-            <Link
-              key={post.slug}
-              to={`/blog/${post.slug}`}
-              className="blog-card"
-            >
+            <Link key={post.slug} to={`/blog/${post.slug}`} className="blog-card">
               <div className="blog-card__image-wrapper">
                 <img
-                  src={post.heroImage}
+                  /* ✅ Otimização: w-600 para cards e f-webp para leveza extrema */
+                  src={`${post.heroImage}?tr=w-600,q-75,f-webp`}
                   alt={post.title}
                   className="blog-card__image"
+                  loading="lazy"
                 />
               </div>
-
               <div className="blog-card__text">
                 <h3 className="blog-card__title">{post.title}</h3>
                 <p className="blog-card__excerpt">{post.date}</p>
@@ -82,7 +71,6 @@ export default function BlogPage() {
                 setCurrentPage(1);
               }}
             />
-            <button>SEARCH</button>
           </div>
 
           <div className="sidebar__recent">
@@ -106,9 +94,7 @@ export default function BlogPage() {
                   <li key={c.id || i}>
                     <div className="sidebar__comment-meta">
                       <strong>{c.name}</strong>{' '}
-                      <span>
-                        ({new Date(c.created_at || c.date).toLocaleDateString()})
-                      </span>
+                      <span>({new Date(c.created_at || c.date).toLocaleDateString()})</span>
                     </div>
                     <div className="sidebar__comment-text">
                       "{c.text?.length > 80 ? `${c.text.slice(0, 80)}…` : c.text}"

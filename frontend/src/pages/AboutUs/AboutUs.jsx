@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import Hero from '../../components/AboutUs/Hero/Hero'
 import AboutUsSection from '../../components/AboutUs/AboutUsSection/AboutUsSection'
 import CounterSection from '../../components/AboutUs/CounterSection/CounterSection'
-import TeamCarousel from '../../components/AboutUs/TeamCarousel/TeamCarousel'
+// import TeamCarousel from '../../components/AboutUs/TeamCarousel/TeamCarousel' // Comentado
 import WhyChooseUs from '../../components/AboutUs/DifferentialSection/DifferentialSection'
 import TrustedPartners from '../../components/AboutUs/TrustedPartners/TrustedPartners'
 
@@ -36,10 +36,9 @@ export default function AboutUs() {
       <Hero />
       <AboutUsSection />
       <CounterSection />
-      <TeamCarousel />
+      {/* <TeamCarousel /> */}  
       <WhyChooseUs />
       <TrustedPartners />
     </main>
   )
 }
-

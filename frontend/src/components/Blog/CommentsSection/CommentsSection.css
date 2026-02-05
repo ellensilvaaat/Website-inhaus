@@ -1,33 +1,68 @@
 .comments-section {
   margin-top: 6rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
+  border-top: 1px solid #eee;
+  padding-top: 3rem;
 }
 
 .comments-section__title {
   font-family: var(--font-title);
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  color: var(--color-text);
 }
 
 .comments-section__list {
   list-style: none;
   padding: 0;
+  margin-bottom: 3rem;
 }
 
 .comments-section__item {
-  margin-bottom: 1.6rem;
-  font-family: var(--font-primary);
-  font-size: 1.6rem;
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dashed #eee;
 }
 
-.comments-section__add-btn {
-  padding: 0.6rem 1.2rem;
+.comments-section__item strong {
   font-family: var(--font-primary);
+  font-size: 1.4rem;
+  color: var(--color-text);
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+
+.comments-section__item span {
+  font-family: var(--font-primary);
+  font-size: 1.3rem;
+  color: #888;
+}
+
+.comments-section__item p {
+  margin-top: 0.8rem;
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* BOTÃO DE ADICIONAR COMENTÁRIO */
+.comments-section__add-btn {
+  margin-top: 1.2rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   border: 2px solid var(--color-accent);
-  background: none;
+  background: transparent;
   color: var(--color-accent);
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.comments-section__p{
+  font-size: 1.4rem;
 }
 
 .comments-section__add-btn:hover {
@@ -35,89 +70,99 @@
   color: white;
 }
 
+/* MODAL OVERLAY */
 .comments-section__modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px); /* Toque de luxo */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 10000;
 }
 
+/* JANELA DO MODAL */
 .comments-section__modal {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 400px;
+  padding: 3rem;
   width: 90%;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  max-width: 450px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
 .comments-section__modal h4 {
-  margin-top: 0;
-  margin-bottom: 1rem;
   font-family: var(--font-title);
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-.comments-section__modal form label {
-  display: block;
-  margin-bottom: 0.8rem;
-  font-family: var(--font-primary);
-}
-
-.comments-section__modal form input,
-.comments-section__modal form textarea {
+/* INPUTS E TEXTAREA (Ajustado para o novo JSX sem labels) */
+.comments-section__modal input,
+.comments-section__modal textarea {
   width: 100%;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  margin-top: 0.3rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  font-family: var(--font-primary);
+  font-size: 1.4rem;
+  background: #f9f9f9;
+  transition: border-color 0.3s ease;
 }
 
+.comments-section__modal input:focus,
+.comments-section__modal textarea:focus {
+  border-color: var(--color-accent);
+  background: white;
+  outline: none;
+}
+
+.comments-section__modal textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* AÇÕES DO MODAL */
 .comments-section__modal-actions {
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  margin-top: 1rem;
 }
-
-/* ⭐ BOTÕES PREMIUM — SEM AS LINHAS NOS CANTOS ⭐ */
 
 .comments-section__modal-actions button {
-  background: none;
-  border: 2px solid var(--color-accent);
+  flex: 1;
+  padding: 1.2rem;
   font-family: var(--font-primary);
-  padding: 0.6rem 1.6rem;
-  font-size: 1.4rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 6px; /* leve, sofisticado */
+  text-transform: uppercase;
+  font-size: 1.2rem;
 }
 
-/* SUBMIT */
+/* Botão Submit (Laranja) */
 .comments-section__modal-actions button[type="submit"] {
   background: var(--color-accent);
   color: white;
-  font-weight: 600;
+  border: none;
 }
 
 .comments-section__modal-actions button[type="submit"]:hover {
-  opacity: 0.9;
+  filter: brightness(1.1);
 }
 
-/* CANCEL */
+/* Botão Cancel (Cinza/Transparente) */
 .comments-section__modal-actions button[type="button"] {
-  border-color: #777;
-  color: #444;
-  background: none;
+  background: #eee;
+  color: #666;
+  border: none;
 }
 
 .comments-section__modal-actions button[type="button"]:hover {
-  border-color: black;
-  color: black;
+  background: #ddd;
+  color: #333;
 }

@@ -1,204 +1,200 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import './ProjectDetail.css'
 import { projectsData } from '../../../content/projects'
 
+// ✅ Configuração de Imagem: Mesma URL para Preload e Popup garante Cache
+const getOptimizedUrl = (url, width = 1400, quality = 90) => {
+  if (!url) return '';
+  const baseUrl = url.split('?')[0];
+  return `${baseUrl}?tr=w-${width},q-${quality},f-auto,dpr-auto,us-2`;
+};
+
+// --- Funções Auxiliares de Texto ---
 function getProjectService(slug) {
-  if (!slug) return 'Renovation'
-  if (slug.includes('bathroom')) return 'Bathroom Renovation'
-  if (slug.includes('kitchen')) return 'Kitchen Renovation'
-  if (slug.includes('apartment')) return 'Apartment Renovation'
-  if (slug.includes('full-home')) return 'Full Home Renovation'
-  if (slug.includes('terrace')) return 'Terrace Renovation'
-  if (slug.includes('duplex')) return 'Duplex Construction'
-  if (slug.includes('extention')) return 'Home Extension'
-  return 'Renovation'
+  if (!slug) return 'Renovation';
+  const s = slug.toLowerCase();
+  if (s.includes('bathroom')) return 'Bathroom Renovation';
+  if (s.includes('kitchen')) return 'Kitchen Renovation';
+  if (s.includes('apartment')) return 'Apartment Renovation';
+  if (s.includes('full-home')) return 'Full Home Renovation';
+  return 'Renovation';
 }
 
 function getProjectQuote(slug) {
-  if (!slug) return '“Design is about feeling at home.”'
-  if (slug.includes('bathroom'))
-    return '“Luxury is when comfort meets intention — even in the smallest spaces.”'
-  if (slug.includes('kitchen'))
-    return '“The kitchen is where design, function and daily life truly connect.”'
-  if (slug.includes('apartment'))
-    return '“Great apartment design is about flow, light and effortless living.”'
-  if (slug.includes('full-home'))
-    return '“A full renovation is not about change — it’s about evolution.”'
-  if (slug.includes('duplex'))
-    return '“Smart construction balances design ambition with structural clarity.”'
-  return '“Great design is built on purpose, not trends.”'
+  if (!slug) return '“Design is about feeling at home.”';
+  const s = slug.toLowerCase();
+  if (s.includes('bathroom')) return '“Luxury is when comfort meets intention.”';
+  if (s.includes('kitchen')) return '“The kitchen is where daily life truly connects.”';
+  return '“Great design is built on purpose, not trends.”';
 }
 
 function cleanContent(raw = '') {
-  return raw
-    .replace(/Make an enquiry today[\s\S]*/i, '')
-    .replace(/Homes \| Apartments[\s\S]*/i, '')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim()
+  return raw.replace(/Make an enquiry today[\s\S]*/i, '').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 function autoParagraphs(text, maxLength = 500) {
-  if (!text) return []
-  const sentences = text.split(/(?<=[.?!])\s+(?=[A-Z])/g)
-  const paragraphs = []
-  let current = ''
+  if (!text) return [];
+  const sentences = text.split(/(?<=[.?!])\s+(?=[A-Z])/g);
+  const paragraphs = [];
+  let current = '';
   for (const sentence of sentences) {
     if ((current + sentence).length > maxLength) {
-      paragraphs.push(current.trim())
-      current = sentence + ' '
-    } else {
-      current += sentence + ' '
-    }
+      paragraphs.push(current.trim()); current = sentence + ' ';
+    } else { current += sentence + ' '; }
   }
-  if (current.trim()) paragraphs.push(current.trim())
-  return paragraphs
+  if (current.trim()) paragraphs.push(current.trim());
+  return paragraphs;
 }
 
-// 🔥 Negrito para palavras-chave
 function highlightKeywords(text, project) {
-  const keywords = [
-    'Paddington',
-    'Coogee',
-    'Rose Bay',
-    'Woollahra',
-    'Darling Point',
-    'Caringbah',
-    'Sutherland',
-    'Kitchen Renovation',
-    'Bathroom Renovation',
-    'Apartment Renovation',
-    'Full Home Renovation',
-    'Terrace Renovation',
-    'Duplex Construction',
-    'Home Extension',
-    project.title,
-    getProjectService(project.slug),
-  ]
-
-  let result = text
+  const keywords = [project.title, 'Kitchen Renovation', 'Bathroom Renovation', 'Apartment Renovation'];
+  let result = text;
   keywords.forEach(keyword => {
-    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
-    result = result.replace(regex, '<strong>$1</strong>')
-  })
-
-  return result
+    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
+    result = result.replace(regex, '<strong>$1</strong>');
+  });
+  return result;
 }
 
+// --- Componente Principal ---
 export default function ProjectDetail() {
-  const { slug } = useParams()
+  const { slug } = useParams();
+  const [currentIndex, setCurrentIndex] = useState(null);
 
+  const project = useMemo(() => projectsData.find(p => p.slug === slug), [slug]);
+  const allImages = useMemo(() => project ? (Array.isArray(project.gallery) ? project.gallery : []) : [], [project]);
+
+  // 🔥 TURBO CACHE: Força o download das imagens HD em background
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [slug])
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (allImages.length > 0) {
+      allImages.forEach((imgUrl) => {
+        const img = new Image();
+        // Usamos exatamente 1600px e q-85 para o cache casar com o popup
+        img.src = getOptimizedUrl(imgUrl, 1600, 85);
+      });
+    }
+  }, [allImages]);
 
-  const project = useMemo(() => {
-    return projectsData.find(p => p.slug === slug)
-  }, [slug])
+  // Navegação
+  const nextImg = useCallback((e) => {
+    if (e) e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % allImages.length);
+  }, [allImages]);
 
-  if (!project) {
-    return (
-      <section className="project-detail">
-        <div className="project-detail__notfound">
-          <h2>Project not found.</h2>
-          <Link to="/projects" className="project-detail__back">
-            Back to Projects
-          </Link>
-        </div>
-      </section>
-    )
-  }
+  const prevImg = useCallback((e) => {
+    if (e) e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  }, [allImages]);
 
-  const serviceTitle = getProjectService(project.slug)
-  const quote = getProjectQuote(project.slug)
+  // Atalhos Teclado
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (currentIndex === null) return;
+      if (e.key === 'ArrowRight') nextImg();
+      if (e.key === 'ArrowLeft') prevImg();
+      if (e.key === 'Escape') setCurrentIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, nextImg, prevImg]);
 
-  const safeGallery = Array.isArray(project.gallery) ? project.gallery : []
-  const hero = project.heroImage || safeGallery[0] || ''
-  const paragraphs = autoParagraphs(cleanContent(project.content || ''))
+  if (!project) return null;
 
-  const img0 = safeGallery[0] || hero
-  const img1 = safeGallery[1] || safeGallery[0] || hero
-  const img2 = safeGallery[2] || img1
-  const img3 = safeGallery[3] || img2
-  const img4 = safeGallery[4] || img3
-  const tail = safeGallery.slice(5)
+  const paragraphs = autoParagraphs(cleanContent(project.content || ''));
 
   return (
     <section className="project-detail">
+      {/* LIGHTBOX POPUP */}
+      <AnimatePresence>
+        {currentIndex !== null && (
+          <motion.div 
+            className="lightbox-overlay"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => setCurrentIndex(null)}
+          >
+            <button className="lightbox-close">×</button>
+            <button className="nav-btn prev" onClick={prevImg}>‹</button>
+            
+            <div className="lightbox-container">
+              <motion.img 
+                key={allImages[currentIndex]}
+                src={getOptimizedUrl(allImages[currentIndex], 1600, 85)} 
+                className="lightbox-main"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+
+            <button className="nav-btn next" onClick={nextImg}>›</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* HERO */}
       <div className="project-detail__hero">
-        <motion.div
-          className="project-detail__hero-bg"
-          style={{ backgroundImage: hero ? `url(${hero})` : 'none' }}
-          initial={{ scale: 1 }}
-          animate={{ scale: 1.08 }}
-          transition={{ duration: 10, ease: 'easeOut' }}
-        />
+        <div className="project-detail__hero-bg" 
+             style={{ backgroundImage: `url(${getOptimizedUrl(project.heroImage || allImages[0], 1920, 80)})` }} />
         <div className="project-detail__hero-overlay" />
         <div className="project-detail__hero-content">
-          <span className="project-detail__service">{serviceTitle}</span>
+          <span className="project-detail__service">{getProjectService(project.slug)}</span>
           <h1 className="project-detail__title">{project.title}</h1>
-          <p className="project-detail__sub">
-            A curated transformation by Inhaus Living designed to feel timeless,
-            effortless and deeply personal.
-          </p>
         </div>
       </div>
 
-      {/* CONTENT */}
       <div className="project-detail__container">
         <div className="project-layout">
-          {/* BLOCO 1 */}
+          
           <section className="project-block">
             {paragraphs.slice(0, 2).map((text, i) => (
               <p key={i} className="project-text" dangerouslySetInnerHTML={{ __html: highlightKeywords(text, project) }} />
             ))}
             <div className="project-images two-equal">
-              <motion.img src={img0} alt={project.title} whileHover={{ scale: 1.03 }} transition={{ duration: 0.35 }} loading="lazy" />
-              <motion.img src={img1} alt={project.title} whileHover={{ scale: 1.03 }} transition={{ duration: 0.35 }} loading="lazy" />
+              {allImages.slice(0, 2).map((img, i) => (
+                <div key={i} className="img-wrapper" onClick={() => setCurrentIndex(i)}>
+                  <img src={getOptimizedUrl(img, 1000, 75)} alt={project.title} />
+                </div>
+              ))}
             </div>
           </section>
 
-          {/* BLOCO 2 */}
           <section className="project-block">
-            {paragraphs.slice(2).map((text, i) => (
-              <p key={i} className="project-text" dangerouslySetInnerHTML={{ __html: highlightKeywords(text, project) }} />
-            ))}
-            <p className="project-quote">{quote}</p>
+            <p className="project-quote">{getProjectQuote(project.slug)}</p>
             <div className="project-images two-asymmetric">
-              <motion.img src={img2} alt={project.title} whileHover={{ scale: 1.03 }} transition={{ duration: 0.35 }} loading="lazy" />
-              <motion.img src={img3} alt={project.title} whileHover={{ scale: 1.03 }} transition={{ duration: 0.35 }} loading="lazy" />
+              <div className="img-wrapper" onClick={() => setCurrentIndex(2)}>
+                <img src={getOptimizedUrl(allImages[2], 1000, 75)} alt={project.title} />
+              </div>
+              <div className="img-wrapper" onClick={() => setCurrentIndex(3)}>
+                <img src={getOptimizedUrl(allImages[3], 1000, 75)} alt={project.title} />
+              </div>
             </div>
           </section>
 
-          {/* BLOCO 3 */}
           <section className="project-block">
-            <div className="project-image-wide">
-              <motion.img src={img4} alt={project.title} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35 }} loading="lazy" />
+            <div className="project-image-wide" onClick={() => setCurrentIndex(4)}>
+              <img src={getOptimizedUrl(allImages[4], 1600, 80)} alt={project.title} style={{ width: '100%' }} />
             </div>
           </section>
 
-          {/* GALERIA FINAL */}
-          {tail.length > 0 && (
+          {allImages.length > 5 && (
             <section className="project-gallery">
-              {tail.map((img, i) => (
-                <motion.img key={img + i} src={img} alt={`${project.title} ${i + 1}`} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35 }} loading="lazy" />
+              {allImages.slice(5).map((img, i) => (
+                <div key={i} className="img-wrapper" onClick={() => setCurrentIndex(i + 5)}>
+                  <img src={getOptimizedUrl(img, 400, 70)} alt={project.title} />
+                </div>
               ))}
             </section>
           )}
 
-          {/* CTA FINAL */}
           <section className="project-cta">
             <div className="project-cta__inner">
               <h3>Ready to create a home that feels like you?</h3>
-              <p>
-                Let’s shape a space that looks beautiful and lives even better.
-                Book a consultation and we’ll guide you from vision to finish.
-              </p>
-              <Link to="/contact" className="project-cta__btn">
-                Book a consultation
-              </Link>
+              <p>Let’s shape a space that looks beautiful and lives even better.</p>
+              <Link to="/contact" className="project-cta__btn">Book a consultation</Link>
             </div>
           </section>
         </div>
@@ -206,7 +202,3 @@ export default function ProjectDetail() {
     </section>
   )
 }
-
-
-
-

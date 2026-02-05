@@ -17,12 +17,12 @@ export default function AboutHero() {
         <div className="about-hero__content">
           <h1 className="about-hero__title">About Us</h1>
         </div>
-        <div className="hero__bottom-text">
+        <div className="blog__bottom-text">
           <span>Design</span>
-          <span className="hero__separator">|</span>
+          <span className="blog__separator">|</span>
           <span>Renovate</span>
-          <span className="hero__separator">|</span>
-          <span className="hero__highlight">Build</span>
+          <span className="blog__separator">|</span>
+          <span>Build</span>
         </div>
       </section>
     </>
