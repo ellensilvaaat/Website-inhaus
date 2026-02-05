@@ -102,7 +102,7 @@ export default function ProjectsPage() {
                 ).map((img, index) => (
                   <SwiperSlide key={index}>
                     <img
-                     src={`${img}?tr=w-1600,h-1000,fo=center,q=100,format=webp`}
+                     src={`${img}?tr=w-900,h-563,fo=center,q=100,format=webp`}
                      alt={`${project.title} ${index + 1}`}
                      className="project-cards__image"
                      loading="lazy"

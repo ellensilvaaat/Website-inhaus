@@ -1,6 +1,11 @@
+/* ==========================================================================
+   CARDS SECTION - INHAUS LIVING
+   ========================================================================== */
+
 .cards-section {
   padding: 7rem 0;
   background-color: #fff;
+  overflow: hidden;
 }
 
 /* HEADER */
@@ -30,21 +35,22 @@
   max-width: 400px;
 }
 
-/* SCROLL */
+/* SCROLL CONTAINER */
 .cards-section__scroll {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  margin-left: 30rem;
+  margin-left: 10rem; /* Ajustado para alinhar com o header */
   gap: 2rem;
-  padding: 2rem;
+  padding: 2rem 10rem 4rem 0; /* Padding lateral para o scroll não colar */
+  -webkit-overflow-scrolling: touch;
 }
 
 .cards-section__scroll::-webkit-scrollbar {
   display: none;
 }
 
-/* CARD */
+/* CARD - ESTRUTURA FIXA (SEM PULO) */
 .cards-section__card {
   position: relative;
   flex: 0 0 auto;
@@ -53,12 +59,33 @@
   background-color: #f5efe5;
   border-radius: 16px;
   overflow: hidden;
-  transition: background 0.4s ease-in-out, transform 0.4s ease;
-  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.1);
+  /* Retiramos o transform daqui para o card não "pular" */
+  transition: box-shadow 0.4s ease;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .cards-section__card:hover {
-  transform: translateY(-6px);
+  /* Apenas uma sombra mais profunda para dar foco, sem mover o card */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* IMAGEM INTERNA (ZOOM CINEMA) */
+.cards-section__img-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  z-index: 1;
+  /* Transição mais lenta para o zoom ficar elegante */
+  transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cards-section__card:hover .cards-section__img-bg {
+  opacity: 1;
+  transform: scale(1.1); /* A imagem amplia lá dentro suavemente */
 }
 
 /* CONTENT */
@@ -66,20 +93,20 @@
   position: relative;
   z-index: 3;
   height: 100%;
-  padding: 3rem 1.5rem 1.5rem 1.5rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  pointer-events: none; /* Garante que o hover seja no card */
 }
 
 .cards-section__white-box {
+  max-width: 50%;
   background-color: white;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 1.2rem;
   border-radius: 12px;
-  max-width: 120px;
-  margin-bottom: 1rem;
-  z-index: 3;
-  position: relative;
+  align-self: flex-start; /* Substitui o max-width fixo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .cards-section__card-title {
@@ -87,93 +114,110 @@
   font-size: 1.5rem;
   color: black;
   font-family: var(--font-primary);
-  font-weight: 500;
+  font-weight: 200;
 }
 
 .cards-section__description {
   font-size: 1.4rem;
   font-family: var(--font-primary);
   color: #333;
-  font-weight: 400;
-  padding-top: 220px;
-  flex: 1;
-  transition: opacity 0.3s ease;
-}
-
-/* BUTTON */
-.cards-section__btn {
-  background: white;
-  border: none;
-  border-radius: 50%;
-  padding: 0.6rem;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  position: absolute;
-  bottom: 1rem;
-  left: 1.5rem;
-  z-index: 3;
-}
-
-.cards-section__btn img {
-  width: 20px;
-  height: 20px;
-}
-
-/* HOVER IMAGE */
-.cards-section__image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.cards-section__card:hover .cards-section__image {
-  opacity: 1;
+  line-height: 1.5;
+  margin-top: auto;
+  margin-bottom: 6rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .cards-section__card:hover .cards-section__description {
   opacity: 0;
+  transform: translateY(10px);
+}
+
+/* BUTTON ARROW */
+.cards-section__btn {
+  background: white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 2.5rem;
+  z-index: 4;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.cards-section__btn img {
+  width: 18px;
+  height: 18px;
 }
 
 .cards-section__card:hover .cards-section__btn {
-  left: auto;
-  right: 1.5rem;
+  left: calc(100% - 73px); /* Move para a direita no hover */
+  background-color: #F67C0B;
 }
 
-/* CTA */
-.sardssection__cta{
+.cards-section__card:hover .cards-section__btn img {
+  filter: brightness(0) invert(1); /* Seta fica branca no fundo laranja */
+}
+
+/* ========================== EXPLORE PROJECTS CTA (RETÂNGULO) ========================== */
+
+.cs-cta-main {
   position: relative;
   background: none;
   border: none;
   color: black;
   font-size: 1.8rem;
-  padding: 1rem 2rem;
+  padding: 1.2rem 2.5rem;
   cursor: pointer;
   transition: color 0.3s ease;
   font-family: var(--font-primary);
   display: inline-block;
-  margin: 3rem 0 0 10rem;
+  margin: 4rem 0 0 10rem;
   text-decoration: none;
+  outline: none;
 }
 
-.sardssection__cta:hover{
-  color: var(--color-accent);
+.cs-cta-main:hover {
+  color: #F67C0B;
 }
 
-/* ------------------------------------------------------- */
-/* 📱 MOBILE — ATÉ 501px */
-/* ------------------------------------------------------- */
+.cs-cta-line {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #F67C0B;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cs-cta-line--tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.cs-cta-line--bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+
+.cs-cta-main:hover .cs-cta-line {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================== RESPONSIVIDADE ========================== */
+
+@media (max-width: 768px) {
+  .cards-section__header { padding: 0 3rem; }
+  .cards-section__scroll { margin-left: 3rem; padding-right: 3rem; }
+  .cs-cta-main { margin-left: 3rem; }
+  .cards-section__title { font-size: 2.4rem; }
+}
+
+@media (max-width: 501px) {
+  .cards-section__card { width: 280px; height: 400px; }
+  .cards-section__description { padding-top: 150px; }
+}
 
 @media (max-width: 501px) {
 
@@ -220,9 +264,8 @@
     z-index: 2;
   }
 
-  .cards-section__image {
-    opacity: 1 !important;
-    z-index: 1;
+  .cards-section__img-bg {
+    opacity: 1 !important; /* Sempre visível no mobile */
   }
 
   .cards-section__description {
@@ -250,6 +293,13 @@
   .sardssection__cta{
     margin-left: 2rem;
     font-size: 1.6rem;
+  }
+  .cards-section__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    z-index: 2;
   }
 }
 

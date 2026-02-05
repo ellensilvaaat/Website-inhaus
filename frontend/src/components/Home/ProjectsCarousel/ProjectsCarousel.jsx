@@ -19,24 +19,21 @@ export default function ProjectsCarousel() {
       <div className="project-carousel__container">
         {projectsData.map((project) => (
           <div className="project-card" key={project.slug}>
-            <div
-              className="project-card__image"
-              style={{ backgroundImage: `url(${project.heroImage})` }}
-            >
+            <div className="project-card__wrapper">
+              <img 
+                src={`${project.heroImage}?tr=w-800,f-webp,q-95`} 
+                alt={project.title}
+                className="project-card__img"
+                loading="lazy"
+                decoding="async"
+              />
+              
               <div className="project-card__overlay">
-                <h3 className="project-card__title">
-                  {project.title}
-                </h3>
-
+                <h3 className="project-card__title">{project.title}</h3>
                 <p className="project-card__description">
                   {getShortDescription(project.content)}
                 </p>
-
-                {/* 🔥 LINK CORRETO PARA PROJECT DETAIL */}
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="project-card__button"
-                >
+                <Link to={`/projects/${project.slug}`} className="project-card__button">
                   View Project
                 </Link>
               </div>
@@ -44,8 +41,7 @@ export default function ProjectsCarousel() {
           </div>
         ))}
       </div>
-
-      {/* CTA FINAL */}
+      
       <div className="bnt">
         <Link to="/contact" className="projects__cta">
           Start Your Renovation Journey
@@ -56,4 +52,3 @@ export default function ProjectsCarousel() {
     </section>
   )
 }
-

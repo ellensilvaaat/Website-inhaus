@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hero.css';
 
-const imageUrl = 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg';
+const imageUrl = 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg?tr=w-1600,f-webp,q-80,dpr-auto';
 
 export default function Hero() {
   return (
@@ -14,21 +14,17 @@ export default function Hero() {
       />
 
       <section className="services-hero">
-        {/* Novo: fundo com zoom */}
         <div
-          className="services-hero__background"
+          className={`services-hero__background`}
           style={{ backgroundImage: `url('${imageUrl}')` }}
         />
 
-        {/* Overlay escura */}
         <div className="services-hero__overlay" />
 
-        {/* Conteúdo */}
         <div className="services-hero__content">
           <h1 className="services-hero__title">Services</h1>
         </div>
 
-        {/* Texto inferior */}
         <div className="services__bottom-text">
           <span>Design</span>
           <span className="services__separator">|</span>

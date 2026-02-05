@@ -1,10 +1,10 @@
+/* ========================== ESTRUTURA HERO ========================== */
 .hero {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  padding: 0;
-  margin: 0;
+  background-color: #000;
 }
 
 .hero__slide {
@@ -14,31 +14,31 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  visibility: hidden; /* ✅ Esconde slides inativos para não bugar o hover */
+  transition: opacity 1s ease-in-out, visibility 1s;
   z-index: 1;
 }
 
 .hero__slide--active {
   opacity: 1;
+  visibility: visible;
+  z-index: 2;
 }
 
-/* ✅ Imagem com zoom */
 .hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
   animation: zoomInOut 15s ease-in-out infinite;
 }
 
-/* Escurecimento */
 .hero__slide::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 1;
 }
 
@@ -49,7 +49,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   padding: 0 2rem;
 }
@@ -58,69 +58,74 @@
   font-family: var(--font-title);
   font-size: 5rem;
   margin-bottom: 1.2rem;
-  line-height: 1.2;
 }
 
 .hero__subtitle {
   font-family: var(--font-primary);
   font-size: 1.7rem;
   margin-bottom: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.hero__cta {
+/* ========================== BOTÃO HERO EXCLUSIVO (H-CTA) ========================== */
+
+.h-cta-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.h-cta-main {
   position: relative;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.6rem;
-  padding: 1rem 2rem;
-  margin-top: 30px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  font-family: var(--font-primary);
   display: inline-block;
+  padding: 1.2rem 2.8rem;
+  color: #ffffff;
   text-decoration: none;
+  font-family: var(--font-primary);
+  font-size: 1.6rem;
+  background: transparent;
+  transition: color 0.3s ease;
+  z-index: 5;
+  outline: none;
 }
 
-.hero__cta:hover {
-  color: var(--color-accent);
+.h-cta-main:hover {
+  color: #F67C0B; /* Cor accent */
 }
 
-/* Cantos decorativos */
-.corner {
+/* As linhas laranjas (corners) */
+.h-cta-line {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #F67C0B;
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   pointer-events: none;
 }
 
-.corner::before,
-.corner::after {
-  content: '';
-  position: absolute;
-  background-color: var(--color-accent);
-  transition: all 0.3s ease;
+.h-cta-line--tr {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
 }
 
-.corner--top-right { top: 0; right: 0; }
-.corner--top-right::before { width: 20px; height: 2px; top: 0; right: 0; }
-.corner--top-right::after { width: 2px; height: 20px; top: 0; right: 0; }
+.h-cta-line--bl {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
 
-.corner--bottom-left { bottom: 0; left: 0; }
-.corner--bottom-left::before { width: 20px; height: 2px; bottom: 0; left: 0; }
-.corner--bottom-left::after { width: 2px; height: 20px; bottom: 0; left: 0; }
-
-.hero__cta:hover .corner--top-right::before,
-.hero__cta:hover .corner--bottom-left::before {
+/* Efeito de formar o retângulo completo */
+.h-cta-main:hover .h-cta-line {
   width: 100%;
-}
-
-.hero__cta:hover .corner--top-right::after,
-.hero__cta:hover .corner--bottom-left::after {
   height: 100%;
 }
 
-/* Setas */
+/* ========================== SETAS E TEXTO BOTTOM ========================== */
+
 .hero__arrows {
   position: absolute;
   top: 50%;
@@ -128,7 +133,7 @@
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
-  z-index: 3;
+  z-index: 20;
 }
 
 .hero__arrow {
@@ -137,102 +142,62 @@
   color: white;
   font-size: 4rem;
   cursor: pointer;
-  padding: 0 1rem;
+  padding: 0 2.5rem;
   transition: color 0.3s ease;
 }
 
-.hero__arrow:hover {
-  color: var(--color-accent);
-}
+.hero__arrow:hover { color: #F67C0B; }
 
 .hero__bottom-text {
   position: absolute;
-  bottom: 2rem;
+  bottom: 3rem;
   right: 4rem;
   font-family: var(--font-primary);
-  font-weight: 300;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: white;
   display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  z-index: 3;
+  gap: 0.8rem;
+  z-index: 20;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-/* 🔁 Animacao */
+.hero__highlight { color: #F67C0B; font-weight: 600; }
+
 @keyframes zoomInOut {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
-/* 📱 Mobile */
-@media (max-width: 500px) {
-  .hero,
-  .hero__slide {
-    height: 100vh;
-    height: 100svh;
-  }
+/* ========================== MEDIA QUERY CELULAR ========================== */
 
-  .hero__img {
-    animation: zoomInOutMobile 10s ease-in-out infinite;
-  }
-
-  @keyframes zoomInOutMobile {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  .hero__arrow,
-  .hero__bottom-text {
-    display: none;
-  }
-
+@media (max-width: 501px) {
   .hero__title {
-    font-size: 3.5rem;
+    font-size: 3rem;
+    line-height: 1.1;
   }
 
   .hero__subtitle {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
   }
 
-  .hero__cta {
-    font-size: 1.5rem;
-  }
-}
-
-/* 📲 Tablet */
-@media (min-width: 501px) and (max-width: 768px) {
-  .hero,
-  .hero__slide {
-    height: 100vh;
-    height: 100svh;
+  .h-cta-main {
+    font-size: 1.4rem;
+    padding: 1rem 2.2rem;
   }
 
-  .hero__title {
-    font-size: 4rem;
+  /* No celular, os tracinhos podem ser menores para não poluir */
+  .h-cta-line {
+    width: 14px;
+    height: 14px;
   }
 
-  .hero__subtitle {
-    font-size: 2.5rem;
-  }
-}
-
-/* 🖥️ Telas grandes */
-@media (min-width: 1500px) {
-  .hero,
-  .hero__slide {
-    height: 100vh;
+  .hero__arrows, .hero__bottom-text {
+    display: none; /* Limpa a tela no mobile */
   }
 
-  .hero__title {
-    font-size: 6rem;
-  }
-
-  .hero__subtitle {
-    font-size: 2rem;
+  .h-cta-wrapper {
+    margin-top: 25px;
   }
 }
-
-

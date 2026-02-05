@@ -6,44 +6,38 @@ import arrowIcon from '../../../assets/arrow.svg'
 const cardsData = [
   {
     title: 'Home Renovations',
-    description:
-      'Whole-home transformations planned, built and finished under one roof.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card1.jpg',
+    description: 'Whole-home transformations planned, built and finished under one roof.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card1.jpg?tr=w-800,f-webp,q-95',
     anchor: 'homes',
   },
   {
     title: 'Apartment Renovations',
-    description:
-      'Clever space planning and strata-savvy builds for effortless apartment upgrades.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/elena-popova-NYIDN7fBfkI-unsplash.jpg',
+    description: 'Clever space planning and strata-savvy builds for effortless apartment upgrades.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/elena-popova-NYIDN7fBfkI-unsplash.jpg?tr=w-800,f-webp,q-95',
     anchor: 'apartments',
   },
   {
     title: 'Kitchen Renovations',
-    description:
-      'High-performance layouts, premium finishes, integrated appliances.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg',
+    description: 'High-performance layouts, premium finishes, integrated appliances.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?tr=w-800,f-webp,q-95',
     anchor: 'kitchens',
   },
   {
     title: 'Bathroom Renovations',
-    description:
-      'Spa-level details, quality waterproofing, lighting and fixtures.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card4.jpg',
+    description: 'Spa-level details, quality waterproofing, lighting and fixtures.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card4.jpg?tr=w-800,f-webp,q-95',
     anchor: 'bathrooms',
   },
   {
     title: 'Flooring Services',
-    description:
-      'Hybrid, timber, parquetry and carpet; specified and installed.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card5.jpg',
+    description: 'Hybrid, timber, parquetry and carpet; specified and installed.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card5.jpg?tr=w-800,f-webp,q-95',
     anchor: 'flooring',
   },
   {
     title: 'Construction & Additions',
-    description:
-      'Licensed builders for extensions, new builds and second-storey additions.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card6.jpg',
+    description: 'Licensed builders for extensions, new builds and second-storey additions.',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card6.jpg?tr=w-800,f-webp,q-95',
     anchor: 'construction',
   },
 ]
@@ -55,7 +49,6 @@ export default function CardsSection() {
         <h2 className="cards-section__title">
           Design–Build Quality, <br />End to End
         </h2>
-
         <p className="cards-section__subtitle">
           Spaces that welcome you home, delivered by a Class 2 (NCC)
           licensed team in Sydney.
@@ -65,38 +58,35 @@ export default function CardsSection() {
       <div className="cards-section__scroll">
         {cardsData.map((card, index) => (
           <div className="cards-section__card" key={index}>
+            {/* ✅ Imagem real com Lazy Load para performance máxima */}
+            <img 
+              src={card.image} 
+              alt={card.title} 
+              className="cards-section__img-bg" 
+              loading="lazy" 
+              decoding="async"
+            />
+            
             <div className="cards-section__content">
               <div className="cards-section__white-box">
-                <h3 className="cards-section__card-title">
-                  {card.title}
-                </h3>
+                <h3 className="cards-section__card-title">{card.title}</h3>
               </div>
 
-              <p className="cards-section__description">
-                {card.description}
-              </p>
+              <p className="cards-section__description">{card.description}</p>
 
-              <Link
-                to={`/services#${card.anchor}`}
-                className="cards-section__btn"
-              >
+              <Link to={`/services#${card.anchor}`} className="cards-section__btn">
                 <img src={arrowIcon} alt="arrow" />
               </Link>
             </div>
-
-            <div
-              className="cards-section__image"
-              style={{ backgroundImage: `url(${card.image})` }}
-            />
           </div>
         ))}
       </div>
 
-      <Link to="/projects" className="sardssection__cta">
-        Explore Projects
-        <span className="corner corner--top-right"></span>
-        <span className="corner corner--bottom-left"></span>
-      </Link>
+      <Link to="/projects" className="cs-cta-main">
+  Explore Projects
+  <span className="cs-cta-line cs-cta-line--tr"></span>
+  <span className="cs-cta-line cs-cta-line--bl"></span>
+</Link>
     </section>
   )
 }

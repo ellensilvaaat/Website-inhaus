@@ -28,14 +28,18 @@ export default function Navbar() {
     <>
       <header className="navbar">
         <div className="navbar__container">
-          <NavLink to="/" className="navbar__logo" aria-label="Home">
-  <img
-    src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png"
-    alt="Inhaus Living Logo"
-    className="navbar__logo-img"
-  />
-</NavLink>
-
+          <NavLink to="/" className="navbar__logo" aria-label="Home" onClick={closeMenu}>
+            <img
+              // ✅ Otimizado: pedindo largura de 200px (suficiente para o que é exibido) e formato WebP
+              src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-200,f-webp"
+              alt="Inhaus Living Logo"
+              className="navbar__logo-img"
+              // ✅ Prioridade alta para o logo não "piscar" ao carregar
+              fetchpriority="high"
+              width="150" 
+              height="35"
+            />
+          </NavLink>
 
           <nav className="navbar__nav">
             <ul className="navbar__list">
@@ -44,9 +48,7 @@ export default function Navbar() {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      isActive
-                        ? 'navbar__link navbar__link--active'
-                        : 'navbar__link'
+                      isActive ? 'navbar__link navbar__link--active' : 'navbar__link'
                     }
                   >
                     {link.name}
@@ -69,8 +71,9 @@ export default function Navbar() {
       </header>
 
       {menuOpen && (
-        <div className="mobile-menu__overlay">
-          <div className="mobile-menu">
+        <div className="mobile-menu__overlay" onClick={closeMenu}>
+          {/* stopPropagation evita fechar o menu ao clicar dentro dele */}
+          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
             <button className="mobile-menu__close" onClick={closeMenu} aria-label="Close menu">
               &times;
             </button>
@@ -80,9 +83,7 @@ export default function Navbar() {
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      isActive
-                        ? 'mobile-menu__link mobile-menu__link--active'
-                        : 'mobile-menu__link'
+                      isActive ? 'mobile-menu__link mobile-menu__link--active' : 'mobile-menu__link'
                     }
                     onClick={closeMenu}
                   >

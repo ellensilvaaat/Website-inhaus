@@ -1,12 +1,13 @@
 import React from 'react';
 import './Hero.css';
 
-const imageUrl = 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/prydumano-design-vXMbcO1mRBY-unsplash.jpg';
+// ✅ URL otimizada: WebP + Compressão + Auto-DPR
+const imageUrl = 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/prydumano-design-vXMbcO1mRBY-unsplash.jpg?tr=w-1600,f-webp,q-80,dpr-auto';
 
 export default function Hero() {
   return (
     <>
-      {/* Preload da imagem */}
+      {/* ✅ Preload de alta prioridade para o navegador baixar antes de renderizar o JS */}
       <link
         rel="preload"
         as="image"
@@ -15,21 +16,17 @@ export default function Hero() {
       />
 
       <section className="blog-hero">
-        {/* Fundo com zoom */}
         <div
           className="blog-hero__background"
           style={{ backgroundImage: `url('${imageUrl}')` }}
         />
 
-        {/* Overlay */}
         <div className="blog-hero__overlay" />
 
-        {/* Conteúdo */}
         <div className="blog-hero__content">
           <h1 className="blog-hero__title">Blog</h1>
         </div>
 
-        {/* Texto inferior */}
         <div className="blog__bottom-text">
           <span>Design</span>
           <span className="blog__separator">|</span>

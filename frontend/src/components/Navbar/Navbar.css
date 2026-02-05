@@ -20,8 +20,10 @@
 
 .navbar__logo-img {
   height: 35px;
+  width: auto;
   object-fit: contain;
   display: block;
+  aspect-ratio: 4.28 / 1; 
 }
 
 .navbar__list {
@@ -78,23 +80,25 @@
 .mobile-menu__overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* mais leve */
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
   z-index: 2000;
   display: flex;
   justify-content: flex-end;
-  overflow: hidden;
+  overflow: hidden; 
 }
 
 /* MENU DESLIZANTE */
 .mobile-menu {
-  background-color: #000;
+  background-color: #0a0a0a;
   width: 70vw;
-  height: 150vh;
+  height: 100dvh; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 2rem 2rem;
+  padding: 4rem 2.5rem;
   position: relative;
+  will-change: transform; 
 }
 
 /* BOTÃO FECHAR - DENTRO DO MENU PRETO, À ESQUERDA */
@@ -187,15 +191,10 @@
     backdrop-filter: blur(6px);
   }
 
-  .mobile-menu {
+.mobile-menu {
     width: 60vw;
     max-width: 340px;
-    height: 100vh;
-    background: #0a0a0a;
-    padding: 4rem 2.5rem;
-    box-shadow: -4px 0px 20px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.35s ease forwards;
-    position: relative;
+    height: 100dvh; 
   }
 
   @keyframes slideIn {
@@ -209,18 +208,17 @@
     }
   }
 
-  /* X de fechar */
   .mobile-menu__close {
     position: absolute;
     top: 2rem;
     right: 2rem;
     left: auto !important;
-    font-size: 2.8rem;
+    font-size: 4rem;
     color: white;
     opacity: 0.9;
+    line-height: normal;
   }
 
-  /* Lista */
   .mobile-menu__list {
     margin-top: 3rem;
     width: 100%;

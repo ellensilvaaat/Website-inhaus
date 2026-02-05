@@ -1,65 +1,34 @@
-/* ✅ Fontes locais com caminho absoluto para public/fonts */
+/* ✅ 1. FONTES LOCAIS (Mantido e Organizado) */
 @font-face {
   font-family: 'The Seasons';
   src: url('/fonts/Fontspring-DEMO-theseasons-reg.woff2') format('woff2');
   font-weight: 400;
-  font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'The Seasons';
   src: url('/fonts/Fontspring-DEMO-theseasons-bd.woff2') format('woff2');
   font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-it.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-lt.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-ltit.woff2') format('woff2');
-  font-weight: 300;
-  font-style: italic;
   font-display: swap;
 }
 
-/* ✅ Variáveis globais de fontes e cores */
+/* ... (mantenha suas @font-face aqui em cima) ... */
+
 :root {
   --font-primary: 'Be Vietnam Pro', sans-serif;
   --font-title: 'The Seasons', serif;
-
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-accent: #F67C0B;
 }
 
-/* ✅ Reset base e medidas globais */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-bg);
-}
-
-/* ✅ HTML base */
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -68,71 +37,47 @@ html {
 body {
   font-family: var(--font-primary);
   font-size: 1.6rem;
-  background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
+  background-color: var(--color-bg);
   overflow-x: hidden;
 }
 
-/* ✅ Tipografia padrão */
-h1, h2, h3, h4, h5 {
+/* ✅ CORREÇÃO DO TEXTO: Títulos herdam a cor do pai (Hero é branco, resto é preto) */
+h1, h2, h3, h4 {
   font-family: var(--font-title);
   font-weight: 400;
-  line-height: 1.2;
+  color: inherit; /* Mudança aqui: ele respeita o que você definiu no componente */
 }
 
-/* ✅ Links (SEM quebrar navbar) */
+/* ✅ CORREÇÃO DA LOGO: Removemos o fundo cinza de todas as imagens */
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+  background-color: transparent; /* Garante que PNGs continuem transparentes */
+}
+
+/* ✅ Estilo específico para imagens de galeria (opcional) */
+/* Se quiser o fundo cinza só nas fotos grandes, use uma classe: */
+.img-optimized {
+  background-color: #f5f5f5;
+}
+
 a {
   text-decoration: none;
-}
-
-a:focus {
-  outline: none;
-}
-
-/* ✅ Botões limpos */
-button {
-  all: unset;
-  font-family: inherit;
-  font-size: 1em;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ✅ Inputs / Selects limpos */
-input,
-textarea,
-select,
-button {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  font-family: inherit;
-  font-size: 1em;
   color: inherit;
 }
 
-/* ✅ Autofill Safari/Chrome */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  box-shadow: 0 0 0 1000px var(--color-bg) inset !important;
-  -webkit-text-fill-color: var(--color-text) !important;
-  transition: background-color 9999s ease-in-out 0s;
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
 
-/* ✅ Foco sem interferência */
-*:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* ✅ Mapbox fix (se usar) */
-.mapboxgl-canvas {
-  position: absolute !important;
+input, textarea, select {
+  appearance: none;        
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  border-radius: 0;
 }
