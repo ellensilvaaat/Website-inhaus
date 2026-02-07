@@ -25,7 +25,6 @@ export default function BlogPost() {
       if (!importFn) return;
       
       const raw = await importFn()
-      // Limpeza de links e negritos automáticos para SEO/Visual
       const cleaned = raw
           .replace(/\*\*\[Home\][\s\S]*?\n/g, '')
           .replace(/^- \[.*?\]\(#.*?\)\n/gm, '')
@@ -36,7 +35,6 @@ export default function BlogPost() {
     if (postMeta) loadMarkdown()
   }, [postMeta?.slug])
 
-  /* 🔹 Comentários: Apenas uma chamada aqui (Props enviam pro componente) */
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -67,7 +65,6 @@ export default function BlogPost() {
       <section className="blog-post">
         <div
           className="blog-post__hero"
-          /* ✅ Otimização: w-1600 para hero full width é o limite ideal */
           style={{ backgroundImage: `url(${postMeta.heroImage}?tr=w-1600,q-85,f-webp)` }}
         >
           <div className="blog-post__overlay"></div>
@@ -80,7 +77,7 @@ export default function BlogPost() {
             <ReactMarkdown
               components={{
                 strong: ({ children }) => <strong style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{children}</strong>,
-                a: () => null // Remove links internos do markdown se necessário
+                a: () => null
               }}
             >
               {content}
