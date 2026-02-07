@@ -13,12 +13,9 @@ const links = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
+    return () => { document.body.style.overflow = 'auto'; };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -30,13 +27,13 @@ export default function Navbar() {
         <div className="navbar__container">
           <NavLink to="/" className="navbar__logo" aria-label="Home" onClick={closeMenu}>
             <img
-              // ✅ Otimizado: pedindo largura de 200px (suficiente para o que é exibido) e formato WebP
-              src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-200,f-webp"
+              src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-400,f-webp"
               alt="Inhaus Living Logo"
               className="navbar__logo-img"
-              // ✅ Prioridade alta para o logo não "piscar" ao carregar
               fetchpriority="high"
-              width="150" 
+              loading="eager"
+              decoding="async"
+              width="140" 
               height="35"
             />
           </NavLink>
@@ -72,7 +69,6 @@ export default function Navbar() {
 
       {menuOpen && (
         <div className="mobile-menu__overlay" onClick={closeMenu}>
-          {/* stopPropagation evita fechar o menu ao clicar dentro dele */}
           <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
             <button className="mobile-menu__close" onClick={closeMenu} aria-label="Close menu">
               &times;
@@ -98,5 +94,3 @@ export default function Navbar() {
     </>
   );
 }
-
-

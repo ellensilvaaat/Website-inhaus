@@ -1,64 +1,17 @@
-/* ✅ 1. FONTES LOCAIS (Mantido e Organizado) */
-@font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-reg.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-bd.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-
-/* ... (mantenha suas @font-face aqui em cima) ... */
-
-:root {
-  --font-primary: 'Be Vietnam Pro', sans-serif;
-  --font-title: 'The Seasons', serif;
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-accent: #F67C0B;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-}
-
-html {
-  font-size: 62.5%;
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-primary);
-  font-size: 1.6rem;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  overflow-x: hidden;
-}
-
-/* ✅ CORREÇÃO DO TEXTO: Títulos herdam a cor do pai (Hero é branco, resto é preto) */
+/* Regras para Títulos e Imagens */
 h1, h2, h3, h4 {
   font-family: var(--font-title);
   font-weight: 400;
-  color: inherit; /* Mudança aqui: ele respeita o que você definiu no componente */
+  color: inherit;
 }
 
-/* ✅ CORREÇÃO DA LOGO: Removemos o fundo cinza de todas as imagens */
 img {
   max-width: 100%;
   display: block;
   height: auto;
-  background-color: transparent; /* Garante que PNGs continuem transparentes */
+  background-color: transparent;
 }
 
-/* ✅ Estilo específico para imagens de galeria (opcional) */
-/* Se quiser o fundo cinza só nas fotos grandes, use uma classe: */
 .img-optimized {
   background-color: #f5f5f5;
 }
@@ -80,4 +33,38 @@ input, textarea, select {
   -webkit-appearance: none; 
   -moz-appearance: none; 
   border-radius: 0;
+}
+
+.app-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s;
+  will-change: opacity;
+}
+
+.app-content.is-loaded {
+  opacity: 1;
+  visibility: visible;
+}
+
+.route-loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9999;
+  background-color: rgba(246, 124, 11, 0.1);
+}
+
+.route-loader-bar {
+  height: 100%;
+  width: 30%;
+  background-color: #F67C0B;
+  animation: loadingBar 1.5s infinite ease-in-out;
+}
+
+@keyframes loadingBar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
 }

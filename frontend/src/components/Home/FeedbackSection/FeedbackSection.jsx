@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import './FeedbackSection.css';
 import FeedbackModal from './FeedbackModal';
 import ReviewViewModal from './ReviewViewModal';
-import reviews from '../../../content/reviews/reviews.cleaned.json';
+import reviewsLocal from '../../../content/reviews/reviews.cleaned.json';
 
 function normalizeStars(review) {
   if (review.stars) return review.stars;
@@ -19,10 +19,8 @@ function getShortText(text, max = 160) {
   return text.slice(0, max) + '…';
 }
 
-// ✅ NOVO: Função que converte "3 weeks ago" em Date
 function parseRelativeDate(str) {
   if (!str) return new Date(0);
-
   const now = new Date();
   const match = str.match(/(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago/i);
   if (match) {
@@ -39,7 +37,6 @@ function parseRelativeDate(str) {
     };
     return new Date(now - value * (multiplier[unit] || 0));
   }
-
   const parsed = Date.parse(str);
   return isNaN(parsed) ? new Date(0) : new Date(parsed);
 }
@@ -49,7 +46,6 @@ export default function FeedbackSection() {
   const [viewReview, setViewReview] = useState(null);
   const [sortOrder, setSortOrder] = useState('recent');
   const [feedbacks, setFeedbacks] = useState([]);
-
   const BACKEND_URL = 'https://website-inhaus.onrender.com/api/feedbacks';
 
   useEffect(() => {
@@ -59,10 +55,12 @@ export default function FeedbackSection() {
         const data = await res.json();
         if (data.success) setFeedbacks(data.feedbacks);
       } catch (err) {
-        console.error('❌ Error loading feedbacks:', err);
+        console.error('❌ Error loading feedbacks (Server might be sleeping):', err);
       }
     };
-    fetchFeedbacks();
+
+    const timer = setTimeout(fetchFeedbacks, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleNewFeedback = async (feedback) => {
@@ -92,17 +90,14 @@ export default function FeedbackSection() {
       const data = await res.json();
       if (data.success) {
         setFeedbacks((prev) => prev.filter((f) => f.id !== id));
-      } else {
-        alert('Unauthorized');
       }
     } catch (err) {
       console.error('❌ Error deleting feedback:', err);
     }
   };
 
-  // ✅ NOVO: Ordenação funcional com data convertida
   const sortedReviews = useMemo(() => {
-    const combined = [...feedbacks, ...reviews];
+    const combined = [...feedbacks, ...reviewsLocal];
     return combined.sort((a, b) => {
       const dateA = parseRelativeDate(a.created_at || a.date);
       const dateB = parseRelativeDate(b.created_at || b.date);
@@ -117,11 +112,8 @@ export default function FeedbackSection() {
         Discover what our clients say about their experience with Inhaus Living.
       </p>
 
-      {/* ✅ Label acessível */}
       <div className="feedback-section__filter">
-        <label htmlFor="feedback-sort" className="sr-only">
-          Sort reviews
-        </label>
+        <label htmlFor="feedback-sort" className="sr-only">Sort reviews</label>
         <select
           id="feedback-sort"
           value={sortOrder}
@@ -135,11 +127,7 @@ export default function FeedbackSection() {
       <div className="feedback-section__carousel">
         <button
           className="feedback-section__arrow feedback-section__arrow--left"
-          onClick={() =>
-            document
-              .querySelector('.feedback-section__track')
-              .scrollBy({ left: -360, behavior: 'smooth' })
-          }
+          onClick={() => document.querySelector('.feedback-section__track').scrollBy({ left: -360, behavior: 'smooth' })}
         >
           ‹
         </button>
@@ -156,16 +144,12 @@ export default function FeedbackSection() {
                 onClick={() => setViewReview(f)}
               >
                 <h3 className="feedback-card__name">{f.name}</h3>
-
                 <div className="feedback-card__stars">
                   {Array.from({ length: stars }).map((_, i) => (
                     <span key={i} className="star">★</span>
                   ))}
                 </div>
-
-                <p className="feedback-card__comment">
-                  {getShortText(fullText)}
-                </p>
+                <p className="feedback-card__comment">{getShortText(fullText)}</p>
 
                 {import.meta.env.MODE === 'development' && (
                   <button
@@ -185,36 +169,18 @@ export default function FeedbackSection() {
 
         <button
           className="feedback-section__arrow feedback-section__arrow--right"
-          onClick={() =>
-            document
-              .querySelector('.feedback-section__track')
-              .scrollBy({ left: 360, behavior: 'smooth' })
-          }
+          onClick={() => document.querySelector('.feedback-section__track').scrollBy({ left: 360, behavior: 'smooth' })}
         >
           ›
         </button>
       </div>
 
-      <button
-        className="feedback-section__add-btn"
-        onClick={() => setModalOpen(true)}
-      >
+      <button className="feedback-section__add-btn" onClick={() => setModalOpen(true)}>
         Add your review
       </button>
 
-      {modalOpen && (
-        <FeedbackModal
-          onClose={() => setModalOpen(false)}
-          onSubmit={handleNewFeedback}
-        />
-      )}
-
-      {viewReview && (
-        <ReviewViewModal
-          review={viewReview}
-          onClose={() => setViewReview(null)}
-        />
-      )}
+      {modalOpen && <FeedbackModal onClose={() => setModalOpen(false)} onSubmit={handleNewFeedback} />}
+      {viewReview && <ReviewViewModal review={viewReview} onClose={() => setViewReview(null)} />}
     </section>
   );
 }

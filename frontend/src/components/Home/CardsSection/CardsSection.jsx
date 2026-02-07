@@ -13,7 +13,7 @@ const cardsData = [
   {
     title: 'Apartment Renovations',
     description: 'Clever space planning and strata-savvy builds for effortless apartment upgrades.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/elena-popova-NYIDN7fBfkI-unsplash.jpg?tr=w-800,f-webp,q-95',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/elena-popova-NYIDN7fBfkI-unsplash.jpg?tr=w-500,f-webp,q-95',
     anchor: 'apartments',
   },
   {
@@ -25,13 +25,13 @@ const cardsData = [
   {
     title: 'Bathroom Renovations',
     description: 'Spa-level details, quality waterproofing, lighting and fixtures.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card4.jpg?tr=w-800,f-webp,q-95',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card4.jpg?tr=w-700,f-webp,q-95',
     anchor: 'bathrooms',
   },
   {
     title: 'Flooring Services',
     description: 'Hybrid, timber, parquetry and carpet; specified and installed.',
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card5.jpg?tr=w-800,f-webp,q-95',
+    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card5.jpg?tr=w-700,f-webp,q-95',
     anchor: 'flooring',
   },
   {

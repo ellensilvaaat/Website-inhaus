@@ -10,14 +10,7 @@ function LayoutWrapper({ isLoading }) {
   const hideLayout = location.pathname === '/thank-you'
 
   return (
-    <div 
-      className="app-content" 
-      style={{ 
-        opacity: isLoading ? 0 : 1, 
-        transition: 'opacity 0.8s ease-in-out',
-        visibility: isLoading ? 'hidden' : 'visible'
-      }}
-    >
+    <div className={`app-content ${isLoading ? 'is-loading' : 'is-loaded'}`}>
       {!hideLayout && <Navbar />}
       <main>
         <AppRoutes />

@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-
 const Home = lazy(() => import('../pages/Home/Home'))
 const AboutUs = lazy(() => import('../pages/AboutUs/AboutUs'))
 const Services = lazy(() => import('../pages/Services/Services'))
@@ -14,11 +13,8 @@ const ThankYou = lazy(() => import('../components/ThankYou/ThankYou'))
 const NotFound = lazy(() => import('../components/NotFound/NotFound'))
 
 const PageLoader = () => (
-  <div style={{ 
-    height: '100vh', width: '100%', backgroundColor: '#ffffff', 
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    position: 'fixed', top: 0, left: 0, zIndex: 999
-  }}>
+  <div className="route-loader-container">
+    <div className="route-loader-bar"></div>
   </div>
 );
 
