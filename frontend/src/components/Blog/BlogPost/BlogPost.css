@@ -38,6 +38,7 @@
   text-align: center;
   margin: 1rem 0;
   color: #666;
+  font-size: 1.4rem;
 }
 
 .blog-post__container {
@@ -48,6 +49,7 @@
 
 .blog-post__content {
   line-height: 1.8;
+  font-size: 1.6rem;
 }
 
 /* MARKDOWN STYLES */

@@ -85,7 +85,8 @@ export default function ProjectsPage() {
       {/* PROJECT LIST */}
       <div className="project-page__list">
         {currentProjects.map((project) => (
-          <div key={project.slug} className="projects-card">
+          /* Trocado para <article> para melhor SEO, mas mantendo a classe */
+          <article key={project.slug} className="projects-card">
             {/* GALERIA */}
             <div className="projects-card__image-wrapper">
               <Swiper
@@ -102,12 +103,12 @@ export default function ProjectsPage() {
                 ).map((img, index) => (
                   <SwiperSlide key={index}>
                     <img
-                    src={`${img}?tr=w-1200,h-800,fo-auto,q-95,f-webp,us-2`}
-                    alt={`${project.title} ${index + 1}`}
-                    className="project-cards__image"
-                    loading={startIndex === 0 && index === 0 ? "eager" : "lazy"}
-                    fetchpriority={startIndex === 0 && index === 0 ? "high" : "auto"}
-                    decoding="async"
+                      src={`${img}?tr=w-1200,h-800,fo-auto,q-95,f-webp,us-2`}
+                      alt={`${project.title} - Image ${index + 1}`}
+                      className="project-cards__image"
+                      loading={startIndex === 0 && index === 0 ? "eager" : "lazy"}
+                      fetchpriority={startIndex === 0 && index === 0 ? "high" : "auto"}
+                      decoding="async"
                     />
                   </SwiperSlide>
                 ))}
@@ -124,11 +125,13 @@ export default function ProjectsPage() {
               <Link
                 to={`/projects/${project.slug}`}
                 className="projects-card__read-more"
+                /* SOLUÇÃO DO SEO: aria-label diz ao Google o que o link faz */
+                aria-label={`Read more about the project: ${project.title}`}
               >
                 Read more
               </Link>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
@@ -137,6 +140,7 @@ export default function ProjectsPage() {
         <button
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           className="project-page__page-btn"
+          aria-label="Go to previous page"
         >
           ‹
         </button>
@@ -148,6 +152,8 @@ export default function ProjectsPage() {
             className={`project-page__page-btn ${
               currentPage === pageNum ? 'active' : ''
             }`}
+            aria-label={`Go to page ${pageNum}`}
+            aria-current={currentPage === pageNum ? 'page' : undefined}
           >
             {pageNum}
           </button>
@@ -156,6 +162,7 @@ export default function ProjectsPage() {
         <button
           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           className="project-page__page-btn"
+          aria-label="Go to next page"
         >
           ›
         </button>
@@ -171,5 +178,3 @@ export default function ProjectsPage() {
     </section>
   )
 }
-
-
