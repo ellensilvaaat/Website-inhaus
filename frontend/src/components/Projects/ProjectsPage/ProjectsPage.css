@@ -56,11 +56,13 @@
 
 /* === GALERIA SWIPER === */
 .projects-card__image-wrapper {
+  background-color: #f8f8f8;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
   aspect-ratio: 4.5 / 2;
   position: relative;
+  contain: paint;
 }
 
 .projects-card__image-wrapper .swiper {

@@ -4,20 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png?updatedAt=1767487361967" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Inhaus Living offers expert renovations and interior design.">
-    <title>INHAUS LIVING</title>
+    
+    <title>INHAUS LIVING | Luxury Renovations & Interior Design</title>
+    <meta name="description" content="Inhaus Living offers expert renovations and interior design. Transforming houses into homes with premium finishes in Sydney.">
+    <link rel="canonical" href="https://website-inhaus.vercel.app/">
+
+    <meta property="og:title" content="INHAUS LIVING | Luxury Renovations">
+    <meta property="og:description" content="Custom renovations and interior design. From concept to completion, we build your vision.">
+    <meta property="og:image" content="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1200,q-80">
+    <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://ik.imagekit.io">
-    <link rel="preconnect" href="https://website-inhaus.onrender.com">
+    <link rel="dns-prefetch" href="https://ik.imagekit.io">
 
-    <link rel="preload" as="image" href="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-600,f-webp" fetchpriority="high">
-    <link rel="preload" as="image" href="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp,q-80,dpr-auto" fetchpriority="high">
+    <link rel="preload" as="image" href="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp,q-90" fetchpriority="high">
     <link rel="preload" href="/fonts/Fontspring-DEMO-theseasons-reg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-
+    
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://ik.imagekit.io; font-src 'self' https://fonts.gstatic.com;">
     <style>
       @font-face { 
         font-family: 'The Seasons'; 
@@ -37,6 +46,7 @@
       html { font-size: 62.5%; }
       body { font-family: var(--font-primary); background-color: var(--color-bg); overflow-x: hidden; }
 
+      /* NAVBAR - EXATAMENTE COMO VOCÊ MANDOU */
       .navbar {
         position: absolute;
         top: 0;
@@ -103,7 +113,6 @@
         .navbar__list { display: none !important; }
         .navbar__hamburger { display: flex; }
       }
-
       .preloader { position: fixed; inset: 0; background-color: #fff; display: flex; justify-content: center; align-items: center; z-index: 9999; }
       .preloader__logo-img { width: 220px; height: auto; }
     </style>
@@ -112,5 +121,4 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-</html>
 </html>

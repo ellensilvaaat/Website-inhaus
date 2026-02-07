@@ -51,12 +51,12 @@ export default function Hero() {
           className={`hero__slide ${idx === current ? 'hero__slide--active' : ''}`}
         >
           <img
-            src={slide.image}
-            alt={slide.alt}
-            className="hero__img"
-            loading={idx === 0 ? "eager" : "lazy"}
-            fetchpriority={idx === 0 ? "high" : "low"}
-            decoding="async"
+           src={slide.image}
+           alt={slide.alt}
+           className="hero__img"
+           loading={idx === 0 ? "eager" : "lazy"}
+           fetchpriority={idx === 0 ? "high" : "low"}
+           decoding={idx === 0 ? "sync" : "async"}
           />
 
           <div className="hero__overlay">
