@@ -5,25 +5,25 @@ import './Hero.css'
 const slides = [
   {
     desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp,q-90',
-    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1080,f-webp,q-80,pr-true',
     alt: 'Custom interior renovation',
     subtitle: 'From concept to completion, we design and build spaces that reflect your lifestyle, personality, and vision.',
   },
   {
     desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-1600,f-webp,q-85',
-    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-1080,f-webp,q-75,pr-true',
     alt: 'Modern kitchen design',
     subtitle: 'High-performance kitchens designed for how you cook, gather, and live.',
   },
   {
     desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-1600,f-webp,q-85',
-    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-1080,f-webp,q-80,pr-true',
     alt: 'Premium custom joinery',
     subtitle: 'Custom joinery and premium finishes, tailored to your space and style.',
   },
   {
     desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-1600,f-webp,q-85',
-    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-1080,f-webp,q-80,pr-true',
     alt: 'Spa-like bathroom renovation',
     subtitle: 'Spa-worthy bathrooms that elevate daily rituals with calm, crafted detail.',
   },
