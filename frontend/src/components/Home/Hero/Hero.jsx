@@ -4,22 +4,26 @@ import './Hero.css'
 
 const slides = [
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp,q-90',
+    desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1600,f-webp,q-90',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
     alt: 'Custom interior renovation',
     subtitle: 'From concept to completion, we design and build spaces that reflect your lifestyle, personality, and vision.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-1600,f-webp,q-85',
+    desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-1600,f-webp,q-85',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-bWfP4W8Pb9c-unsplash.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
     alt: 'Modern kitchen design',
     subtitle: 'High-performance kitchens designed for how you cook, gather, and live.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-1600,f-webp,q-85',
+    desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-1600,f-webp,q-85',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero3.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
     alt: 'Premium custom joinery',
     subtitle: 'Custom joinery and premium finishes, tailored to your space and style.',
   },
   {
-    image: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-1600,f-webp,q-85',
+    desktop: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-1600,f-webp,q-85',
+    mobile: 'https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-varhNULWOBE-unsplash.jpg?tr=w-828,f-webp,q-75,e-sharpen-10,pr-true',
     alt: 'Spa-like bathroom renovation',
     subtitle: 'Spa-worthy bathrooms that elevate daily rituals with calm, crafted detail.',
   },
@@ -29,7 +33,14 @@ const AUTO_CHANGE_DELAY = 8000
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
   const timeoutRef = useRef(null)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const resetTimeout = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
@@ -51,7 +62,7 @@ export default function Hero() {
           className={`hero__slide ${idx === current ? 'hero__slide--active' : ''}`}
         >
           <img
-           src={slide.image}
+           src={isMobile ? slide.mobile : slide.desktop}
            alt={slide.alt}
            className="hero__img"
            loading={idx === 0 ? "eager" : "lazy"}
@@ -89,4 +100,3 @@ export default function Hero() {
     </section>
   )
 }
-
