@@ -1,21 +1,19 @@
+import axios from 'axios';
+import crypto from 'crypto';
 import { supabase } from '../services/supabase.service.js';
 
 export const subscribeToNewsletter = async (req, res) => {
   try {
-    console.log('🔥 BODY RECEBIDO (newsletter):', req.body);
-
     const { name, email } = req.body;
 
-    // ✅ Validação igual ao contact
+    // ✅ Validação básica
     if (!name || !email) {
-      console.warn('⚠️ Dados incompletos newsletter:', req.body);
       return res.status(400).json({
         success: false,
         message: 'Name and email are required',
       });
     }
 
-    // (opcional) validação simples de email
     if (!email.includes('@')) {
       return res.status(400).json({
         success: false,
@@ -23,23 +21,69 @@ export const subscribeToNewsletter = async (req, res) => {
       });
     }
 
-    // ✅ Insert na tabela correta
-    const { data, error } = await supabase
-      .from('newsletter_subscribers')
-      .insert([{ name, email }]);
+    const normalizedEmail = email.toLowerCase();
 
-    if (error) {
-      console.error('❌ Supabase error (newsletter):', error);
+    // ===============================
+    // 1️⃣ SALVA NO SUPABASE (BACKUP)
+    // ===============================
+    const { error: dbError } = await supabase
+      .from('newsletter_subscribers')
+      .upsert(
+        [{ name, email: normalizedEmail }],
+        { onConflict: 'email' } // evita duplicação
+      );
+
+    if (dbError) {
+      console.error('❌ Supabase error:', dbError);
       return res.status(500).json({
         success: false,
-        message: 'Failed to subscribe to newsletter',
+        message: 'Database error',
       });
+    }
+
+    // ===============================
+    // 2️⃣ ENVIA PARA MAILCHIMP
+    // ===============================
+    const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
+    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+    const DC = process.env.MAILCHIMP_DC;
+
+    const subscriberHash = crypto
+      .createHash('md5')
+      .update(normalizedEmail)
+      .digest('hex');
+
+    const mailchimpUrl = `https://${DC}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${subscriberHash}`;
+
+    try {
+      await axios.put(
+        mailchimpUrl,
+        {
+          email_address: normalizedEmail,
+          status_if_new: 'subscribed',
+          status: 'subscribed',
+          merge_fields: {
+            FNAME: name,
+          },
+        },
+        {
+          headers: {
+            Authorization: `apikey ${MAILCHIMP_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } catch (mailchimpError) {
+      console.error(
+        '⚠️ Mailchimp error:',
+        mailchimpError.response?.data || mailchimpError.message
+      );
+      // Não bloqueia o cadastro se Mailchimp falhar
     }
 
     return res.status(200).json({
       success: true,
       message: 'Subscribed successfully',
-      data,
     });
 
   } catch (err) {
@@ -50,4 +94,3 @@ export const subscribeToNewsletter = async (req, res) => {
     });
   }
 };
-

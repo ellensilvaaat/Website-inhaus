@@ -104,11 +104,11 @@ export default function ProjectsPage() {
                 ).map((img, index) => (
                   <SwiperSlide key={index}>
                     <img
-                    src={`${img}?tr=w-1200,h-800,fo-auto,q-95,f-webp,us-2`}
+                    src={`${img}?tr=w-1200,h-800,fo-auto,q-75,f-webp,us-2`}
                     alt={`${project.title} gallery image ${index + 1}`}
                     className="project-cards__image"
-                    loading={startIndex === 0 && index === 0 ? "eager" : "lazy"}
-                    fetchpriority={startIndex === 0 && index === 0 ? "high" : "auto"}
+                    loading="lazy"
+                    fetchpriority="auto"
                     decoding="async"
                     />
                   </SwiperSlide>

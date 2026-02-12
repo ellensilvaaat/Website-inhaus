@@ -1,132 +1,173 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Helmet } from 'react-helmet-async' // Adicionado para SEO
+import { Helmet } from 'react-helmet-async'
 import './ProjectDetail.css'
 import { projectsData } from '../../../content/projects'
 
-// ✅ Configuração de Imagem
-const getOptimizedUrl = (url, width = 1400, quality = 90) => {
-  if (!url) return '';
-  const baseUrl = url.split('?')[0];
-  return `${baseUrl}?tr=w-${width},q-${quality},f-auto,dpr-auto,us-2`;
-};
+const getOptimizedUrl = (url, width = 1400, quality = 80) => {
+  if (!url) return ''
+  const baseUrl = url.split('?')[0]
+  return `${baseUrl}?tr=w-${width},q-${quality},f-auto,dpr-auto,us-2`
+}
 
-// --- Funções Auxiliares de Texto ---
 function getProjectService(slug) {
-  if (!slug) return 'Renovation';
-  const s = slug.toLowerCase();
-  if (s.includes('bathroom')) return 'Bathroom Renovation';
-  if (s.includes('kitchen')) return 'Kitchen Renovation';
-  if (s.includes('apartment')) return 'Apartment Renovation';
-  if (s.includes('full-home')) return 'Full Home Renovation';
-  return 'Renovation';
+  if (!slug) return 'Renovation'
+  const s = slug.toLowerCase()
+  if (s.includes('bathroom')) return 'Bathroom Renovation'
+  if (s.includes('kitchen')) return 'Kitchen Renovation'
+  if (s.includes('apartment')) return 'Apartment Renovation'
+  if (s.includes('full')) return 'Full Home Renovation'
+  if (s.includes('build')) return 'New Build'
+  return 'Renovation'
 }
 
 function getProjectQuote(slug) {
-  if (!slug) return '“Design is about feeling at home.”';
-  const s = slug.toLowerCase();
-  if (s.includes('bathroom')) return '“Luxury is when comfort meets intention.”';
-  if (s.includes('kitchen')) return '“The kitchen is where daily life truly connects.”';
-  return '“Great design is built on purpose, not trends.”';
+  if (!slug) return '“Design is about feeling at home.”'
+  const s = slug.toLowerCase()
+  if (s.includes('bathroom')) return '“Luxury is when comfort meets intention.”'
+  if (s.includes('kitchen')) return '“The kitchen is where daily life truly connects.”'
+  return '“Great design is built on purpose, not trends.”'
 }
 
 function cleanContent(raw = '') {
-  return raw.replace(/Make an enquiry today[\s\S]*/i, '').replace(/\n{3,}/g, '\n\n').trim();
+  return raw
+    .replace(/Make an enquiry today[\s\S]*/i, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
 }
 
 function autoParagraphs(text, maxLength = 500) {
-  if (!text) return [];
-  const sentences = text.split(/(?<=[.?!])\s+(?=[A-Z])/g);
-  const paragraphs = [];
-  let current = '';
+  if (!text) return []
+  const sentences = text.split(/(?<=[.?!])\s+(?=[A-Z])/g)
+  const paragraphs = []
+  let current = ''
+
   for (const sentence of sentences) {
     if ((current + sentence).length > maxLength) {
-      paragraphs.push(current.trim()); current = sentence + ' ';
-    } else { current += sentence + ' '; }
+      paragraphs.push(current.trim())
+      current = sentence + ' '
+    } else {
+      current += sentence + ' '
+    }
   }
-  if (current.trim()) paragraphs.push(current.trim());
-  return paragraphs;
+
+  if (current.trim()) paragraphs.push(current.trim())
+  return paragraphs
 }
 
 function highlightKeywords(text, project) {
-  const keywords = [project.title, 'Kitchen Renovation', 'Bathroom Renovation', 'Apartment Renovation'];
-  let result = text;
-  keywords.forEach(keyword => {
-    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
-    result = result.replace(regex, '<strong>$1</strong>');
-  });
-  return result;
+  const keywords = [
+    project.title,
+    'Kitchen Renovation',
+    'Bathroom Renovation',
+    'Apartment Renovation',
+    'Full Home Renovation',
+  ]
+
+  let result = text
+  keywords.forEach((keyword) => {
+    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
+    result = result.replace(regex, '<strong>$1</strong>')
+  })
+
+  return result
 }
 
 export default function ProjectDetail() {
-  const { slug } = useParams();
-  const [currentIndex, setCurrentIndex] = useState(null);
+  const { slug } = useParams()
+  const [currentIndex, setCurrentIndex] = useState(null)
 
-  const project = useMemo(() => projectsData.find(p => p.slug === slug), [slug]);
-  const allImages = useMemo(() => project ? (Array.isArray(project.gallery) ? project.gallery : []) : [], [project]);
+  const project = useMemo(
+    () => projectsData.find((p) => p.slug === slug),
+    [slug]
+  )
+
+  const allImages = useMemo(() => {
+    if (!project) return []
+    return Array.isArray(project.gallery)
+      ? project.gallery
+      : project.heroImage
+      ? [project.heroImage]
+      : []
+  }, [project])
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    if (allImages.length > 0) {
-      allImages.forEach((imgUrl) => {
-        const img = new Image();
-        img.src = getOptimizedUrl(imgUrl, 1600, 85);
-      });
-    }
-  }, [allImages]);
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [slug])
 
-  const nextImg = useCallback((e) => {
-    if (e) e.stopPropagation();
-    setCurrentIndex((prev) => (prev + 1) % allImages.length);
-  }, [allImages]);
+  const nextImg = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % allImages.length)
+  }, [allImages.length])
 
-  const prevImg = useCallback((e) => {
-    if (e) e.stopPropagation();
-    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
-  }, [allImages]);
+  const prevImg = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev - 1 < 0 ? allImages.length - 1 : prev - 1
+    )
+  }, [allImages.length])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (currentIndex === null) return;
-      if (e.key === 'ArrowRight') nextImg();
-      if (e.key === 'ArrowLeft') prevImg();
-      if (e.key === 'Escape') setCurrentIndex(null);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, nextImg, prevImg]);
+      if (currentIndex === null) return
+      if (e.key === 'ArrowRight') nextImg()
+      if (e.key === 'ArrowLeft') prevImg()
+      if (e.key === 'Escape') setCurrentIndex(null)
+    }
 
-  if (!project) return null;
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex, nextImg, prevImg])
 
-  const paragraphs = autoParagraphs(cleanContent(project.content || ''));
+  if (!project) return null
+
+  const paragraphs = autoParagraphs(cleanContent(project.content || ''))
 
   return (
     <section className="project-detail">
-      {/* SEO Dinâmico Individual */}
       <Helmet>
         <title>{`${project.title} | Inhaus Living Projects`}</title>
-        <meta name="description" content={cleanContent(project.content).slice(0, 160)} />
-        <link rel="canonical" href={`https://website-inhaus.vercel.app/projects/${slug}`} />
+        <meta
+          name="description"
+          content={cleanContent(project.content).slice(0, 160)}
+        />
+        <link
+          rel="canonical"
+          href={`https://website-inhaus.vercel.app/projects/${slug}`}
+        />
       </Helmet>
-
-      {/* LIGHTBOX POPUP */}
       <AnimatePresence>
         {currentIndex !== null && (
-          <motion.div 
+          <motion.div
             className="lightbox-overlay"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setCurrentIndex(null)}
           >
-            <button className="lightbox-close" aria-label="Close gallery">×</button>
-            <button className="nav-btn prev" onClick={prevImg} aria-label="Previous image">‹</button>
-            
+            <button
+              className="lightbox-close"
+              aria-label="Close gallery"
+            >
+              ×
+            </button>
+
+            <button
+              className="nav-btn prev"
+              onClick={(e) => {
+                e.stopPropagation()
+                prevImg()
+              }}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+
             <div className="lightbox-container">
-              <motion.img 
+              <motion.img
                 key={allImages[currentIndex]}
-                src={getOptimizedUrl(allImages[currentIndex], 1600, 85)} 
-                className="lightbox-main"
+                src={getOptimizedUrl(allImages[currentIndex], 1600, 85)}
                 alt={`${project.title} full view`}
+                className="lightbox-main"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
@@ -134,61 +175,132 @@ export default function ProjectDetail() {
               />
             </div>
 
-            <button className="nav-btn next" onClick={nextImg} aria-label="Next image">›</button>
+            <button
+              className="nav-btn next"
+              onClick={(e) => {
+                e.stopPropagation()
+                nextImg()
+              }}
+              aria-label="Next image"
+            >
+              ›
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* HERO */}
+      {/* HERO — LCP CORRETO */}
       <div className="project-detail__hero">
-        <div className="project-detail__hero-bg" 
-             style={{ backgroundImage: `url(${getOptimizedUrl(project.heroImage || allImages[0], 1920, 80)})` }} />
+        <img
+          src={getOptimizedUrl(
+            project.heroImage || allImages[0],
+            1920,
+            80
+          )}
+          alt={project.title}
+          className="project-detail__hero-bg"
+          loading="eager"
+          fetchpriority="high"
+        />
+
         <div className="project-detail__hero-overlay" />
+
         <div className="project-detail__hero-content">
-          <span className="project-detail__service">{getProjectService(project.slug)}</span>
+          <span className="project-detail__service">
+            {getProjectService(project.slug)}
+          </span>
           <h1 className="project-detail__title">{project.title}</h1>
         </div>
       </div>
 
       <div className="project-detail__container">
         <div className="project-layout">
-          
+          {/* BLOCK 1 */}
           <section className="project-block">
             {paragraphs.slice(0, 2).map((text, i) => (
-              <p key={i} className="project-text" dangerouslySetInnerHTML={{ __html: highlightKeywords(text, project) }} />
+              <p
+                key={i}
+                className="project-text"
+                dangerouslySetInnerHTML={{
+                  __html: highlightKeywords(text, project),
+                }}
+              />
             ))}
+
             <div className="project-images two-equal">
               {allImages.slice(0, 2).map((img, i) => (
-                <div key={i} className="img-wrapper" onClick={() => setCurrentIndex(i)}>
-                  <img src={getOptimizedUrl(img, 1000, 75)} alt={`${project.title} interior detail`} />
+                <div
+                  key={i}
+                  className="img-wrapper"
+                  onClick={() => setCurrentIndex(i)}
+                >
+                  <img
+                    src={getOptimizedUrl(img, 1000, 75)}
+                    alt={`${project.title} interior detail`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               ))}
             </div>
           </section>
 
-          <section className="project-block">
-            <p className="project-quote">{getProjectQuote(project.slug)}</p>
-            <div className="project-images two-asymmetric">
-              <div className="img-wrapper" onClick={() => setCurrentIndex(2)}>
-                <img src={getOptimizedUrl(allImages[2], 1000, 75)} alt={`${project.title} architectural view`} />
-              </div>
-              <div className="img-wrapper" onClick={() => setCurrentIndex(3)}>
-                <img src={getOptimizedUrl(allImages[3], 1000, 75)} alt={`${project.title} design finish`} />
-              </div>
-            </div>
-          </section>
+          {/* BLOCK 2 */}
+          {allImages.length >= 4 && (
+            <section className="project-block">
+              <p className="project-quote">
+                {getProjectQuote(project.slug)}
+              </p>
 
-          <section className="project-block">
-            <div className="project-image-wide" onClick={() => setCurrentIndex(4)}>
-              <img src={getOptimizedUrl(allImages[4], 1600, 80)} alt={`${project.title} panoramic view`} style={{ width: '100%' }} />
-            </div>
-          </section>
+              <div className="project-images two-asymmetric">
+                {[2, 3].map((idx) => (
+                  <div
+                    key={idx}
+                    className="img-wrapper"
+                    onClick={() => setCurrentIndex(idx)}
+                  >
+                    <img
+                      src={getOptimizedUrl(allImages[idx], 1000, 75)}
+                      alt={`${project.title} design view`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {allImages[4] && (
+            <section className="project-block">
+              <div
+                className="project-image-wide"
+                onClick={() => setCurrentIndex(4)}
+              >
+                <img
+                  src={getOptimizedUrl(allImages[4], 1600, 80)}
+                  alt={`${project.title} panoramic view`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </section>
+          )}
 
           {allImages.length > 5 && (
             <section className="project-gallery">
               {allImages.slice(5).map((img, i) => (
-                <div key={i} className="img-wrapper" onClick={() => setCurrentIndex(i + 5)}>
-                  <img src={getOptimizedUrl(img, 400, 70)} alt={`${project.title} additional detail`} />
+                <div
+                  key={i}
+                  className="img-wrapper"
+                  onClick={() => setCurrentIndex(i + 5)}
+                >
+                  <img
+                    src={getOptimizedUrl(img, 400, 70)}
+                    alt={`${project.title} additional detail`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               ))}
             </section>
@@ -197,8 +309,12 @@ export default function ProjectDetail() {
           <section className="project-cta">
             <div className="project-cta__inner">
               <h3>Ready to create a home that feels like you?</h3>
-              <p>Let’s shape a space that looks beautiful and lives even better.</p>
-              <Link to="/contact" className="project-cta__btn">Book a consultation</Link>
+              <p>
+                Let’s shape a space that looks beautiful and lives even better.
+              </p>
+              <Link to="/contact" className="project-cta__btn">
+                Book a consultation
+              </Link>
             </div>
           </section>
         </div>
