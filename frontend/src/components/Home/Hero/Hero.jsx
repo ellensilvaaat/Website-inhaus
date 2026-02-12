@@ -71,7 +71,7 @@ export default function Hero() {
           />
 
           <div className="hero__overlay">
-            <h1 className="hero__title">We Transform Houses into Homes</h1>
+            <h1 className="hero__title" style={{ contain: 'layout text', contentVisibility: 'auto' }} >We Transform Houses into Homes</h1>
             <p className="hero__subtitle">{slide.subtitle}</p>
             
             <div className="h-cta-wrapper">
