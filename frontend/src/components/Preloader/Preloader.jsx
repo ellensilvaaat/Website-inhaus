@@ -5,10 +5,11 @@ const Preloader = ({ finishLoading }) => {
   const [percentage, setPercentage] = useState(0);
   const logoUrl = "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(2).svg?tr=w-300";
 
-  // Lista de todas as Heros que queremos "esquentar" o cache
-  // Usamos as versões que o navegador realmente vai pedir (Desktop e Mobile)
+
   const imagesToPreload = [
     // Home Hero
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/le-quan-fPVWpK85oLk-unsplash.jpg?tr=w-1920,f-webp,q-90",
+    "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/hero1.jpg?tr=w-1080,f-webp,q-80,pr-true",
     "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/peter-muniz-4oRw53kmhy8-unsplash.jpg?tr=w-1600,f-webp,q-80",
     "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/peter-muniz-4oRw53kmhy8-unsplash.jpg?tr=w-800,f-webp,q-80",
     // Services Hero
@@ -39,11 +40,13 @@ const Preloader = ({ finishLoading }) => {
     }, 25);
 
     if (percentage === 100) {
-      const timer = setTimeout(() => {
-        finishLoading();
-      }, 600);
-      return () => clearTimeout(timer);
-    }
+  const timer = setTimeout(() => {
+    document.body.classList.add('site-loaded'); 
+    finishLoading();
+  }, 600);
+  return () => clearTimeout(timer);
+}
+
 
     return () => clearInterval(interval);
   }, [percentage, finishLoading]);
