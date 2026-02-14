@@ -11,19 +11,28 @@ export async function verifyTurnstile(req, res, next) {
   }
 
   try {
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket?.remoteAddress ||
+      "";
+
     const response = await axios.post(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       new URLSearchParams({
         secret: process.env.TURNSTILE_SECRET_KEY,
         response: token,
-        remoteip: req.ip,
+        remoteip: ip,
       }),
       {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        timeout: 5000,
       }
     );
 
-    if (!response.data?.success) {
+    if (!response.data.success) {
+      console.log("Turnstile failed:", response.data);
       return res.status(400).json({
         success: false,
         message: "Captcha verification failed",
@@ -32,7 +41,8 @@ export async function verifyTurnstile(req, res, next) {
 
     next();
   } catch (err) {
-    console.error("Turnstile error:", err.message);
+    console.error("Turnstile error:", err.response?.data || err.message);
+
     return res.status(500).json({
       success: false,
       message: "Captcha verification error",
