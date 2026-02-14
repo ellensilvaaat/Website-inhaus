@@ -1,96 +1,93 @@
-import axios from 'axios';
-import crypto from 'crypto';
-import { supabase } from '../services/supabase.service.js';
+import axios from "axios";
+import crypto from "crypto";
+import { supabase } from "../services/supabase.service.js";
+import { validateEmail, validateRequiredFields } from "../utils/validators.js";
+import logger from "../utils/logger.js";
 
 export const subscribeToNewsletter = async (req, res) => {
   try {
     const { name, email } = req.body;
 
-    // ✅ Validação básica
-    if (!name || !email) {
+    if (!validateRequiredFields([name, email])) {
+      logger.warn("Newsletter validation failed - missing fields", { body: req.body });
+
       return res.status(400).json({
         success: false,
-        message: 'Name and email are required',
+        message: "Name and email are required",
       });
     }
 
-    if (!email.includes('@')) {
+    if (!validateEmail(email)) {
+      logger.warn("Newsletter invalid email format", { email });
+
       return res.status(400).json({
         success: false,
-        message: 'Invalid email format',
+        message: "Invalid email format",
       });
     }
 
-    const normalizedEmail = email.toLowerCase();
+    const normalizedEmail = email.toLowerCase().trim();
 
-    // ===============================
-    // 1️⃣ SALVA NO SUPABASE (BACKUP)
-    // ===============================
     const { error: dbError } = await supabase
-      .from('newsletter_subscribers')
-      .upsert(
-        [{ name, email: normalizedEmail }],
-        { onConflict: 'email' } // evita duplicação
-      );
+      .from("newsletter_subscribers")
+      .upsert([{ name: name.trim(), email: normalizedEmail }], {
+        onConflict: "email",
+      });
 
     if (dbError) {
-      console.error('❌ Supabase error:', dbError);
+      logger.error("Newsletter Supabase error", { error: dbError });
+
       return res.status(500).json({
         success: false,
-        message: 'Database error',
+        message: "Database error",
       });
     }
 
-    // ===============================
-    // 2️⃣ ENVIA PARA MAILCHIMP
-    // ===============================
-    const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
-    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
-    const DC = process.env.MAILCHIMP_DC;
-
-    const subscriberHash = crypto
-      .createHash('md5')
-      .update(normalizedEmail)
-      .digest('hex');
-
-    const mailchimpUrl = `https://${DC}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${subscriberHash}`;
-
+    // Mailchimp integration
     try {
+      const subscriberHash = crypto
+        .createHash("md5")
+        .update(normalizedEmail)
+        .digest("hex");
+
+      const mailchimpUrl = `https://${process.env.MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members/${subscriberHash}`;
+
       await axios.put(
         mailchimpUrl,
         {
           email_address: normalizedEmail,
-          status_if_new: 'subscribed',
-          status: 'subscribed',
-          merge_fields: {
-            FNAME: name,
-          },
+          status_if_new: "subscribed",
+          status: "subscribed",
+          merge_fields: { FNAME: name },
         },
         {
           headers: {
-            Authorization: `apikey ${MAILCHIMP_API_KEY}`,
-            'Content-Type': 'application/json',
+            Authorization: `apikey ${process.env.MAILCHIMP_API_KEY}`,
+            "Content-Type": "application/json",
           },
         }
       );
     } catch (mailchimpError) {
-      console.error(
-        '⚠️ Mailchimp error:',
-        mailchimpError.response?.data || mailchimpError.message
-      );
-      // Não bloqueia o cadastro se Mailchimp falhar
+      logger.warn("Mailchimp error (non-blocking)", {
+        message: mailchimpError.message,
+      });
     }
 
-    return res.status(200).json({
+    logger.info("Newsletter subscription successful", { email: normalizedEmail });
+
+    return res.json({
       success: true,
-      message: 'Subscribed successfully',
+      message: "Subscribed successfully",
+    });
+  } catch (err) {
+    logger.error("Newsletter controller unexpected error", {
+      message: err.message,
+      stack: err.stack,
     });
 
-  } catch (err) {
-    console.error('❌ Newsletter controller error:', err);
     return res.status(500).json({
       success: false,
-      message: 'Internal server error',
+      message: "Internal server error",
     });
   }
 };

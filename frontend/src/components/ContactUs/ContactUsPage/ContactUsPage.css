@@ -79,7 +79,7 @@ font-weight: 100;
   font-size: 1.3rem;
 }
 
-.two‑columns {
+.two-columns {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
