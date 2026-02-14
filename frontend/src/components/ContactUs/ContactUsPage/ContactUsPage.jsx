@@ -79,11 +79,11 @@ export default function ContactUsPage() {
     }
 
     // ✅ Turnstile obrigatório
-    if (!turnstileToken) {
-      setTurnstileError("Please verify you are human.");
-      alert("⚠️ Please verify you are human.");
-      return;
-    }
+if (!turnstileToken) {
+  setTurnstileError("Please verify you are human.");
+  return;
+}
+
 
     const apiBase = import.meta.env.VITE_API_BASE;
 
@@ -115,7 +115,7 @@ export default function ContactUsPage() {
       if (res.ok && data.success) {
         navigate("/thank-you");
       } else {
-        alert(data.message || "Submission blocked.");
+        setTurnstileError(data.message || "Submission blocked.");
         // se o token expirou, força refazer
         setTurnstileToken("");
       }
