@@ -22,49 +22,7 @@ app.set("trust proxy", 1);
 /*
   🔐 SECURITY HEADERS + CSP (Turnstile liberado)
 */
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "'unsafe-eval'",
-          "https://challenges.cloudflare.com",
-        ],
-
-        frameSrc: [
-          "'self'",
-          "https://challenges.cloudflare.com",
-        ],
-
-        connectSrc: [
-          "'self'",
-          "https://challenges.cloudflare.com",
-        ],
-
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https:",
-        ],
-
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-        ],
-
-        fontSrc: [
-          "'self'",
-          "data:",
-          "https:",
-        ],
-      },
-    },
-  })
-);
+app.use(helmet());
 
 /*
   📊 LOG HTTP REQUESTS (Morgan → Winston)
